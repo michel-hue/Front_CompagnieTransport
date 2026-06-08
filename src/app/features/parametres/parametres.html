@@ -1,0 +1,31 @@
+<app-page-wrapper [gridClass]="'col-sm-12'" [title]="'parametres'">
+  <div class="vertical-tabs">
+    <div class="row">
+      <!-- Sidebar avec onglets -->
+      <div class="col-xl-3 col-lg-4">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills nav-pills-SELLER" orientation="vertical">
+          <!-- Onglet Catégories -->
+          <li ngbNavItem="categories">
+            <a ngbNavLink (click)="onTabChange('categories')">
+              <i class="ri-price-tag-3-line"></i>
+              {{ 'categories_tab' | translate }}
+            </a>
+            <ng-template ngbNavContent>
+              @if (active === 'categories') {
+                <app-categories />
+              }
+            </ng-template>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contenu des onglets -->
+      <div class="col-xl-9 col-lg-8">
+        <div class="setting-contain-box">
+          <div [ngbNavOutlet]="nav"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-page-wrapper>
+

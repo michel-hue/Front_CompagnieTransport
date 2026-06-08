@@ -1,0 +1,11 @@
+@import '../../../../../../shared/styles/modal-common';
+
+// === STYLES SPÉCIFIQUES AU MODAL DE DESCRIPTION SIMPLE ===
+
+.modal-body {
+  p {
+    line-height: 1.6;
+    color: #495057;
+  }
+}
+

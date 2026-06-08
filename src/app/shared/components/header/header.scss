@@ -1,0 +1,74 @@
+@import '../../../shared/styles/seller-brand';
+
+// === HEADER AVEC COULEURS SELLER APP ===
+
+.header-wrapper {
+  // Liens et textes
+  a {
+    color: $seller-text-primary;
+    
+    &:hover {
+      color: $seller-primary;
+    }
+  }
+  
+  // Boutons d'action
+  .btn-outline {
+    border-color: $seller-primary;
+    color: $seller-primary;
+    
+    &:hover {
+      background: $seller-gradient-primary;
+      border-color: $seller-primary;
+      color: white;
+    }
+  }
+  
+  .btn-animation {
+    background: $seller-gradient-primary;
+    border: none;
+    
+    &:hover {
+      background: $seller-gradient-brand;
+      transform: translateY(-2px);
+      box-shadow: $seller-shadow-medium;
+    }
+  }
+  
+  // Icônes
+  i {
+    color: $seller-text-primary;
+    
+    &:hover {
+      color: $seller-primary;
+    }
+  }
+}
+
+// Navigation menus
+.nav-menus {
+  li {
+    // Icônes dans les items de menu
+    i {
+      transition: color 0.3s ease;
+    }
+    
+    &:hover i {
+      color: $seller-primary;
+    }
+  }
+}
+
+// Recherche header
+.header-search {
+  color: $seller-text-primary;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: $seller-primary;
+    transform: scale(1.1);
+  }
+}
+
+
+

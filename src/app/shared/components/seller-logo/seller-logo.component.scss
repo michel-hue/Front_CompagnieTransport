@@ -1,0 +1,59 @@
+@import '../../../shared/styles/seller-brand';
+
+.seller-logo-wrapper {
+  display: inline-block;
+  
+  .seller-logo {
+    display: block;
+    background: transparent;
+    border-radius: 8px;
+    
+    &.clickable {
+      cursor: pointer;
+      
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+  
+  // Option pour ajouter un fond blanc si nécessaire
+  &.with-bg {
+    .seller-logo {
+      // background: white;
+      padding: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  // === TAILLES ===
+  &.small {
+    .seller-logo {
+      max-width: 120px;
+      height: auto;
+    }
+  }
+  
+  &.medium {
+    .seller-logo {
+      max-width: 200px;
+      height: auto;
+    }
+  }
+  
+  &.large {
+    .seller-logo {
+      max-width: 300px;
+      height: auto;
+    }
+  }
+  
+  &.xlarge {
+    .seller-logo {
+      max-width: 400px;
+      height: auto;
+    }
+  }
+}
+
+

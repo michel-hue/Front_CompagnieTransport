@@ -1,0 +1,168 @@
+<section class="log-in-section section-b-space">
+  <div class="container w-100">
+    <div class="row">
+      <div class="col-xl-5 col-lg-6 me-auto">
+        <app-alert />
+        <div class="log-in-box">
+          <div class="log-in-title">
+            <div class="logo-section mb-4">
+              <img 
+                src="assets/images/logo_principal.png" 
+                alt="Seller App" 
+                class="seller-logo"
+              />
+            </div>
+            <h3>Bienvenue sur votre espace d'administration</h3>
+            <h4>Connectez-vous à votre compte</h4>
+          </div>
+          <div class="input-box">
+            @if (errorMessage) {
+            <div class="alert alert-danger" role="alert">
+              <i class="ri-error-warning-line me-2"></i>
+              {{ errorMessage }}
+            </div>
+            }
+
+            <!-- Connexion sociale -->
+            <div class="social-box mb-3">
+              <p class="mb-2">Ou continuer avec</p>
+              <div class="d-flex gap-2 flex-wrap">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary d-inline-flex align-items-center gap-2"
+                  (click)="connectWithProvider('Google')"
+                  [disabled]="isLoading || socialLoading"
+                >
+                  @if (socialLoading && lastProviderAttempt === 'Google') {
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  } @else {
+                    <i class="ri-google-fill"></i>
+                  }
+                  Google
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary d-inline-flex align-items-center gap-2"
+                  (click)="connectWithProvider('Facebook')"
+                  [disabled]="isLoading || socialLoading"
+                >
+                  @if (socialLoading && lastProviderAttempt === 'Facebook') {
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  } @else {
+                    <i class="ri-facebook-fill"></i>
+                  }
+                  Facebook
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary d-inline-flex align-items-center gap-2"
+                  (click)="connectWithProvider('TikTok')"
+                  [disabled]="isLoading || socialLoading"
+                >
+                  @if (socialLoading && lastProviderAttempt === 'TikTok') {
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  } @else {
+                    <i class="ri-music-2-line"></i>
+                  }
+                  TikTok
+                </button>
+              </div>
+              @if (socialError) {
+                <small class="text-danger d-block mt-2">
+                  {{ socialError }}
+                </small>
+              }
+            </div>
+
+            <form class="row g-4" [formGroup]="form" (ngSubmit)="submit();">
+              <div class="col-12">
+                <div class="form-floating theme-form-floating log-in-form">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    formControlName="email"
+                    placeholder="Nom d'utilisateur"
+                  />
+                  <label for="email">Nom d'utilisateur</label>
+                  @if (form.controls['email'].touched &&
+                  form.controls['email'].errors?.['required']) {
+                  <div class="invalid-feedback">Le nom d'utilisateur est requis</div>
+                  }
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating theme-form-floating log-in-form password-input-wrapper">
+                  <input
+                    [type]="showPassword ? 'text' : 'password'"
+                    class="form-control"
+                    id="password"
+                    formControlName="password"
+                    placeholder="Mot de passe"
+                  />
+                  <label for="password">Mot de passe</label>
+                  <button
+                    type="button"
+                    class="password-toggle-btn"
+                    (click)="togglePasswordVisibility()"
+                    [attr.aria-label]="showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+                  >
+                    <i [class]="showPassword ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                  </button>
+                  @if (form.controls['password'].touched &&
+                  form.controls['password'].errors?.['required']) {
+                  <div class="invalid-feedback">Le mot de passe est requis</div>
+                  }
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="forgot-box">
+                  <a class="forgot-password" (click)="openForgotPasswordModal()" style="cursor: pointer;"
+                    >Mot de passe oublié ?</a
+                  >
+                </div>
+              </div>
+              <div class="col-12">
+                <button
+                  type="submit"
+                  class="btn btn-seller-primary w-100 justify-content-center"
+                  id="login_btn"
+                  [disabled]="isButtonDisabled()"
+                  [title]="getHelpMessage() || 'Se connecter'"
+                >
+                  @if (isLoading) {
+                  <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Connexion en cours...
+                  } @else {
+                  Se connecter
+                  }
+                </button>
+            <div class="signup-link mt-3 text-center">
+              <span class="text-muted me-1">Pas encore de compte ?</span>
+              <a class="link-seller" [routerLink]="['/inscription']">S'inscrire</a>
+            </div>
+                
+                @if (getHelpMessage()) {
+                <div class="form-help-text mt-2">
+                  <small class="text-muted">
+                    <i class="ri-information-line me-1"></i>
+                    {{ getHelpMessage() }}
+                  </small>
+                </div>
+                }
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de changement de mot de passe (première connexion) -->
+  <app-change-password-modal #changePasswordModal />
+  
+  <!-- Modal de mot de passe oublié -->
+  <app-forgot-password-modal #forgotPasswordModal />
+</section>
+
+

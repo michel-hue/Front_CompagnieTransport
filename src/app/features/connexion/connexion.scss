@@ -1,0 +1,160 @@
+// Styles pour le composant connexion
+@import '../../shared/styles/seller-brand';
+@import '../../shared/styles/seller-components';
+
+.alert {
+  border-radius: $seller-border-radius;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  color: $seller-error;
+  
+  i {
+    font-size: 20px;
+    color: $seller-error;
+  }
+}
+
+.logo-section {
+  text-align: center;
+  
+  .seller-logo {
+    max-width: 250px;
+    height: auto;
+    background: transparent;
+    border-radius: $seller-border-radius;
+    box-shadow: $seller-shadow-light;
+  }
+}
+
+.log-in-title {
+  h3 {
+    font-size: 22px;
+    color: $seller-text-dark;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  
+  h4 {
+    font-size: 16px;
+    color: $seller-text-medium;
+    font-weight: 400;
+  }
+}
+
+.forgot-box {
+  text-align: center;
+  
+  .forgot-password {
+    color: $seller-primary;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: darken($seller-primary, 10%);
+      text-decoration: underline;
+    }
+    
+    &:focus {
+      outline: none;
+      text-decoration: underline;
+    }
+  }
+}
+
+.form-help-text {
+  text-align: center;
+  
+  small {
+    color: $seller-text-medium;
+    font-size: 12px;
+    
+    i {
+      color: $seller-primary;
+    }
+  }
+}
+
+.signup-link {
+  font-size: 14px;
+
+  .link-seller {
+    font-weight: 600;
+    color: $seller-primary;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: darken($seller-primary, 8%);
+      text-decoration: underline;
+    }
+  }
+}
+
+.password-input-wrapper {
+  position: relative;
+  
+  .password-toggle-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+    border-radius: 4px;
+    
+    i {
+      font-size: 20px;
+      color: $seller-text-medium;
+      transition: color 0.3s ease;
+    }
+    
+    &:hover {
+      background: rgba(201, 184, 212, 0.1);
+      
+      i {
+        color: $seller-primary;
+      }
+    }
+    
+    &:focus {
+      outline: none;
+      background: rgba(201, 184, 212, 0.15);
+      
+      i {
+        color: $seller-primary;
+      }
+    }
+    
+    &:active {
+      i {
+        transform: scale(0.95);
+      }
+    }
+  }
+  
+  // Ajuster le padding du input pour laisser de la place au bouton
+  input {
+    padding-right: 50px !important;
+    border-color: $seller-border-color;
+    
+    &:focus {
+      border-color: $seller-primary;
+      box-shadow: 0 0 0 0.2rem rgba(201, 184, 212, 0.25);
+    }
+  }
+}
+
+
+
+

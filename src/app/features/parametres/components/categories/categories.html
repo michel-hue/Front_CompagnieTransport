@@ -1,0 +1,56 @@
+<div class="categories-container">
+  <!-- Barre d'actions et filtres -->
+  <div class="actions-filters-bar mb-3">
+    <div class="row g-3">
+      <!-- Boutons d'actions -->
+      <div class="col-12 col-md-auto">
+        <div class="d-flex gap-2">
+          <button (click)="openCreateModal()" class="btn btn-seller-primary d-flex align-items-center">
+            <i class="ri-add-line me-2"></i> {{ 'Nouveau' | translate }}
+          </button>
+          <button (click)="refreshData()" class="btn btn-outline-secondary d-flex align-items-center" [disabled]="loading">
+            <i class="ri-refresh-line" [class.spin]="loading"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Filtre Type de catégorie -->
+      <div class="col-12 col-md-auto ms-md-auto">
+        <div class="filter-box d-flex align-items-center">
+          <label class="me-2 mb-0 text-muted d-none d-md-inline">
+            <i class="ri-filter-3-line me-1"></i>
+            {{ 'filter_by' | translate }} :
+          </label>
+          <select class="form-select form-select-sm flex-grow-1" [(ngModel)]="filterType" (change)="onFilterChange()">
+            <option value="all">
+              {{ 'all_categories' | translate }}
+            </option>
+            <option value="parent">
+              {{ 'main_categories' | translate }}
+            </option>
+            <option value="child">
+              {{ 'sub_categories' | translate }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Datatable -->
+  <app-table
+    [tableConfig]="tableConfig"
+    [hasCheckbox]="true"
+    [loading]="loading"
+    (tableChanged)="onTableChange($event)"
+    (action)="onActionClicked($event)"
+  />
+  
+  <!-- Modals -->
+  <app-confirm-modal #confirmModal />
+  <app-modal-form-categorie #formModal />
+  
+  <!-- Modal Description Simple -->
+  <app-simple-description-modal #descriptionModal />
+</div>
+

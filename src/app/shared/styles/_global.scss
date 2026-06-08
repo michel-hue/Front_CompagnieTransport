@@ -1,0 +1,324 @@
+@import './seller-brand';
+@import './seller-components';
+
+// ========================================
+// STYLES GLOBAUX SELLER APP
+// ========================================
+
+// === VARIABLES CSS POUR JS ===
+:root {
+  --seller-primary: #{$seller-primary};
+  --seller-secondary: #{$seller-secondary};
+  --seller-text-dark: #{$seller-text-dark};
+  --seller-text-medium: #{$seller-text-medium};
+  --seller-bg-light: #{$seller-bg-light};
+  --seller-border-radius: #{$seller-border-radius};
+  --seller-shadow-light: #{$seller-shadow-light};
+  --seller-shadow-medium: #{$seller-shadow-medium};
+}
+
+// === STYLES GLOBAUX ===
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: $seller-bg-light;
+  color: $seller-text-dark;
+  line-height: 1.6;
+}
+
+// === TITRES ===
+h1, h2, h3, h4, h5, h6 {
+  color: $seller-text-dark;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+// === LIENS ===
+a {
+  color: $seller-primary;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: darken($seller-primary, 10%);
+    text-decoration: underline;
+  }
+  
+  &:focus {
+    outline: 2px solid $seller-primary;
+    outline-offset: 2px;
+  }
+}
+
+// === FORMULAIRES ===
+.form-control {
+  border-radius: $seller-border-radius;
+  border: 2px solid $seller-border-color;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    border-color: $seller-primary;
+    box-shadow: 0 0 0 0.2rem rgba(201, 184, 212, 0.25);
+    outline: none;
+  }
+}
+
+.form-label {
+  color: $seller-text-dark;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+// === BOUTONS GLOBAUX ===
+.btn {
+  border-radius: $seller-border-radius;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &.btn-primary {
+    background: $seller-gradient-primary;
+    border: none;
+    
+    &:hover:not(:disabled) {
+      background: $seller-gradient-brand;
+      transform: translateY(-2px);
+      box-shadow: $seller-shadow-medium;
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+    
+    &:disabled {
+      background: linear-gradient(135deg, rgba(201, 184, 212, 0.3) 0%, rgba(184, 168, 204, 0.3) 100%);
+      color: rgba(255, 255, 255, 0.6);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+  
+  &.btn-secondary {
+    background: $seller-gradient-secondary;
+    border: none;
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, lighten($seller-secondary, 5%) 0%, lighten($seller-secondary-dark, 5%) 100%);
+      transform: translateY(-2px);
+      box-shadow: $seller-shadow-medium;
+    }
+    
+    &:disabled {
+      background: linear-gradient(135deg, rgba(163, 178, 159, 0.3) 0%, rgba(143, 160, 138, 0.3) 100%);
+      color: rgba(255, 255, 255, 0.6);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+  
+  &.btn-outline-primary {
+    border: 2px solid $seller-primary;
+    color: $seller-primary;
+    background: transparent;
+    
+    &:hover:not(:disabled) {
+      background: $seller-primary;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: $seller-shadow-light;
+    }
+    
+    &:disabled {
+      border-color: rgba(201, 184, 212, 0.3);
+      color: rgba(201, 184, 212, 0.6);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+// === CARTES ===
+.card {
+  border-radius: $seller-border-radius-large;
+  box-shadow: $seller-shadow-light;
+  border: 1px solid rgba(201, 184, 212, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: $seller-shadow-medium;
+  }
+  
+  .card-header {
+    background: $seller-gradient-primary;
+    color: white;
+    border-radius: $seller-border-radius-large $seller-border-radius-large 0 0;
+    font-weight: 600;
+  }
+}
+
+// === ALERTES ===
+.alert {
+  border-radius: $seller-border-radius;
+  border: none;
+  font-weight: 500;
+  
+  &.alert-success {
+    background: rgba(40, 167, 69, 0.1);
+    color: $seller-success;
+    border-left: 4px solid $seller-success;
+  }
+  
+  &.alert-warning {
+    background: rgba(255, 193, 7, 0.1);
+    color: $seller-warning;
+    border-left: 4px solid $seller-warning;
+  }
+  
+  &.alert-danger {
+    background: rgba(220, 53, 69, 0.1);
+    color: $seller-error;
+    border-left: 4px solid $seller-error;
+  }
+  
+  &.alert-info {
+    background: rgba(201, 184, 212, 0.1);
+    color: $seller-primary;
+    border-left: 4px solid $seller-primary;
+  }
+}
+
+// === NAVIGATION ===
+.navbar {
+  background: white;
+  box-shadow: $seller-shadow-light;
+  border-bottom: 1px solid $seller-border-color;
+  
+  .navbar-brand {
+    font-weight: 700;
+    color: $seller-primary;
+    
+    &:hover {
+      color: darken($seller-primary, 10%);
+    }
+  }
+  
+  .nav-link {
+    color: $seller-text-dark;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: $seller-primary;
+    }
+    
+    &.active {
+      color: $seller-primary;
+      font-weight: 600;
+    }
+  }
+}
+
+// === SIDEBAR ===
+.sidebar {
+  background: white;
+  box-shadow: $seller-shadow-light;
+  border-right: 1px solid $seller-border-color;
+  
+  .sidebar-header {
+    background: $seller-gradient-primary;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    
+    .brand-logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+  }
+  
+  .nav-link {
+    color: $seller-text-dark;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    border-radius: $seller-border-radius;
+    margin: 4px 8px;
+    
+    &:hover {
+      background: rgba(201, 184, 212, 0.1);
+      color: $seller-primary;
+    }
+    
+    &.active {
+      background: $seller-primary;
+      color: white;
+    }
+  }
+}
+
+// === TABLEAUX ===
+.table {
+  border-radius: $seller-border-radius;
+  overflow: hidden;
+  box-shadow: $seller-shadow-light;
+  
+  thead {
+    background: $seller-gradient-primary;
+    color: white;
+    
+    th {
+      border: none;
+      font-weight: 600;
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(201, 184, 212, 0.05);
+      }
+      
+      td {
+        border-color: $seller-border-color;
+      }
+    }
+  }
+}
+
+// === UTILITAIRES ===
+.text-primary { color: $seller-primary !important; }
+.text-secondary { color: $seller-secondary !important; }
+.bg-primary { background: $seller-gradient-primary !important; }
+.bg-secondary { background: $seller-gradient-secondary !important; }
+.bg-light { background: $seller-bg-light !important; }
+
+// === ANIMATIONS ===
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+// === RESPONSIVE ===
+@media (max-width: 768px) {
+  .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+  }
+}
+

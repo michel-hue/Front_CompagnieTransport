@@ -1,0 +1,83 @@
+@import '../../../../../../shared/styles/modal-common';
+@import '../../../../../../shared/styles/seller-brand';
+
+// === STYLES SPÉCIFIQUES AU MODAL DE FORMULAIRE CATÉGORIE ===
+
+.modal-body {
+  .code-generated-box {
+    padding: 0.75rem;
+    border: 1.5px dashed #E2E8F0;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    margin-bottom: 0.75rem;
+
+    .form-label {
+      color: $seller-primary;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+
+      i {
+        color: $seller-primary;
+        font-size: 1rem;
+      }
+    }
+
+    .input-group-text {
+      background-color: white;
+      border: 1px solid #E2E8F0;
+      border-right: none;
+      color: $seller-primary;
+      padding: 0.5rem 0.75rem;
+      
+      i {
+        font-size: 1rem;
+      }
+    }
+
+    .code-input {
+      background-color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: $seller-primary;
+      letter-spacing: 0.5px;
+      border-left: none;
+      padding: 0.5rem 0.75rem;
+
+      &[readonly] {
+        background-color: white;
+        cursor: default;
+      }
+
+      &:focus {
+        border-color: $seller-primary;
+        box-shadow: none;
+      }
+    }
+
+    .alert-info {
+      background-color: rgba($seller-primary, 0.08);
+      border: 1px solid rgba($seller-primary, 0.15);
+      color: #2D3748;
+      border-radius: 6px;
+      padding: 0.4rem 0.75rem;
+      margin-top: 0.5rem;
+
+      i {
+        color: $seller-primary;
+        font-size: 0.95rem;
+      }
+
+      small {
+        font-size: 0.8rem;
+      }
+
+      strong {
+        color: $seller-primary;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+

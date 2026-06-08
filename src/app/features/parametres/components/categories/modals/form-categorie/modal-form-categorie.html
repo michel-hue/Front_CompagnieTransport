@@ -1,0 +1,190 @@
+<ng-template #formModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <i class="ri-price-tag-3-line me-2"></i>
+      {{ isEditMode ? 'Modifier la catégorie' : 'Créer une catégorie' }}
+    </h5>
+    <button type="button" class="btn-close" (click)="close()" [disabled]="loading"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="row">
+        <!-- Code -->
+        <div class="col-12 mb-3">
+          <div class="code-generated-box">
+            <label for="code" class="form-label">
+              <i class="ri-barcode-line me-2"></i>
+              Code de la catégorie <span class="text-danger">*</span>
+            </label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="ri-price-tag-3-line"></i>
+              </span>
+              <input
+                type="text"
+                id="code"
+                class="form-control code-input"
+                formControlName="code"
+                placeholder="Généré automatiquement..."
+                readonly
+                [class.is-invalid]="form.get('code')?.invalid && form.get('code')?.touched"
+              />
+            </div>
+            <div class="alert alert-info mt-2 py-2 px-3 mb-0">
+              <i class="ri-information-line me-2"></i>
+              <small>Le code est généré automatiquement et ne peut pas être modifié</small>
+            </div>
+            @if (form.get('code')?.invalid && form.get('code')?.touched) {
+              <div class="invalid-feedback d-block">
+                @if (form.get('code')?.errors?.['required']) {
+                  Le code est requis
+                }
+                @if (form.get('code')?.errors?.['minlength']) {
+                  Le code doit contenir au moins 3 caractères
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Nom et Description sur la même ligne -->
+        <div class="col-md-6 mb-3">
+          <label for="name" class="form-label">
+            Nom <span class="text-danger">*</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            placeholder="Ex: Huiles Essentielles"
+            [class.is-invalid]="form.get('name')?.invalid && form.get('name')?.touched"
+          />
+          @if (form.get('name')?.invalid && form.get('name')?.touched) {
+            <div class="invalid-feedback">
+              @if (form.get('name')?.errors?.['required']) {
+                Le nom est requis
+              }
+              @if (form.get('name')?.errors?.['minlength']) {
+                Le nom doit contenir au moins 3 caractères
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Catégorie parente -->
+        <div class="col-md-6 mb-3">
+          <label for="parentid" class="form-label">Catégorie parente</label>
+          <select id="parentid" class="form-select" formControlName="parentid">
+            <option [ngValue]="null">Aucune (catégorie principale)</option>
+            @for (cat of availableMainCategories; track (cat.id || cat.categorieid)) {
+              <option [ngValue]="cat.id || cat.categorieid">
+                {{ cat.name }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <!-- Description -->
+        <div class="col-12 mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            id="description"
+            class="form-control"
+            formControlName="description"
+            rows="3"
+            placeholder="Description de la catégorie..."
+          ></textarea>
+        </div>
+
+        <!-- Couleur du badge -->
+        <div class="col-12 mb-3">
+          <label for="color" class="form-label">
+            <i class="ri-palette-line me-2"></i>
+            Couleur du badge
+          </label>
+          <div class="d-flex align-items-center gap-3">
+            <input
+              type="color"
+              id="color"
+              class="form-control form-control-color"
+              formControlName="color"
+              style="width: 60px; height: 45px;"
+              title="Choisir une couleur"
+            />
+            <input
+              type="text"
+              class="form-control"
+              [value]="form.get('color')?.value"
+              readonly
+              style="max-width: 120px; font-family: monospace; font-size: 0.875rem;"
+            />
+            <span
+              class="badge px-3 py-2"
+              [style.background-color]="form.get('color')?.value"
+              [style.color]="'#ffffff'"
+            >
+              Aperçu
+            </span>
+          </div>
+        </div>
+
+        <!-- Options -->
+        <div class="col-12 mb-3">
+          <div class="form-check form-switch mb-2">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="is_visible"
+              formControlName="is_visible"
+            />
+            <label class="form-check-label" for="is_visible">
+              <i class="ri-eye-line me-1"></i>
+              Visible sur le site
+            </label>
+          </div>
+
+          <div class="form-check form-switch">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="is_featured"
+              formControlName="is_featured"
+            />
+            <label class="form-check-label" for="is_featured">
+              <i class="ri-star-line me-1"></i>
+              Mettre en vedette
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="close()"
+      [disabled]="loading"
+    >
+      <i class="ri-close-line me-2"></i>
+      Annuler
+    </button>
+    <button
+      type="button"
+      class="btn btn-seller-primary align-items-center d-flex"
+      (click)="submit()"
+      [disabled]="loading || form.invalid"
+    >
+      @if (loading) {
+        <span class="spinner-border spinner-border-sm me-2"></span>
+      } @else {
+        <i class="ri-save-line me-2"></i>
+      }
+      {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+    </button>
+  </div>
+</ng-template>
+

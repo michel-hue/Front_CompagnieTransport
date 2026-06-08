@@ -1,0 +1,300 @@
+@import './seller-brand';
+
+// ========================================
+// COMPOSANTS SELLER APP
+// Styles globaux avec la charte graphique
+// ========================================
+
+// === BOUTONS ===
+.btn-seller-primary {
+  background: $seller-gradient-primary;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: $seller-border-radius;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: $seller-shadow-light;
+  
+  &:hover:not(:disabled) {
+    background: $seller-gradient-brand;
+    transform: translateY(-2px);
+    box-shadow: $seller-shadow-medium;
+    color: white;
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: $seller-shadow-light;
+  }
+  
+  &:focus:not(:disabled) {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(201, 184, 212, 0.25);
+  }
+  
+  &:disabled {
+    background: linear-gradient(135deg, rgba(201, 184, 212, 0.3) 0%, rgba(184, 168, 204, 0.3) 100%);
+    color: rgba(255, 255, 255, 0.6);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    
+    &:hover {
+      transform: none;
+      box-shadow: none;
+      background: linear-gradient(135deg, rgba(201, 184, 212, 0.3) 0%, rgba(184, 168, 204, 0.3) 100%);
+    }
+  }
+}
+
+.btn-seller-secondary {
+  background: $seller-gradient-secondary;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: $seller-border-radius;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: $seller-shadow-light;
+  
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, lighten($seller-secondary, 5%) 0%, lighten($seller-secondary-dark, 5%) 100%);
+    transform: translateY(-2px);
+    box-shadow: $seller-shadow-medium;
+    color: white;
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: $seller-shadow-light;
+  }
+  
+  &:focus:not(:disabled) {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(163, 178, 159, 0.25);
+  }
+  
+  &:disabled {
+    background: linear-gradient(135deg, rgba(163, 178, 159, 0.3) 0%, rgba(143, 160, 138, 0.3) 100%);
+    color: rgba(255, 255, 255, 0.6);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    
+    &:hover {
+      transform: none;
+      box-shadow: none;
+      background: linear-gradient(135deg, rgba(163, 178, 159, 0.3) 0%, rgba(143, 160, 138, 0.3) 100%);
+    }
+  }
+}
+
+.btn-seller-outline {
+  background: transparent;
+  border: 2px solid $seller-primary;
+  color: $seller-primary;
+  padding: 10px 22px;
+  border-radius: $seller-border-radius;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &:hover:not(:disabled) {
+    background: $seller-primary;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: $seller-shadow-light;
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:focus:not(:disabled) {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(201, 184, 212, 0.25);
+  }
+  
+  &:disabled {
+    border-color: rgba(201, 184, 212, 0.3);
+    color: rgba(201, 184, 212, 0.6);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    
+    &:hover {
+      background: transparent;
+      color: rgba(201, 184, 212, 0.6);
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+// === CHAMPS DE FORMULAIRE ===
+.form-control-seller {
+  border: 2px solid $seller-border-color;
+  border-radius: $seller-border-radius;
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+  background: white;
+  
+  &:focus {
+    border-color: $seller-primary;
+    box-shadow: 0 0 0 0.2rem rgba(201, 184, 212, 0.25);
+    outline: none;
+  }
+  
+  &::placeholder {
+    color: $seller-text-light;
+  }
+}
+
+// === CARTES ===
+.card-seller {
+  background: white;
+  border-radius: $seller-border-radius-large;
+  box-shadow: $seller-shadow-light;
+  border: 1px solid rgba(201, 184, 212, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: $seller-shadow-medium;
+    transform: translateY(-2px);
+  }
+  
+  .card-header {
+    background: $seller-gradient-primary;
+    color: white;
+    border-radius: $seller-border-radius-large $seller-border-radius-large 0 0;
+    padding: 16px 20px;
+    font-weight: 600;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+}
+
+// === ALERTES ===
+.alert-seller-success {
+  background: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.2);
+  color: $seller-success;
+  border-radius: $seller-border-radius;
+  padding: 12px 16px;
+}
+
+.alert-seller-warning {
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  color: $seller-warning;
+  border-radius: $seller-border-radius;
+  padding: 12px 16px;
+}
+
+.alert-seller-error {
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  color: $seller-error;
+  border-radius: $seller-border-radius;
+  padding: 12px 16px;
+}
+
+.alert-seller-info {
+  background: rgba(201, 184, 212, 0.1);
+  border: 1px solid rgba(201, 184, 212, 0.2);
+  color: $seller-primary;
+  border-radius: $seller-border-radius;
+  padding: 12px 16px;
+}
+
+// === LIENS ===
+.link-seller {
+  color: $seller-primary;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: darken($seller-primary, 10%);
+    text-decoration: underline;
+  }
+  
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+  }
+}
+
+// === BADGES ===
+.badge-seller-primary {
+  background: $seller-primary;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+.badge-seller-secondary {
+  background: $seller-secondary;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+// === NAVIGATION ===
+.nav-seller {
+  .nav-link {
+    color: $seller-text-dark;
+    transition: all 0.3s ease;
+    border-radius: $seller-border-radius;
+    padding: 8px 16px;
+    
+    &:hover {
+      background: rgba(201, 184, 212, 0.1);
+      color: $seller-primary;
+    }
+    
+    &.active {
+      background: $seller-primary;
+      color: white;
+    }
+  }
+}
+
+// === TABLEAUX ===
+.table-seller {
+  border-radius: $seller-border-radius;
+  overflow: hidden;
+  box-shadow: $seller-shadow-light;
+  
+  thead {
+    background: $seller-gradient-primary;
+    color: white;
+    
+    th {
+      border: none;
+      padding: 16px;
+      font-weight: 600;
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(201, 184, 212, 0.05);
+      }
+      
+      td {
+        border-color: $seller-border-color;
+        padding: 16px;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,236 @@
+@import '../../../shared/styles/seller-brand';
+
+// === SIDEBAR AVEC COULEURS JOVIALES SELLER APP ===
+
+// Fond de la sidebar avec couleur joviale du logo
+.sidebar-wrapper,
+.page-sidebar {
+  // OPTION CHOISIE : Lavande très claire (joviale et professionnelle)
+  background: $seller-sidebar-bg !important; // #F0EAF5 (lavande clair)
+  
+  // OU utilisez un dégradé pour plus d'élégance :
+  // background: $seller-gradient-sidebar !important;
+  
+  // Autres options disponibles (décommentez pour tester) :
+  // background: $seller-sidebar-bg-vert !important;      // Vert clair apaisant
+  // background: $seller-sidebar-bg-mix-light !important; // Mix harmonieux
+  
+  border-right: 1px solid rgba($seller-primary, 0.15); // Bordure lavande douce
+}
+
+// Logo dans la sidebar
+.logo-wrapper {
+  background: #fff !important; // Transparent pour laisser voir le fond jovial
+  border-bottom: 1px solid rgba($seller-primary, 0.2);
+  padding: 20px;
+  
+  .sidebar-logo-link {
+    display: block;
+    text-align: center;
+    
+    .seller-sidebar-logo {
+      max-width: 180px;
+      height: auto;
+      background: white;
+      padding: 10px;
+      border-radius: $seller-border-radius;
+      box-shadow: $seller-shadow-medium;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        box-shadow: $seller-shadow-heavy;
+        transform: scale(1.05);
+      }
+    }
+  }
+  
+  // Logo petit (collapsed sidebar)
+  .logo-sm-wrapper {
+    display: none;
+    
+    .seller-initials {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: $seller-gradient-primary;
+      padding: 8px 12px;
+      border-radius: 8px;
+      letter-spacing: 2px;
+      color: white;
+      box-shadow: $seller-shadow-medium;
+    }
+  }
+}
+
+// === LIENS DU MENU AVEC COULEURS TRÈS VISIBLES ===
+.sidebar-wrapper {
+  .sidebar-link {
+    // État normal : Texte sombre très lisible
+    color: #2D3748 !important; // Gris très foncé (presque noir)
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 3px solid transparent;
+    padding: 12px 20px !important;
+    margin: 4px 8px;
+    border-radius: 0 $seller-border-radius $seller-border-radius 0;
+    
+    // État hover : Couleurs très visibles
+    &:hover {
+      color: #6B46C1 !important; // Violet vif
+      background: rgba(160, 74, 255, 0.15) !important; // Fond violet visible
+      border-left-color: #a04aff !important; // Bordure violet vif
+      transform: translateX(4px);
+      box-shadow: 0 4px 12px rgba(160, 74, 255, 0.2);
+    }
+    
+    // État actif : TRÈS VISIBLE avec dégradé violet vif
+    &.active,
+    &.router-link-active {
+      color: white !important; // Texte blanc
+      background: linear-gradient(135deg, #a04aff 0%, #7c3aed 100%) !important; // Dégradé violet vif
+      border-left: 5px solid #6B46C1 !important; // Bordure violet foncé épaisse
+      font-weight: 700; // Plus gras
+      box-shadow: 0 4px 16px rgba(160, 74, 255, 0.4); // Ombre violette marquée
+      transform: translateX(3px);
+      
+      // Animation de pulse subtile
+      animation: pulse-active 2s ease-in-out infinite;
+    }
+  }
+  
+  // === ICÔNES DU MENU TRÈS VISIBLES ===
+  i, svg {
+    // État normal : Icône gris foncé lisible
+    color: #4A5568 !important; // Gris foncé visible
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  // Icône au hover : Devient violet vif
+  .sidebar-link:hover i,
+  .sidebar-link:hover svg {
+    color: #a04aff !important; // Violet vif
+    transform: scale(1.1);
+  }
+  
+  // Icône active : Devient blanche + plus grande
+  .sidebar-link.active i,
+  .sidebar-link.active svg,
+  .sidebar-link.router-link-active i,
+  .sidebar-link.router-link-active svg {
+    color: white !important;
+    font-size: 1.3rem;
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+  }
+  
+  // === BADGES DANS LE MENU TRÈS VISIBLES ===
+  .badge {
+    background: linear-gradient(135deg, #a04aff 0%, #7c3aed 100%) !important; // Violet vif
+    color: white !important;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    box-shadow: 0 2px 8px rgba(160, 74, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+// === ANIMATION PULSE POUR LIEN ACTIF ===
+@keyframes pulse-active {
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(160, 74, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(160, 74, 255, 0.6);
+  }
+}
+
+// === TITRES DE LA SIDEBAR TRÈS VISIBLES ===
+.sidebar-title {
+  // Texte très foncé et bien visible
+  color: #1A202C !important; // Noir doux
+  font-weight: 700; // Plus gras
+  font-size: 0.9rem; // Légèrement plus grand
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 16px 20px 8px;
+  margin-top: 12px;
+  
+  &.active {
+    color: #a04aff !important; // Violet vif quand actif
+    
+    i, svg {
+      color: #a04aff !important;
+    }
+  }
+}
+
+// === NAVIGATION PRINCIPALE ===
+.sidebar-main {
+  background: transparent !important; // Transparent pour voir le fond jovial
+  padding-top: 8px;
+}
+
+// === SOUS-MENUS TRÈS VISIBLES ===
+.sidebar-submenu {
+  // Fond violet très léger pour différencier
+  background: rgba(160, 74, 255, 0.05) !important; // Violet ultra léger
+  border-radius: $seller-border-radius;
+  margin: 4px 12px;
+  padding: 4px 0;
+  border-left: 2px solid rgba(160, 74, 255, 0.2);
+  
+  .sidebar-link {
+    // Texte sombre dans les sous-menus
+    color: #2D3748 !important;
+    font-size: 0.9rem;
+    padding-left: 48px !important;
+    font-weight: 500;
+    
+    &:hover {
+      padding-left: 52px !important;
+      border-left: 3px solid #a04aff !important; // Bordure violet vif
+      color: #6B46C1 !important; // Texte violet foncé
+      background: rgba(160, 74, 255, 0.12) !important;
+      box-shadow: 0 2px 8px rgba(160, 74, 255, 0.15);
+    }
+    
+    &.active,
+    &.router-link-active {
+      border-left: 4px solid #7c3aed !important; // Bordure violet foncé
+      color: white !important;
+      background: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%) !important; // Dégradé violet
+      font-weight: 700;
+      box-shadow: 0 3px 12px rgba(160, 74, 255, 0.3);
+    }
+  }
+}
+
+// === LISTE DES LIENS ===
+.sidebar-links {
+  background: transparent !important;
+  
+  li {
+    &.sidebar-list {
+      // Liens de liste normaux
+      .sidebar-link {
+        &:hover {
+          background: rgba($seller-primary, 0.12) !important;
+        }
+      }
+    }
+  }
+}
+
+// === SÉPARATEURS VISIBLES ===
+.sidebar-separator {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(160, 74, 255, 0.3) 50%, transparent 100%);
+  margin: 16px 20px;
+  box-shadow: 0 1px 3px rgba(160, 74, 255, 0.1);
+}
+
+
+
