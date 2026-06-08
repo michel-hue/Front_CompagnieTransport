@@ -1,0 +1,71 @@
+// ========================================
+// CHARTE GRAPHIQUE SELLER APP
+// Basée sur le logo officiel
+// ========================================
+
+// === PALETTE BLEU & JAUNE ===
+$seller-primary: #073C98;        // Bleu 2 (principal)
+$seller-primary-light: lighten($seller-primary, 12%);
+$seller-primary-dark: darken($seller-primary, 8%);
+
+$seller-secondary: #06B4FF;      // Bleu 3 (accent)
+$seller-secondary-light: lighten($seller-secondary, 10%);
+$seller-secondary-dark: darken($seller-secondary, 8%);
+
+$seller-accent: #FFE610;         // Jaune (surbrillance)
+$seller-accent-light: lighten($seller-accent, 10%);
+$seller-accent-dark: darken($seller-accent, 5%);
+
+// === COULEURS DE TEXTE ===
+$seller-text-dark: #1E1E2D;
+$seller-text-medium: #4A4A5C;
+$seller-text-light: lighten($seller-text-medium, 18%);
+$seller-text-primary: $seller-text-dark;
+$seller-text-secondary: $seller-text-medium;
+
+// === COULEURS DE FOND ===
+$seller-bg-primary: #F4F6FB;
+$seller-bg-light: $seller-bg-primary;
+$seller-bg-white: #FFFFFF;
+$seller-bg-accent: lighten($seller-primary, 48%);
+
+// === COULEURS D'ÉTAT ===
+$seller-success: #1FAB89;
+$seller-warning: $seller-accent;
+$seller-error: #FF5A5F;
+$seller-info: $seller-secondary;
+
+// === SIDEBAR ===
+$seller-sidebar-bg: lighten($seller-primary, 46%);
+$seller-sidebar-border: rgba($seller-primary, 0.12);
+$seller-sidebar-highlight: rgba($seller-primary, 0.08);
+
+// === APPLATS (plus de dégradés) ===
+$seller-gradient-primary: $seller-primary;
+$seller-gradient-secondary: $seller-secondary;
+$seller-gradient-brand: $seller-primary;
+$seller-gradient-sidebar: $seller-primary;
+
+// === OMBRES ===
+$seller-shadow-light: 0 2px 6px rgba($seller-primary, 0.12);
+$seller-shadow-medium: 0 6px 18px rgba($seller-primary, 0.18);
+$seller-shadow-heavy: 0 12px 28px rgba($seller-primary, 0.22);
+
+// === BORDURES ===
+$seller-border-radius: 8px;
+$seller-border-radius-large: 12px;
+$seller-border-color: rgba($seller-primary, 0.2);
+
+// === UTILITAIRES ===
+.text-seller-primary { color: $seller-primary !important; }
+.text-seller-secondary { color: $seller-secondary !important; }
+.text-seller-dark { color: $seller-text-dark !important; }
+.bg-seller-primary { background-color: $seller-primary !important; }
+.bg-seller-secondary { background-color: $seller-secondary !important; }
+.bg-seller-light { background-color: $seller-bg-light !important; }
+
+// === LOGO GLOBAL ===
+img[src*="logo seller app"] {
+  background: transparent !important;
+  border-radius: $seller-border-radius;
+}

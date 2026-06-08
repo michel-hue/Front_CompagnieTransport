@@ -1,0 +1,52 @@
+// Styles pour les informations utilisateur dans le dropdown
+.user-info-item {
+  padding: 8px 20px !important;
+  cursor: default !important;
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #6c757d;
+    font-size: 0.875rem;
+    
+    i {
+      font-size: 1rem;
+      color: #6c757d;
+    }
+    
+    span {
+      font-weight: 400;
+    }
+  }
+  
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
+// Badge Super Admin
+.badge.bg-danger {
+  font-size: 0.625rem;
+  padding: 2px 6px;
+  vertical-align: middle;
+}
+
+// Avatar avec initiale
+.user-round {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background:  #073C98 ;
+  
+  h4 {
+    margin: 0;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
+

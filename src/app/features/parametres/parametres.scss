@@ -1,0 +1,337 @@
+@import '../../shared/styles/seller-brand';
+@import '../../shared/styles/seller-components';
+
+// === STYLES PARAMÈTRES AVEC COULEURS SELLER ===
+
+.vertical-tabs {
+  // Navigation pills avec couleurs Seller App
+  .nav-pills-SELLER {
+    .nav-link {
+      color: $seller-text-primary;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 12px 20px;
+      margin-bottom: 8px;
+      border-radius: $seller-border-radius;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      
+      i {
+        font-size: 1.2rem;
+        color: $seller-text-secondary;
+        transition: all 0.3s ease;
+      }
+      
+      &:hover {
+        color: $seller-primary;
+        background: rgba($seller-primary, 0.08);
+        
+        i {
+          color: $seller-primary;
+          transform: scale(1.1);
+        }
+      }
+      
+      &.active {
+        color: white;
+        background: $seller-gradient-primary;
+        box-shadow: $seller-shadow-medium;
+        
+        i {
+          color: white;
+        }
+      }
+    }
+  }
+  
+  // Contenu des onglets
+  .setting-contain-box {
+    background: white;
+    padding: 30px;
+    border-radius: $seller-border-radius;
+    box-shadow: $seller-shadow-light;
+    border: 1px solid rgba($seller-primary, 0.1);
+    min-height: 500px;
+  }
+}
+
+// === TABLE SELLER ===
+.table-SELLER {
+  border-collapse: separate;
+  border-spacing: 0;
+  
+  thead {
+    background: linear-gradient(135deg, lighten($seller-primary, 28%) 0%, lighten($seller-secondary, 30%) 100%);
+    
+    th {
+      color: $seller-text-primary;
+      font-weight: 700;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 16px 12px;
+      border: none;
+      
+      &:first-child {
+        border-top-left-radius: $seller-border-radius;
+      }
+      
+      &:last-child {
+        border-top-right-radius: $seller-border-radius;
+      }
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba($seller-primary, 0.1);
+      
+      &:hover {
+        background: rgba($seller-primary, 0.05);
+        transform: scale(1.01);
+        box-shadow: $seller-shadow-light;
+      }
+      
+      td {
+        padding: 14px 12px;
+        vertical-align: middle;
+        color: $seller-text-primary;
+        
+        strong {
+          color: $seller-text-primary;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+// === PAGINATION SELLER ===
+.pagination-SELLER {
+  .page-item {
+    margin: 0 2px;
+    
+    .page-link {
+      color: $seller-text-primary;
+      border: 1px solid rgba($seller-primary, 0.2);
+      border-radius: $seller-border-radius;
+      padding: 8px 14px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba($seller-primary, 0.08);
+        border-color: $seller-primary;
+        color: $seller-primary;
+      }
+      
+      i {
+        font-size: 1.1rem;
+      }
+    }
+    
+    &.active .page-link {
+      background: $seller-gradient-primary;
+      border-color: $seller-primary;
+      color: white;
+      font-weight: 600;
+      box-shadow: $seller-shadow-medium;
+    }
+    
+    &.disabled .page-link {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}
+
+// === MODAL SELLER ===
+.modal-header-SELLER {
+  background: $seller-gradient-primary;
+  color: white;
+  border: none;
+  
+  .modal-title {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    
+    i {
+      font-size: 1.3rem;
+    }
+  }
+  
+  .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.modal-footer-SELLER {
+  background: lighten($seller-bg-primary, 2%);
+  border-top: 1px solid rgba($seller-primary, 0.1);
+  padding: 16px 20px;
+}
+
+// Form fields
+.form-label {
+  color: $seller-text-primary;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  border-color: rgba($seller-primary, 0.2);
+  transition: all 0.3s ease;
+  padding: 10px 14px;
+  
+  &:focus {
+    border-color: $seller-primary;
+    box-shadow: 0 0 0 0.2rem rgba($seller-primary, 0.15);
+  }
+  
+  &.is-invalid {
+    border-color: $seller-error;
+    
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba($seller-error, 0.15);
+    }
+  }
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+// Boutons
+.btn-seller-primary {
+  background: $seller-gradient-primary;
+  border: none;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  
+  &:hover:not(:disabled) {
+    background: $seller-gradient-brand;
+    transform: translateY(-2px);
+    box-shadow: $seller-shadow-medium;
+    color: white;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.btn-outline-secondary {
+  border-color: rgba($seller-primary, 0.3);
+  color: $seller-text-primary;
+  
+  &:hover {
+    background: rgba($seller-primary, 0.08);
+    border-color: $seller-primary;
+    color: $seller-primary;
+  }
+}
+
+.btn-outline-primary {
+  border-color: $seller-primary;
+  color: $seller-primary;
+  
+  &:hover {
+    background: $seller-primary;
+    color: white;
+  }
+}
+
+.btn-outline-danger {
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+// Invalid feedback
+.invalid-feedback {
+  color: $seller-error;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+// Badges
+.badge {
+  padding: 6px 12px;
+  font-weight: 600;
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+// Card
+.card {
+  border: 1px solid rgba($seller-primary, 0.1);
+  border-radius: $seller-border-radius;
+  box-shadow: $seller-shadow-light;
+  
+  &-body {
+    padding: 24px;
+  }
+}
+
+// Empty state
+.text-center {
+  i[class*="ri-folder"] {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Spinner
+.spinner-border {
+  &.text-primary {
+    color: $seller-primary !important;
+  }
+}
+
+// Responsive
+@media (max-width: 991px) {
+  .vertical-tabs {
+    .nav-pills-SELLER {
+      flex-direction: row !important;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+    
+    .setting-contain-box {
+      padding: 20px;
+    }
+  }
+  
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+}
+
+// Exposer Math pour le template
+:host {
+  display: block;
+}
+

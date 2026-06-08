@@ -1,0 +1,189 @@
+// Styles pour le tableau de bord
+@import '../../shared/styles/seller-brand';
+@import '../../shared/styles/seller-components';
+
+.dashboard-tiles {
+  margin-bottom: 20px;
+  
+  .card-tiles {
+    background: white;
+    padding: 20px;
+    border-radius: $seller-border-radius;
+    box-shadow: $seller-shadow-light;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba($seller-primary, 0.1);
+    
+    &:hover {
+      box-shadow: $seller-shadow-medium;
+      transform: translateY(-2px);
+      border-color: rgba($seller-primary, 0.2);
+    }
+    
+    h6 {
+      color: $seller-text-secondary;
+      font-size: 14px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    h3 {
+      color: $seller-text-primary;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0;
+    }
+    
+    .icon-box {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $seller-gradient-primary; // Dégradé lavande
+      box-shadow: $seller-shadow-light;
+      
+      i {
+        font-size: 28px;
+        color: white;
+      }
+    }
+    
+    // Variation pour chaque tuile (optionnel)
+    &:nth-child(1) .icon-box {
+      background: $seller-gradient-primary; // Lavande
+    }
+    
+    &:nth-child(2) .icon-box {
+      background: $seller-gradient-secondary; // Vert sauge
+    }
+    
+    &:nth-child(3) .icon-box {
+      background: $seller-gradient-brand; // Mix lavande + vert
+    }
+    
+    &:nth-child(4) .icon-box {
+      background: $seller-gradient-primary; // Lavande
+    }
+  }
+}
+
+.no-data-added {
+  text-align: center;
+  padding: 40px;
+  
+  h4 {
+    color: $seller-text-secondary;
+    font-weight: 500;
+  }
+}
+
+// === SECTIONS DU DASHBOARD ===
+
+// Top selling products table
+.top-selling-table {
+  table {
+    tr {
+      border-bottom: 1px solid rgba($seller-primary, 0.1);
+      
+      &:hover {
+        background: rgba($seller-primary, 0.03);
+      }
+      
+      td {
+        h5, h6 {
+          color: $seller-text-primary;
+        }
+        
+        h6 {
+          color: $seller-text-secondary;
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+}
+
+// Review box
+.review-box {
+  table {
+    tr {
+      border-bottom: 1px solid rgba($seller-primary, 0.1);
+      
+      &:hover {
+        background: rgba($seller-primary, 0.03);
+      }
+    }
+  }
+  
+  .review-content {
+    span {
+      color: $seller-text-primary;
+    }
+  }
+}
+
+// Blog box
+.blog-box {
+  border: 1px solid rgba($seller-primary, 0.1);
+  border-radius: $seller-border-radius;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: $seller-shadow-medium;
+    transform: translateY(-4px);
+    border-color: $seller-primary;
+  }
+  
+  .blog-content {
+    a {
+      color: $seller-text-primary;
+      
+      &:hover {
+        color: $seller-primary;
+      }
+    }
+    
+    h6 {
+      color: $seller-text-secondary;
+      font-size: 0.75rem;
+    }
+  }
+}
+
+// Table loader
+.table-loader {
+  text-align: center;
+  padding: 20px;
+  
+  span {
+    color: $seller-text-secondary;
+  }
+}
+
+// Image info (dans les tableaux)
+.img-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  h5 {
+    color: $seller-text-primary;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  
+  h6 {
+    color: $seller-text-secondary;
+    font-size: 0.75rem;
+    margin: 0;
+  }
+}
+
+
+
+

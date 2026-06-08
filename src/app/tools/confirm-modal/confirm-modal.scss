@@ -1,0 +1,58 @@
+@import '../../shared/styles/seller-brand';
+
+.modal-body {
+  padding: 2rem;
+  
+  .icon-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2.5rem;
+    background-color: rgba($seller-primary, 0.1);
+    color: $seller-primary;
+    
+    &.wo-bg {
+      background-color: transparent;
+    }
+    
+    &.text-danger {
+      background-color: rgba(#dc3545, 0.1);
+      color: #dc3545;
+    }
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #2D3748;
+  }
+
+  p {
+    color: #718096;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    
+    &.modal-message {
+      white-space: pre-line; // Respecter les sauts de ligne
+      text-align: left; // Aligner à gauche pour les listes
+    }
+  }
+
+  .button-box {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    
+    app-button {
+      min-width: 100px;
+    }
+  }
+}
+
+
+

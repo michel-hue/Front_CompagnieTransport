@@ -1,0 +1,93 @@
+<div [class]="class()">
+  <div class="logo-wrapper logo-wrapper-center" style="height: 90px!important;">
+    <!-- Logo Seller App -->
+    <a [routerLink]="['javascript:void(0)']">
+      <img
+        [src]="'assets/images/logo_principal.png'"
+        class="img-fluid"
+        alt="header-logo"
+      />
+    </a>
+    <!-- Logo petit (collapsed) -->
+    <div class="logo-sm-wrapper">
+      <span class="logo-sm seller-initials" style="color: #073C98;">AE</span>
+    </div>
+    <div class="back-btn">
+      <i class="fa fa-angle-left"></i>
+    </div>
+    <div class="toggle-sidebar" (click)="sidebarToggle()">
+      <i class="ri-apps-line status_toggle middle sidebar-toggle" style="color: #073C98;"></i>
+    </div>
+  </div>
+  <nav class="sidebar-main">
+    <div class="left-arrow" id="left-arrow">
+      <i data-feather="arrow-left"></i>
+    </div>
+    <div id="sidebar-menu">
+      <ul class="sidebar-links" id="simple-bar">
+        <li class="back-btn"></li>
+        <div *ngTemplateOutlet="recursiveMenu; context: { $implicit: (menu$ | async)?.data }"></div>
+        <ng-template #recursiveMenu let-menus>
+          @for (menu of menus; track menu) { @if (hasMainLevelMenuPermission(menu?.acl_permission))
+          {
+          <li [class.sidebar-list]="menu.type === 'sub'" *hasPermission="menu?.permission">
+            @if (menu.type === 'sub') {
+            <a
+              href="javascript:void(0)"
+              [class]="menu.level === 1 ? 'debar-link sidebar-title link-nav sidebar-link' : ''"
+              [class.active]="!menu.children ? menu.active : ''"
+              [routerLink]="menu.path"
+              [queryParams]="menu.params"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="onItemSelected(menu)"
+            >
+              <span>
+                <div class="d-flex align-items-center">
+                  @if (menu.icon) {
+                  <i class="{{ menu.icon }}"></i>
+                  }
+                  <div class="sidebar-main-link">
+                    {{ menu.title.replace(' ', '_') | translate }}
+                  </div>
+                </div>
+                @if (menu?.badgeType && menu?.badgeValue !== '0' && menu?.badgeValue) {
+                <span [class]="menu?.badgeType"> {{ menu?.badgeValue }} </span>
+                }
+              </span>
+              @if (menu.children) {
+              <div class="according-menu">
+                <i class="ri-arrow-{{ menu.active ? 'down' : 'right' }}-s-line"></i>
+              </div>
+              }
+            </a>
+            }
+            <!-- Submenu Link -->
+            @if (menu.type === 'link') {
+            <a
+              href="javascript:void(0)"
+              [routerLink]="menu.path"
+              [queryParams]="menu.params"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="closeSidebar()"
+            >
+              <div>{{ menu.title.replace(' ', '_') | translate }}</div>
+              @if (menu?.badgeType && menu?.badgeValue !== '0' && menu?.badgeValue) {
+              <span [class]="menu?.badgeType"> {{ menu?.badgeValue }} </span>
+              }
+            </a>
+            }
+            <ul class="sidebar-submenu" [class.show]="menu.children && menu.active">
+              <ng-container
+                *ngTemplateOutlet="recursiveMenu; context: { $implicit: menu.children }"
+              />
+            </ul>
+          </li>
+          } }
+        </ng-template>
+      </ul>
+    </div>
+  </nav>
+</div>
+

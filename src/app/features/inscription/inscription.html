@@ -1,0 +1,296 @@
+<section class="signup-section section-b-space">
+  <div class="container h-100">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-xxl-6 col-xl-7 col-lg-8">
+        <div class="signup-box">
+          <div class="signup-header text-center mb-4">
+            <p class="badge badge-light mb-2">Nouveau vendeur</p>
+            <h1>Créer mon espace Seller App</h1>
+            <p class="subtitle">
+              Deux étapes suffisent pour démarrer : authentifiez-vous puis décrivez votre boutique.
+            </p>
+          </div>
+
+          <div class="seller-stepper mb-4">
+            @for (step of steps; track step.title; let index = $index) {
+              <div class="step" [class.active]="currentStep === index" [class.completed]="currentStep > index">
+                <span class="step-number">{{ index + 1 }}</span>
+                <div>
+                  <p class="step-title">{{ step.title }}</p>
+                </div>
+              </div>
+            }
+          </div>
+
+          @if (currentStep === 0) {
+            <form [formGroup]="accountForm" class="step-form">
+              <div class="step-card mb-3">
+                <div class="step-index">1</div>
+                <div>
+                  <h3>Créer vos identifiants</h3>
+                  <p>Renseignez vos informations de contact pour générer un accès sécurisé.</p>
+                </div>
+              </div>
+              
+              <div class="mode-switch">
+                <button type="button" class="mode-btn" [class.active]="isEmailMode" (click)="selectMode('email')">
+                  Email & mot de passe
+                </button>
+                <button type="button" class="mode-btn" [class.active]="!isEmailMode" (click)="selectMode('social')">
+                  Réseau social
+                </button>
+              </div>
+
+              @if (!isEmailMode) {
+                <div class="social-box mb-3">
+                  <p>Choisissez votre réseau social préféré pour vous authentifier.</p>
+                  <div class="social-grid">
+                    @for (provider of socialProviders; track provider) {
+                      <button
+                        type="button"
+                        class="social-btn"
+                        [class.active]="accountForm.get('socialProvider')?.value === provider"
+                        [disabled]="socialAuthLoading"
+                        (click)="connectWithProvider(provider)"
+                      >
+                        <span class="icon">
+                          @if (socialAuthLoading && lastProviderAttempt === provider) {
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          } @else {
+                            <i class="ri-shield-user-line"></i>
+                          }
+                        </span>
+                        <span>{{ provider }}</span>
+                      </button>
+                    }
+                  </div>
+                  @if (socialAuthLoading) {
+                    <small class="text-muted d-block mt-2">
+                      Connexion à {{ lastProviderAttempt }} en cours...
+                    </small>
+                  }
+                  @if (accountForm.get('socialProvider')?.invalid && accountForm.get('socialProvider')?.touched) {
+                    <small class="text-danger d-block mt-2">Sélectionnez un réseau social</small>
+                  }
+                  @if (socialAuthError) {
+                    <div class="alert alert-danger mt-3">
+                      <i class="ri-error-warning-line me-1"></i> {{ socialAuthError }}
+                    </div>
+                  }
+                  @if (accountForm.get('socialToken')?.value) {
+                    <div class="alert alert-success mt-3">
+                      <i class="ri-check-line me-1"></i> {{ accountForm.get('socialProvider')?.value }} connecté - token prêt à être utilisé.
+                    </div>
+                  }
+                </div>
+              }
+
+
+              <div class="photo-identity text-center mb-4">
+                <label class="photo-upload-box" for="photoProfileInput">
+                  @if (photoPreviewUrl; as preview) {
+                    <img [src]="preview" alt="Prévisualisation photo" />
+                  } @else {
+                    <i class="ri-user-smile-line"></i>
+                    <span>Ajouter une photo</span>
+                  }
+                </label>
+                <input
+                  id="photoProfileInput"
+                  type="file"
+                  accept="image/png, image/jpeg, image/webp, image/gif"
+                  (change)="handlePhotoFileChange($event)"
+                  hidden
+                />
+                <small class="text-muted d-block mt-2">
+                  Formats jpg/png/webp/gif – 2 Mo max. Cliquez pour modifier la photo.
+                </small>
+                @if (accountForm.get('photoFile')?.errors?.['invalidFile'] && accountForm.get('photoFile')?.touched) {
+                  <small class="text-danger d-block mt-1">
+                    @if (accountForm.get('photoFile')?.errors?.['reason'] === 'type') {
+                      Format non supporté.
+                    } @else {
+                      Taille maximale dépassée (2 Mo).
+                    }
+                  </small>
+                }
+              </div>
+              
+              @if (isEmailMode) {
+                <div class="row g-3 mt-1">
+                  <div class="col-md-6">
+                    <label class="form-label required">Adresse e-mail</label>
+                    <input class="form-control" formControlName="email" type="email" placeholder="vendeur@exemple.com" />
+                    @if (accountForm.get('email')?.invalid && accountForm.get('email')?.touched) {
+                      <small class="text-danger">Email invalide</small>
+                    }
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label required">Mot de passe</label>
+                    <input class="form-control" formControlName="password" type="password" placeholder="********" />
+                    @if (accountForm.get('password')?.invalid && accountForm.get('password')?.touched) {
+                      <small class="text-danger">8 caractères minimum</small>
+                    }
+                  </div>
+                </div>
+              }  
+              <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                  <label class="form-label" [class.required]="isEmailMode">Prénom</label>
+                  <input class="form-control" formControlName="prenom" placeholder="Ex : Aïcha" />
+                  @if (accountForm.get('prenom')?.invalid && accountForm.get('prenom')?.touched) {
+                    <small class="text-danger">Prénom requis</small>
+                  }
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" [class.required]="isEmailMode">Nom</label>
+                  <input class="form-control" formControlName="nom" placeholder="Ex : Ndiaye" />
+                  @if (accountForm.get('nom')?.invalid && accountForm.get('nom')?.touched) {
+                    <small class="text-danger">Nom requis</small>
+                  }
+                </div>
+              </div>
+
+              <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                  <label class="form-label">Téléphone</label>
+                  <input class="form-control" formControlName="tel" placeholder="+221 77 000 00 00" />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Adresse</label>
+                  <input class="form-control" formControlName="adresse" placeholder="Rue, ville..." />
+                </div>
+              </div>
+
+             
+            </form>
+          } @else if (currentStep === 1) {
+            <form [formGroup]="storeForm" class="step-form">
+              <div class="step-card mb-3">
+                <div class="step-index">2</div>
+                <div>
+                  <h3>Configurer votre boutique</h3>
+                  <p>Ajoutez les informations essentielles pour démarrer sur Seller App.</p>
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label required">Nom de la boutique</label>
+                  <input class="form-control" formControlName="label" placeholder="Ex : Maison des savons" />
+                  @if (storeForm.get('label')?.invalid && storeForm.get('label')?.touched) {
+                    <small class="text-danger">Libellé requis</small>
+                  }
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Logo (jpg/png, max 5&nbsp;Mo)</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    accept="image/png, image/jpeg, image/webp, image/gif"
+                    (change)="handleLogoChange($event)"
+                  />
+                  @if (storeForm.get('logoFile')?.errors?.['invalidFile'] && storeForm.get('logoFile')?.touched) {
+                    <small class="text-danger d-block mt-1">
+                      @if (storeForm.get('logoFile')?.errors?.['reason'] === 'type') {
+                        Format non supporté. Importez un fichier jpg/png/webp/gif.
+                      } @else {
+                        Taille maximale 5 Mo dépassée.
+                      }
+                    </small>
+                  }
+                </div>
+                <div class="col-12">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" formControlName="hasPhysicalStore" id="physicalStoreSwitch" />
+                    <label class="form-check-label" for="physicalStoreSwitch">
+                      Ma boutique possède un point de vente physique
+                    </label>
+                  </div>
+                </div>
+                @if (storeForm.get('hasPhysicalStore')?.value) {
+                  <div class="col-12">
+                    <label class="form-label required">Localisation</label>
+                    <input class="form-control" formControlName="location" placeholder="Adresse, ville ou lien Google Maps" />
+                    @if (storeForm.get('location')?.invalid && storeForm.get('location')?.touched) {
+                      <small class="text-danger">Localisation requise</small>
+                    }
+                  </div>
+                }
+              </div>
+            </form>
+          } @else {
+            <form [formGroup]="confirmForm" class="step-form">
+              <div class="step-card mb-3">
+                <div class="step-index">3</div>
+                <div>
+                  <h3>Valider votre inscription</h3>
+                  <p>Merci de confirmer l’acceptation des conditions et de la confidentialité.</p>
+                </div>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="acceptTerms"
+                  formControlName="acceptTerms"
+                />
+                <label class="form-check-label" for="acceptTerms">
+                  Je confirme avoir lu et accepté
+                  <a href="#" target="_blank" rel="noopener">les Conditions d’utilisation</a>
+                  et
+                  <a href="#" target="_blank" rel="noopener">la Politique de confidentialité</a>.
+                </label>
+              </div>
+              @if (confirmForm.get('acceptTerms')?.invalid && confirmForm.get('acceptTerms')?.touched) {
+                <small class="text-danger d-block mt-2">Vous devez accepter les conditions pour continuer.</small>
+              }
+            </form>
+          }
+
+          <div class="actions mt-4 d-flex flex-column flex-sm-row gap-2">
+            <button type="button" class="btn btn-outline-secondary flex-fill" (click)="previousStep()" [disabled]="currentStep === 0">
+              Précédent
+            </button>
+
+            @if (currentStep < steps.length - 1) {
+              <button type="button" class="btn btn-seller-primary flex-fill" (click)="nextStep()">
+                Continuer
+              </button>
+            } @else {
+              <button
+                type="button"
+                class="btn btn-seller-primary flex-fill"
+                (click)="submit()"
+                [disabled]="storeForm.invalid || confirmForm.invalid || submitLoading"
+              >
+                @if (submitLoading) {
+                  <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Envoi en cours...
+                } @else {
+                  Valider mon inscription
+                }
+              </button>
+            }
+          </div>
+
+          @if (submitError) {
+            <div class="alert alert-danger mt-3">
+              <i class="ri-error-warning-line me-1"></i> {{ submitError }}
+            </div>
+          }
+
+          @if (submitSuccess) {
+            <div class="alert alert-success mt-3">
+              <i class="ri-check-line me-1"></i> Votre demande a été transmise, nous revenons vers vous rapidement.
+            </div>
+          }
+
+          <div class="text-center mt-3">
+            <a class="link-seller" [routerLink]="['/connexion']">Retourner à la connexion</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
