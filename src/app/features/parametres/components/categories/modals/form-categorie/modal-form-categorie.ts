@@ -20,13 +20,13 @@ export class ModalFormCategorieComponent {
 
   readonly formModal = viewChild<TemplateRef<any>>('formModal');
 
-  public form: FormGroup;
+  public form!: FormGroup;
   public modalRef: NgbModalRef | null = null;
   public isEditMode: boolean = false;
   public currentCategorieId: string | null = null;
   public loading: boolean = false;
   public mainCategories: Categorie[] = [];
-  
+
   /**
    * Obtenir les catégories principales disponibles (excluant la catégorie en cours de modification)
    */
@@ -84,10 +84,10 @@ export class ModalFormCategorieComponent {
       is_visible: true,
       is_featured: false,
     });
-    
+
     // Générer le code automatiquement
     this.generateCode();
-    
+
     return this.openModal();
   }
 
@@ -135,11 +135,11 @@ export class ModalFormCategorieComponent {
     this.isEditMode = true;
     // Utiliser l'id (UUID) au lieu de categorieid
     this.currentCategorieId = categorie.id || categorie.categorieid;
-    
+
     // Convertir les valeurs string '1'/'0' en booléens pour le formulaire
     const isVisibleValue = categorie.is_visible === '1' || categorie.is_visible === true;
     const isFeaturedValue = categorie.is_featured === '1' || categorie.is_featured === true;
-    
+
     this.form.patchValue({
       code: categorie.code,
       name: categorie.name,
@@ -149,9 +149,9 @@ export class ModalFormCategorieComponent {
       is_visible: isVisibleValue,
       is_featured: isFeaturedValue,
     });
-    
+
     console.log('Formulaire rempli avec:', this.form.value);
-    
+
     return this.openModal();
   }
 
@@ -190,7 +190,7 @@ export class ModalFormCategorieComponent {
     this.loading = true;
 
     const formValue = this.form.value;
-    
+
     // Nettoyer les valeurs vides, mais conserver parentid même s'il est null
     const data = Object.keys(formValue).reduce((acc, key) => {
       // Toujours inclure parentid même s'il est null (pour permettre de retirer le parent)
@@ -214,7 +214,7 @@ export class ModalFormCategorieComponent {
    */
   private createCategorie(data: CreateCategorieDto): void {
     // L'API récupère automatiquement user_id depuis le JWT pour createdBy/updatedBy
-    this.categorieDataService.createCategorie(data).subscribe({
+    this.categorieDataService.createCategorie().subscribe({
       next: () => {
         this.loading = false;
         this.errorHandler.handleSuccess(
@@ -248,7 +248,7 @@ export class ModalFormCategorieComponent {
     // L'API récupère automatiquement user_id depuis le JWT pour updatedBy
     console.log('🔄 Mise à jour catégorie:', categoryId, updateData);
 
-    this.categorieDataService.updateCategorie(categoryId, updateData).subscribe({
+    this.categorieDataService.updateCategorie().subscribe({
       next: (response) => {
         console.log('✅ Catégorie mise à jour:', response);
         this.loading = false;

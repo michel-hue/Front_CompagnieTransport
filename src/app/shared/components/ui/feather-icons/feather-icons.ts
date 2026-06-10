@@ -1,3 +1,4 @@
+/*
 import { Component, Input } from '@angular/core';
 
 import * as feather from 'feather-icons';
@@ -17,3 +18,4 @@ export class FeatherIcons {
     feather.replace();
   }
 }
+*/

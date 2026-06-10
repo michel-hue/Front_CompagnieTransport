@@ -6,14 +6,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 
 import { ForgotPassWordAction } from '../../../shared/action/auth.action';
-import { Alert } from '../../../shared/components/ui/alert/alert';
-import { Button } from '../../../shared/components/ui/button/button';
+//import { Alert } from '../../../shared/components/ui/alert/alert';
+//import { Button } from '../../../shared/components/ui/button/button';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.html',
   styleUrls: ['./forgot-password.scss'],
-  imports: [Alert, ReactiveFormsModule, Button, TranslateModule],
+  imports: [ ReactiveFormsModule, TranslateModule],
 })
 export class ForgotPassword {
   private store = inject(Store);

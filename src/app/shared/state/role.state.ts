@@ -21,8 +21,8 @@ export class RoleStateModel {
     data: [] as IRole[],
     total: 0,
   };
-  selectedRole: IRole | null;
-  modules: IModule[];
+  selectedRole: IRole | null = null;
+  modules: IModule[] = [];
 }
 
 @State<RoleStateModel>({

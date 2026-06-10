@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { ICommissionModel } from '../interface/commission.interface';
 import { Params } from '../interface/core.interface';
 
@@ -14,7 +14,7 @@ export class CommissionService {
   private http = inject(HttpClient);
 
   getCommissionHistory(payload?: Params): Observable<ICommissionModel> {
-    return this.http.get<ICommissionModel>(`${environment.URL}/commission.json`, {
+    return this.http.get<ICommissionModel>(`${URL}/commission.json`, {
       params: payload,
     });
   }

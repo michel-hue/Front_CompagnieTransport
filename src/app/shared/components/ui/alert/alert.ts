@@ -1,3 +1,4 @@
+/*
 import { Component, inject } from '@angular/core';
 
 import { NotificationService } from '../../../services/notification.service';
@@ -28,3 +29,4 @@ export class Alert {
     this.notificationService.notification = true;
   }
 }
+*/

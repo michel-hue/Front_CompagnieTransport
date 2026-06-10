@@ -1,7 +1,9 @@
+/*
 import { Component, TemplateRef, inject, output, viewChild, input } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Button } from '../../shared/components/ui/button/button';
+import { NgClass } from '@angular/common';
 
 export interface ConfirmModalConfig {
   title?: string;
@@ -20,7 +22,11 @@ export interface ConfirmModalConfig {
   templateUrl: './confirm-modal.html',
   styleUrls: ['./confirm-modal.scss'],
   standalone: true,
-  imports: [Button, TranslateModule],
+  imports: [
+    Button,
+    TranslateModule,
+
+  ],
 })
 export class ConfirmModalComponent {
   private modalService = inject(NgbModal);
@@ -37,7 +43,7 @@ export class ConfirmModalComponent {
     cancelButtonClass: 'btn-md fw-bold btn btn-secondary',
   };
 
-  public closeResult: string;
+  public closeResult: string = '';
   public modalOpen: boolean = false;
   private modalRef: NgbModalRef | null = null;
 
@@ -45,12 +51,12 @@ export class ConfirmModalComponent {
   readonly confirmed = output<any>();
   readonly cancelled = output<void>();
 
-  /**
+  /!**
    * Ouvrir le modal avec une configuration personnalisée
-   */
+   *!/
   async openModal(config?: Partial<ConfirmModalConfig>): Promise<boolean> {
     this.modalOpen = true;
-    
+
     // Fusionner la configuration par défaut avec la configuration fournie
     this.config = {
       ...this.config,
@@ -79,17 +85,17 @@ export class ConfirmModalComponent {
     });
   }
 
-  /**
+  /!**
    * Confirmer l'action
-   */
+   *!/
   confirm(): void {
     this.confirmed.emit(this.config.data);
     this.modalRef?.close('confirmed');
   }
 
-  /**
+  /!**
    * Annuler l'action
-   */
+   *!/
   cancel(): void {
     this.cancelled.emit();
     this.modalRef?.dismiss('Cancel');
@@ -112,3 +118,4 @@ export class ConfirmModalComponent {
   }
 }
 
+*/

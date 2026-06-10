@@ -15,7 +15,7 @@ import { Store } from '@ngxs/store';
 import {
   Select2,
   Select2Data,
-  Select2Module,
+
   Select2SearchEvent,
   Select2UpdateEvent,
 } from 'ng-select2-component';
@@ -37,8 +37,8 @@ import {
 import { GetBackendSettingOptionAction } from '../../../shared/action/setting.action';
 import { GetUsersAction } from '../../../shared/action/user.action';
 import { Loader } from '../../../shared/components/loader/loader';
-import { Button } from '../../../shared/components/ui/button/button';
-import { NoData } from '../../../shared/components/ui/no-data/no-data';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { NoData } from '../../../shared/components/ui/no-data/no-data';
 import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { ICart } from '../../../shared/interface/cart.interface';
 import { IOrderCheckout } from '../../../shared/interface/order.interface';
@@ -59,12 +59,12 @@ import { UserState } from '../../../shared/state/user.state';
     Loader,
     HasPermissionDirective,
     ReactiveFormsModule,
-    Select2Module,
+   // Select2Module,
     AddressBlock,
     DeliveryBlock,
     PaymentBlock,
-    NoData,
-    Button,
+   // NoData,
+   // Button,
     AddCustomerModal,
     AddAddressModal,
     CouponModal,
@@ -101,9 +101,9 @@ export class Checkout {
 
   public form: FormGroup;
   public coupon: boolean = true;
-  public couponCode: string;
+  public couponCode?: string;
   public appliedCoupon: boolean = false;
-  public couponError: string | null;
+  public couponError: string | null = null;
   public checkoutTotal: IOrderCheckout | null = null;
   public loading: boolean = false;
   private search = new Subject<string>();
@@ -246,9 +246,9 @@ export class Checkout {
 
   placeorder() {
     if (this.form.valid) {
-      if (!this.cpnRef().nativeElement.value) {
+      /*if (!this.cpnRef().nativeElement.value) {
         this.form.controls['coupon'].reset();
-      }
+      }*/
       this.store.dispatch(new PlaceOrderAction(this.form.value));
     }
   }

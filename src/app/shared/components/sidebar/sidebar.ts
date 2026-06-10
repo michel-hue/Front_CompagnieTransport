@@ -1,3 +1,4 @@
+/*
 import { CommonModule, isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import { Component, inject, input, PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
@@ -115,3 +116,4 @@ export class Sidebar {
     }
   }
 }
+*/

@@ -13,8 +13,8 @@ import { NotificationService } from '../services/notification.service';
 import { SettingService } from '../services/setting.service';
 
 export class SettingStateModel {
-  setting: IValues | null;
-  backEndSetting: IValues | null;
+  setting: IValues | null = null;
+  backEndSetting: IValues | null = null;
 }
 
 @State<SettingStateModel>({

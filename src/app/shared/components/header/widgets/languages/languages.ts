@@ -4,7 +4,6 @@ import { Component, PLATFORM_ID, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ClickOutsideDirective } from '../../../../directive/out-side-directive';
-import { Button } from '../../../ui/button/button';
 
 export interface ILanguage {
   language: string;
@@ -16,7 +15,7 @@ export interface ILanguage {
   selector: 'app-languages',
   templateUrl: './languages.html',
   styleUrls: ['./languages.scss'],
-  imports: [ClickOutsideDirective, Button],
+  imports: [ClickOutsideDirective],
 })
 export class Languages {
   private translate = inject(TranslateService);

@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { IModule, IRoleModel } from '../interface/role.interface';
 
@@ -14,10 +14,10 @@ export class RoleService {
   private http = inject(HttpClient);
 
   getRoleModules(): Observable<IModule[]> {
-    return this.http.get<IModule[]>(`${environment.URL}/module.json`);
+    return this.http.get<IModule[]>(`${URL}/module.json`);
   }
 
   getRoles(payload?: Params): Observable<IRoleModel> {
-    return this.http.get<IRoleModel>(`${environment.URL}/role.json`, { params: payload });
+    return this.http.get<IRoleModel>(`${URL}/role.json`, { params: payload });
   }
 }

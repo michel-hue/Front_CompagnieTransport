@@ -3,7 +3,6 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
 import { Params } from '../interface/core.interface';
 import { IFaqModel } from '../interface/faq.interface';
 
@@ -14,6 +13,6 @@ export class FaqService {
   private http = inject(HttpClient);
 
   getFaqs(payload?: Params): Observable<IFaqModel> {
-    return this.http.get<IFaqModel>(`${environment.URL}/faq.json`, { params: payload });
+    return this.http.get<IFaqModel>(`${URL}/faq.json`, { params: payload });
   }
 }

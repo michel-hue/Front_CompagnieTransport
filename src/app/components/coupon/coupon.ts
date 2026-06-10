@@ -11,8 +11,8 @@ import {
   GetCouponsAction,
   UpdateCouponStatusAction,
 } from '../../shared/action/coupon.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { ICoupon, ICouponModel } from '../../shared/interface/coupon.interface';
@@ -23,7 +23,7 @@ import { CouponState } from '../../shared/state/coupon.state';
   selector: 'app-coupon',
   templateUrl: './coupon.html',
   styleUrls: ['./coupon.scss'],
-  imports: [PageWrapper, HasPermissionDirective, RouterModule, Table, TranslateModule],
+  imports: [ HasPermissionDirective, RouterModule,  TranslateModule],
 })
 export class Coupon {
   private store = inject(Store);

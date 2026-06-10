@@ -11,8 +11,8 @@ import {
   GetPagesAction,
   UpdatePageStatusAction,
 } from '../../shared/action/page.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { IPage, IPageModel } from '../../shared/interface/page.interface';
@@ -23,7 +23,7 @@ import { PageState } from '../../shared/state/page.state';
   selector: 'app-page',
   templateUrl: './page.html',
   styleUrls: ['./page.scss'],
-  imports: [PageWrapper, HasPermissionDirective, RouterModule, Table, TranslateModule],
+  imports: [ HasPermissionDirective, RouterModule,  TranslateModule],
 })
 export class Page {
   private store = inject(Store);

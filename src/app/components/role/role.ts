@@ -10,9 +10,9 @@ import {
   DeleteRoleAction,
   GetRolesAction,
 } from '../../shared/action/role.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
-import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
+//import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { IRole, IRoleModel } from '../../shared/interface/role.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -22,7 +22,7 @@ import { RoleState } from '../../shared/state/role.state';
   selector: 'app-role',
   templateUrl: './role.html',
   styleUrls: ['./role.scss'],
-  imports: [PageWrapper, HasPermissionDirective, RouterModule, Table, TranslateModule],
+  imports: [ RouterModule, TranslateModule],
 })
 export class Role {
   private store = inject(Store);

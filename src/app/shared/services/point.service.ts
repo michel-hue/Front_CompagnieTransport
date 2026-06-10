@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { IPoint } from '../interface/point.interface';
 
@@ -14,6 +14,6 @@ export class PointService {
   private http = inject(HttpClient);
 
   getUserTransaction(payload?: Params): Observable<IPoint> {
-    return this.http.get<IPoint>(`${environment.URL}/point.json`, { params: payload });
+    return this.http.get<IPoint>(`${URL}/point.json`, { params: payload });
   }
 }

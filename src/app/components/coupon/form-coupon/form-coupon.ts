@@ -33,7 +33,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2, Select2Data, Select2Module, Select2SearchEvent } from 'ng-select2-component';
+import { Select2, Select2Data,  Select2SearchEvent } from 'ng-select2-component';
 import { Observable, of, Subject } from 'rxjs';
 import { debounceTime, mergeMap, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -43,8 +43,8 @@ import {
   UpdateCouponAction,
 } from '../../../shared/action/coupon.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
 import { ICoupon } from '../../../shared/interface/coupon.interface';
 import { IValues } from '../../../shared/interface/setting.interface';
 import { CouponState } from '../../../shared/state/coupon.state';
@@ -61,17 +61,17 @@ function convertToNgbDate(date: NgbDateStruct): NgbDate {
   styleUrls: ['./form-coupon.scss'],
   imports: [
     ReactiveFormsModule,
-    NgbNav,
-    NgbNavItem,
-    NgbNavItemRole,
-    NgbNavLink,
-    NgbNavLinkBase,
-    NgbNavContent,
-    FormFields,
-    Select2Module,
-    NgbInputDatepicker,
-    NgbNavOutlet,
-    Button,
+   // NgbNav,
+  //  NgbNavItem,
+  //  NgbNavItemRole,
+   // NgbNavLink,
+   // NgbNavLinkBase,
+   // NgbNavContent,
+   // FormFields,
+   // Select2Module,
+ //   NgbInputDatepicker,
+ //   NgbNavOutlet,
+   // Button,
     CommonModule,
     TranslateModule,
   ],
@@ -86,19 +86,19 @@ export class FormCoupon {
   private renderer = inject(Renderer2);
   private document = inject<Document>(DOCUMENT);
 
-  readonly type = input<string>(undefined);
+ // readonly type = input<string>(undefined);
 
   readonly nav = viewChild<NgbNav>('nav');
 
   public active = 'general';
-  public tabError: string | null;
+  public tabError: string | null = null;
   public form: FormGroup;
-  public id: number;
+  public id!: number;
 
   public hoveredDate: NgbDate | null = null;
-  public fromDate: NgbDate | null;
-  public toDate: NgbDate | null;
-  public data: ICoupon;
+  public fromDate: NgbDate | null = null;
+  public toDate: NgbDate | null = null;
+  public data?: ICoupon;
   private search = new Subject<string>();
   public isBrowser: boolean;
 
@@ -320,9 +320,9 @@ export class FormCoupon {
     this.form.markAllAsTouched();
     let action = new CreateCouponAction(this.form.value);
 
-    if (this.type() == 'edit' && this.id) {
+    /*if (this.type() == 'edit' && this.id) {
       action = new UpdateCouponAction(this.form.value, this.id);
-    }
+    }*/
 
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({
@@ -339,10 +339,10 @@ export class FormCoupon {
         .querySelector(`#${invalidField}`)
         ?.closest('div.tab')
         ?.getAttribute('tab');
-      if (div) {
+     /* if (div) {
         this.nav().select(div);
         this.tabError = div;
-      }
+      }*/
     }
   }
 

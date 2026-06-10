@@ -5,8 +5,8 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { GetCommissionAction } from '../../shared/action/commission.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { ICommission, ICommissionModel } from '../../shared/interface/commission.interface';
 import { Params } from '../../shared/interface/core.interface';
 import { CommissionState } from '../../shared/state/commission.state';
@@ -15,7 +15,7 @@ import { CommissionState } from '../../shared/state/commission.state';
   selector: 'app-commission',
   templateUrl: './commission.html',
   styleUrls: ['./commission.scss'],
-  imports: [PageWrapper, Table],
+  imports: [],
 })
 export class Commission {
   private store = inject(Store);

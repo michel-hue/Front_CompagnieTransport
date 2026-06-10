@@ -14,15 +14,15 @@ import { Subject, of } from 'rxjs';
 import { mergeMap, switchMap, takeUntil } from 'rxjs/operators';
 
 import { CreateTaxAction, EditTaxAction, UpdateTaxAction } from '../../../shared/action/tax.action';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
 import { TaxState } from '../../../shared/state/tax.state';
 
 @Component({
   selector: 'app-form-tax',
   templateUrl: './form-tax.html',
   styleUrls: ['./form-tax.scss'],
-  imports: [ReactiveFormsModule, FormFields, Button, TranslateModule],
+  imports: [ReactiveFormsModule,  TranslateModule],
 })
 export class FormTax {
   private store = inject(Store);
@@ -30,9 +30,9 @@ export class FormTax {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
 
-  readonly type = input<string>(undefined);
+  //readonly type = input<string>(undefined);
 
-  public id: number;
+  public id!: number;
   public form: FormGroup;
 
   private destroy$ = new Subject<void>();
@@ -70,10 +70,10 @@ export class FormTax {
     this.form.markAllAsTouched();
     let action = new CreateTaxAction(this.form.value);
 
-    if (this.type() == 'edit' && this.id) {
+   /* if (this.type() == 'edit' && this.id) {
       action = new UpdateTaxAction(this.form.value, this.id);
     }
-
+*/
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({
         complete: () => {

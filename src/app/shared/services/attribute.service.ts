@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { IAttributeModel, AttributeValueModel } from '../interface/attribute.interface';
 import { Params } from '../interface/core.interface';
 
@@ -14,11 +14,11 @@ export class AttributeService {
   private http = inject(HttpClient);
 
   getAttributes(payload?: Params): Observable<IAttributeModel> {
-    return this.http.get<IAttributeModel>(`${environment.URL}/attribute.json`, { params: payload });
+    return this.http.get<IAttributeModel>(`${URL}/attribute.json`, { params: payload });
   }
 
   getAttributeValues(payload?: Params): Observable<AttributeValueModel> {
-    return this.http.get<AttributeValueModel>(`${environment.URL}/attribute-value.json`, {
+    return this.http.get<AttributeValueModel>(`${URL}/attribute-value.json`, {
       params: payload,
     });
   }

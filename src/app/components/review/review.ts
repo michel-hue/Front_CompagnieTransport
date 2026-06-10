@@ -8,8 +8,8 @@ import {
   DeleteReviewAction,
   GetReviewsAction,
 } from '../../shared/action/review.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { Params } from '../../shared/interface/core.interface';
 import { IReview, IReviewModel } from '../../shared/interface/review.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -19,7 +19,7 @@ import { ReviewState } from '../../shared/state/review.state';
   selector: 'app-review',
   templateUrl: './review.html',
   styleUrls: ['./review.scss'],
-  imports: [PageWrapper, Table],
+  imports: [],
 })
 export class Review {
   private store = inject(Store);

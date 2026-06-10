@@ -14,7 +14,7 @@ import { AttachmentService } from '../services/attachment.service';
 import { NotificationService } from '../services/notification.service';
 
 export class AttachmentStateModel {
-  attachment: IAttachmentModel;
+  attachment: IAttachmentModel | null = null;
 }
 
 @State<AttachmentStateModel>({

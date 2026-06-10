@@ -1,3 +1,4 @@
+/*
 import { UpperCasePipe } from '@angular/common';
 import { Component, inject, input, output, TemplateRef, viewChild } from '@angular/core';
 
@@ -80,3 +81,4 @@ export class PayoutModal {
     }
   }
 }
+*/

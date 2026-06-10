@@ -1,3 +1,4 @@
+/*
 import { Component, TemplateRef, inject, viewChild, output, input } from '@angular/core';
 
 import {
@@ -137,3 +138,4 @@ export class MediaModal {
     }
   }
 }
+*/

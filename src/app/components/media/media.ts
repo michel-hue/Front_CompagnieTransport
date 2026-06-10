@@ -4,10 +4,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 
 import { DeleteAllAttachmentAction } from '../../shared/action/attachment.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { MediaBox } from '../../shared/components/ui/media-box/media-box';
-import { DeleteModal } from '../../shared/components/ui/modal/delete-modal/delete-modal';
-import { MediaModal } from '../../shared/components/ui/modal/media-modal/media-modal';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { MediaBox } from '../../shared/components/ui/media-box/media-box';
+//import { DeleteModal } from '../../shared/components/ui/modal/delete-modal/delete-modal';
+//import { MediaModal } from '../../shared/components/ui/modal/media-modal/media-modal';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { IAttachment } from '../../shared/interface/attachment.interface';
 
@@ -16,11 +16,11 @@ import { IAttachment } from '../../shared/interface/attachment.interface';
   templateUrl: './media.html',
   styleUrls: ['./media.scss'],
   imports: [
-    PageWrapper,
+  //  PageWrapper,
     HasPermissionDirective,
-    MediaBox,
-    MediaModal,
-    DeleteModal,
+   // MediaBox,
+ //   MediaModal,
+   // DeleteModal,
     TranslateModule,
   ],
 })
@@ -29,8 +29,8 @@ export class Media {
 
   public images: IAttachment[] = [];
 
-  readonly MediaModal = viewChild<MediaModal>('mediaModal');
-  readonly DeleteModal = viewChild<DeleteModal>('deleteModal');
+  //readonly MediaModal = viewChild<MediaModal>('mediaModal');
+  //readonly DeleteModal = viewChild<DeleteModal>('deleteModal');
 
   selectImage(data: IAttachment[]) {
     this.images = data;

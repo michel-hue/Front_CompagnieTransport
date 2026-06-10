@@ -1,3 +1,4 @@
+/*
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import {
   Component,
@@ -74,7 +75,7 @@ export class Table {
   // TODO: Skipped for migration because:
   //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
   //  and migrating would break narrowing currently.
-  @Input() tableConfig: ITableConfig;
+  @Input() tableConfig?: ITableConfig;
   // TODO: Skipped for migration because:
   //  Your application code writes to the input. This prevents migration.
   @Input() hasCheckbox: boolean = false;
@@ -106,8 +107,8 @@ export class Table {
   public permissions: string[] = [];
 
   public hoveredDate: NgbDate | null = null;
-  public fromDate: NgbDate | null;
-  public toDate: NgbDate | null;
+  public fromDate: NgbDate | null = null;
+  public toDate: NgbDate | null = null;
 
   constructor() {
     const config = inject(NgbRatingConfig);
@@ -124,17 +125,17 @@ export class Table {
 
   ngOnInit() {
     this.tableChanged.emit(this.tableData);
-    
+
     // Note: La vérification des permissions sur les rowActions est désactivée
     // car elle est gérée individuellement par la directive *hasPermission sur chaque action
     // Cela permet un contrôle plus granulaire et évite de vider tout le tableau
-    
+
     this.permissions$.subscribe(permission => {
       this.permissions = permission?.map((value: IPermission) => value?.name);
-      
+
       // Désactivé: cette logique vidait le tableau rowActions si l'utilisateur n'avait pas TOUTES les permissions
       // Maintenant, chaque action est vérifiée individuellement avec *hasPermission dans le template
-      /*
+      /!*
       const permissions = this.tableConfig?.rowActions
         ?.map(action => action?.permission)
         .filter(item => item != undefined);
@@ -144,8 +145,8 @@ export class Table {
       ) {
         this.tableConfig['rowActions'] = [];
       }
-      */
-      
+      *!/
+
       if (!this.hasPermission(['delete']) && !this.hasDuplicate()) {
         this.hasCheckbox = false;
       }
@@ -335,3 +336,4 @@ export class Table {
     this.onChangeTable(params, 'daterange');
   }
 }
+*/

@@ -9,7 +9,7 @@ import { NotificationService } from '../services/notification.service';
 import { ThemeOptionService } from '../services/theme-option.service';
 
 export class ThemeOptionStateModel {
-  theme_option: IOption | null;
+  theme_option: IOption | null = null;
 }
 
 @State<ThemeOptionStateModel>({

@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { ApiService } from '../../../tools/api.service';
+//import { ApiService } from '../../../tools/api.service';
 
 export interface LoginCredentials {
   username: string;
@@ -29,29 +29,31 @@ export interface ResetPasswordData {
   providedIn: 'root',
 })
 export class AuthDataService {
-  private api = inject(ApiService);
+  //private api = inject(ApiService);
 
   /**
    * Authentification utilisateur système
    * @param username - Numéro de téléphone (ex: +33123456789)
    * @param password - Mot de passe
    */
-  userAuthentication = async (username: string, password: string): Promise<LoginResponse> => {
+/*  userAuthentication = async (username: string, password: string): Promise<LoginResponse> => {
     const data: LoginCredentials = {
       username: username,
       password: password,
     };
-    return await lastValueFrom(this.api.postWithParams<LoginResponse>('auth/login', data));
-  };
+   // return await lastValueFrom(this.userAuthentication<LoginResponse>('auth/login', data));
+  };*/
 
   /**
    * Demande de réinitialisation du mot de passe
    * @param email - Email de l'utilisateur
    */
+
   forgotPassword = async (email: string): Promise<any> => {
     const data = { email };
-    return await lastValueFrom(this.api.postWithParams('auth/forgot-password', data));
+    //return await lastValueFrom(this.api.postWithParams('auth/forgot-password', data));
   };
+
 
   /**
    * Réinitialiser le mot de passe
@@ -63,7 +65,7 @@ export class AuthDataService {
       token,
       newPassword,
     };
-    return await lastValueFrom(this.api.postWithParams('auth/reset-password', data));
+   // return await lastValueFrom(this.api.postWithParams('auth/reset-password', data));
   };
 
   /**
@@ -72,21 +74,21 @@ export class AuthDataService {
    * @param newPassword - Nouveau mot de passe
    * @param confirmPassword - Confirmation du mot de passe
    */
-  changeFirstPassword = async (username: string, newPassword: string, confirmPassword: string): Promise<LoginResponse> => {
+/* changeFirstPassword = async (username: string, newPassword: string, confirmPassword: string): Promise<LoginResponse> => {
     const data = {
       username,
       newPassword,
       confirmPassword,
     };
-    return await lastValueFrom(this.api.postWithParams<LoginResponse>('auth/change-first-password', data));
-  };
+   // return await lastValueFrom(this.api.postWithParams<LoginResponse>('auth/change-first-password', data));
+  };*/
 
   /**
    * Vérifier la connexion Firebase côté API (email + token)
    */
   verifyFirebaseLogin = async (email: string, token: string): Promise<any> => {
     const data = { email, token };
-    return await lastValueFrom(this.api.postWithParams('public/vendors/verify-login', data));
+   // return await lastValueFrom(this.api.postWithParams('public/vendors/verify-login', data));
   };
 }
 

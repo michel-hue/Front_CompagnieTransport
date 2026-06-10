@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2Module, Select2UpdateEvent } from 'ng-select2-component';
+import { Select2Data,  Select2UpdateEvent } from 'ng-select2-component';
 import { Observable, Subject, of } from 'rxjs';
 import { map, mergeMap, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -21,9 +21,9 @@ import {
   EditStoreAction,
   UpdateStoreAction,
 } from '../../../shared/action/store.action';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
 import * as data from '../../../shared/data/country-code';
 import { IStores } from '../../../shared/interface/store.interface';
 import { CountryState } from '../../../shared/state/country.state';
@@ -37,10 +37,10 @@ import { CustomValidators } from '../../../shared/validator/password-match';
   styleUrls: ['./form-store.scss'],
   imports: [
     ReactiveFormsModule,
-    FormFields,
-    ImageUpload,
-    Select2Module,
-    Button,
+  //  FormFields,
+    //ImageUpload,
+   // Select2Module,
+   // Button,
     CommonModule,
     TranslateModule,
   ],
@@ -51,19 +51,19 @@ export class FormStore {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
 
-  readonly type = input<string>(undefined);
+ // readonly type = input<string>(undefined);
 
   countries$: Observable<Select2Data> = inject(Store).select(CountryState.countries);
   store$: Observable<IStores> = inject(Store).select(
     StoreState.selectedStore,
   ) as Observable<IStores>;
 
-  public states$: Observable<Select2Data>;
+  public states$!: Observable<Select2Data>;
 
   private destroy$ = new Subject<void>();
 
   public form: FormGroup;
-  public id: number;
+  public id!: number;
   public codes = data.countryCodes;
   public isBrowser: boolean;
 
@@ -146,7 +146,7 @@ export class FormStore {
       });
   }
 
-  countryChange(data: Select2UpdateEvent) {
+/*  countryChange(data: Select2UpdateEvent) {
     if (data && data?.value) {
       this.states$ = this.store
         .select(StateState.states)
@@ -155,7 +155,7 @@ export class FormStore {
     } else {
       this.form.controls['state_id'].setValue('');
     }
-  }
+  }*/
 
   selectStoreLogo(data: IAttachment) {
     if (!Array.isArray(data)) {
@@ -168,11 +168,11 @@ export class FormStore {
 
     let action = new CreateStoreAction(this.form.value);
 
-    if (this.type() == 'edit' && this.id) {
+   /* if (this.type() == 'edit' && this.id) {
       this.form.removeControl('password');
       this.form.removeControl('password_confirmation');
       action = new UpdateStoreAction(this.form.value, this.id);
-    }
+    }*/
 
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({

@@ -19,7 +19,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2Module, Select2UpdateEvent } from 'ng-select2-component';
+import { Select2Data,  Select2UpdateEvent } from 'ng-select2-component';
 import { Observable, map } from 'rxjs';
 
 import {
@@ -27,17 +27,17 @@ import {
   UpdateUserProfileAction,
   UpdateStoreDetailsAction,
 } from '../../shared/action/account.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Button } from '../../shared/components/ui/button/button';
-import { FormFields } from '../../shared/components/ui/form-fields/form-fields';
-import { ImageUpload } from '../../shared/components/ui/image-upload/image-upload';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Button } from '../../shared/components/ui/button/button';
+//import { FormFields } from '../../shared/components/ui/form-fields/form-fields';
+//import { ImageUpload } from '../../shared/components/ui/image-upload/image-upload';
 import * as data from '../../shared/data/country-code';
 import { IAccountUser } from '../../shared/interface/account.interface';
 import { IAttachment } from '../../shared/interface/attachment.interface';
 import { IStores } from '../../shared/interface/store.interface';
 import { AccountState } from '../../shared/state/account.state';
 import { CountryState } from '../../shared/state/country.state';
-import { StateState } from '../../shared/state/state.state';
+//import { StateState } from '../../shared/state/state.state';
 import { StoreState } from '../../shared/state/store.state';
 import { CustomValidators } from '../../shared/validator/password-match';
 
@@ -46,7 +46,7 @@ import { CustomValidators } from '../../shared/validator/password-match';
   templateUrl: './account.html',
   styleUrls: ['./account.scss'],
   imports: [
-    PageWrapper,
+   // PageWrapper,
     NgbNav,
     NgbNavItem,
     NgbNavItemRole,
@@ -54,10 +54,10 @@ import { CustomValidators } from '../../shared/validator/password-match';
     NgbNavLinkBase,
     NgbNavContent,
     ReactiveFormsModule,
-    FormFields,
-    ImageUpload,
-    Select2Module,
-    Button,
+    //FormFields,
+    //ImageUpload,
+   // Select2Module,
+   // Button,
     NgbNavOutlet,
     CommonModule,
     TranslateModule,
@@ -67,7 +67,8 @@ export class Account {
   private store = inject(Store);
   private formBuilder = inject(FormBuilder);
 
-  user$: Observable<IAccountUser> = inject(Store).select(AccountState.user);
+  user$: Observable<IAccountUser | null> =
+    inject(Store).select(AccountState.user);
   store$: Observable<IStores> = inject(Store).select(
     StoreState.selectedStore,
   ) as Observable<IStores>;
@@ -77,11 +78,11 @@ export class Account {
   ) as Observable<string>;
 
   public active = 'profile';
-  public profileForm: FormGroup;
+  public profileForm!: FormGroup;
   public passwordForm: FormGroup;
-  public form: FormGroup;
+  public form!: FormGroup;
   public codes = data.countryCodes;
-  public states$: Observable<Select2Data>;
+  public states$!: Observable<Select2Data>;
   public flicker: boolean = false;
   public isBrowser: boolean;
 
@@ -133,7 +134,7 @@ export class Account {
     );
   }
 
-  countryChange(data: Select2UpdateEvent) {
+  /*countryChange(data: Select2UpdateEvent) {
     if (data && data?.value) {
       this.states$ = this.store
         .select(StateState.states)
@@ -142,7 +143,7 @@ export class Account {
     } else {
       this.form.controls['state_id'].setValue('');
     }
-  }
+  }*/
 
   get passwordMatchError() {
     return (

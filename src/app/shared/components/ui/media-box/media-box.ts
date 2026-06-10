@@ -1,3 +1,4 @@
+/*
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -149,3 +150,4 @@ export class MediaBox {
     this.renderer.removeClass(this.document.body, 'loader-none');
   }
 }
+*/

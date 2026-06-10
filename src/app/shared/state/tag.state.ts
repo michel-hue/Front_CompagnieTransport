@@ -21,7 +21,7 @@ export class TagStateModel {
     data: [] as ITag[],
     total: 0,
   };
-  selectedTag: ITag | null;
+  selectedTag: ITag | null = null;
 }
 
 @State<TagStateModel>({

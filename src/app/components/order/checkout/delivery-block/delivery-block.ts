@@ -14,11 +14,11 @@ export class DeliveryBlock {
   // TODO: Skipped for migration because:
   //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
   //  and migrating would break narrowing currently.
-  readonly setting = input<IValues>(undefined);
+  //readonly setting = input<IValues>(undefined);
 
   readonly selectDelivery = output<IDeliveryBlock>();
 
-  public selectedIndex: number;
+  public selectedIndex!: number;
   public deliveryType: string | null = null;
   public delivery_description: string | null = null;
   public delivery_interval: string | null = null;

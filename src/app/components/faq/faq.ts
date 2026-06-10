@@ -11,8 +11,8 @@ import {
   GetFaqsAction,
   UpdateFaqStatusAction,
 } from '../../shared/action/faq.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { IFaq, IFaqModel } from '../../shared/interface/faq.interface';
@@ -23,7 +23,7 @@ import { FaqState } from '../../shared/state/faq.state';
   selector: 'app-faq',
   templateUrl: './faq.html',
   styleUrls: ['./faq.scss'],
-  imports: [PageWrapper, HasPermissionDirective, RouterModule, Table, TranslateModule],
+  imports: [ HasPermissionDirective, RouterModule, TranslateModule],
 })
 export class Faq {
   private store = inject(Store);

@@ -23,9 +23,9 @@ export class OrderStateModel {
     data: [] as IOrder[],
     total: 0,
   };
-  selectedOrder: IOrder | null;
-  selectedUser: IUser | null;
-  checkout: IOrderCheckout | null;
+  selectedOrder: IOrder | null = null;
+  selectedUser: IUser | null = null;
+  checkout: IOrderCheckout | null = null;
 }
 
 @State<OrderStateModel>({

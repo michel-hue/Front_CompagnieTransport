@@ -12,14 +12,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 
 import { LoginAction } from '../../../shared/action/auth.action';
-import { Alert } from '../../../shared/components/ui/alert/alert';
-import { Button } from '../../../shared/components/ui/button/button';
+//import { Alert } from '../../../shared/components/ui/alert/alert';
+//import { Button } from '../../../shared/components/ui/button/button';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
-  imports: [Alert, ReactiveFormsModule, RouterModule, TranslateModule, Button],
+  imports: [ ReactiveFormsModule, RouterModule, TranslateModule],
 })
 export class Login {
   private store = inject(Store);

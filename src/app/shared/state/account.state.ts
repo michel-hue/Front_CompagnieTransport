@@ -17,9 +17,9 @@ import { NotificationService } from '../services/notification.service';
 import { IAccountUser } from './../interface/account.interface';
 
 export class AccountStateModel {
-  user: IAccountUser | null;
-  permissions: IPermission[];
-  roleName: string | null;
+  user: IAccountUser | null = null;
+  permissions: IPermission[] = [];
+  roleName: string | null = null;
 }
 
 @State<AccountStateModel>({

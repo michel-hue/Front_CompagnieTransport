@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../public/environments/environment';
+
+
 
 export interface Configuration {
   id: number;
@@ -41,7 +42,7 @@ export interface ConfigurationUpdate {
 })
 export class ConfigurationService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/configuration`;
+  private apiUrl = `/configuration`;
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('accessToken');

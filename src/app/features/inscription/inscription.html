@@ -31,7 +31,7 @@
                   <p>Renseignez vos informations de contact pour générer un accès sécurisé.</p>
                 </div>
               </div>
-              
+
               <div class="mode-switch">
                 <button type="button" class="mode-btn" [class.active]="isEmailMode" (click)="selectMode('email')">
                   Email & mot de passe
@@ -45,29 +45,29 @@
                 <div class="social-box mb-3">
                   <p>Choisissez votre réseau social préféré pour vous authentifier.</p>
                   <div class="social-grid">
-                    @for (provider of socialProviders; track provider) {
-                      <button
+                   <!-- @for (provider of socialProviders; track provider) {
+                     &lt;!&ndash; <button
                         type="button"
                         class="social-btn"
                         [class.active]="accountForm.get('socialProvider')?.value === provider"
                         [disabled]="socialAuthLoading"
                         (click)="connectWithProvider(provider)"
-                      >
-                        <span class="icon">
+                      >&ndash;&gt;
+                       &lt;!&ndash; <span class="icon">
                           @if (socialAuthLoading && lastProviderAttempt === provider) {
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                           } @else {
                             <i class="ri-shield-user-line"></i>
                           }
-                        </span>
+                        </span>&ndash;&gt;
                         <span>{{ provider }}</span>
                       </button>
-                    }
+                    }-->
                   </div>
                   @if (socialAuthLoading) {
-                    <small class="text-muted d-block mt-2">
+                 <!--   <small class="text-muted d-block mt-2">
                       Connexion à {{ lastProviderAttempt }} en cours...
-                    </small>
+                    </small>-->
                   }
                   @if (accountForm.get('socialProvider')?.invalid && accountForm.get('socialProvider')?.touched) {
                     <small class="text-danger d-block mt-2">Sélectionnez un réseau social</small>
@@ -115,7 +115,7 @@
                   </small>
                 }
               </div>
-              
+
               @if (isEmailMode) {
                 <div class="row g-3 mt-1">
                   <div class="col-md-6">
@@ -133,7 +133,7 @@
                     }
                   </div>
                 </div>
-              }  
+              }
               <div class="row g-3 mt-1">
                 <div class="col-md-6">
                   <label class="form-label" [class.required]="isEmailMode">Prénom</label>
@@ -162,7 +162,7 @@
                 </div>
               </div>
 
-             
+
             </form>
           } @else if (currentStep === 1) {
             <form [formGroup]="storeForm" class="step-form">

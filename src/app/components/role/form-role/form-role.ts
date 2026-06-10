@@ -19,8 +19,8 @@ import {
   EditRoleAction,
   UpdateRoleAction,
 } from '../../../shared/action/role.action';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
 import { RoleState } from '../../../shared/state/role.state';
 import { Permissions } from '../permissions/permissions';
 
@@ -28,7 +28,7 @@ import { Permissions } from '../permissions/permissions';
   selector: 'app-form-role',
   templateUrl: './form-role.html',
   styleUrls: ['./form-role.scss'],
-  imports: [ReactiveFormsModule, FormFields, Permissions, Button, TranslateModule],
+  imports: [ReactiveFormsModule, Permissions, TranslateModule],
 })
 export class FormRole {
   private store = inject(Store);
@@ -36,11 +36,11 @@ export class FormRole {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
 
-  readonly type = input<String>(undefined);
+ // readonly type = input<String>(undefined);
 
   public form: FormGroup;
   public permissions: number[] = [];
-  public id: number;
+  public id!: number;
 
   private destroy$ = new Subject<void>();
 
@@ -87,9 +87,9 @@ export class FormRole {
     this.form.markAllAsTouched();
     let action = new CreateRoleAction(this.form.value);
 
-    if (this.type() == 'edit' && this.id) {
+  /*  if (this.type() == 'edit' && this.id) {
       action = new UpdateRoleAction(this.form.value, this.id);
-    }
+    }*/
 
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({

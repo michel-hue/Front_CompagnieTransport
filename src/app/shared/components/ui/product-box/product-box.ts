@@ -1,3 +1,4 @@
+/*
 import { Component, inject, input, viewChild } from '@angular/core';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,12 +26,12 @@ export class ProductBox {
   // TODO: Skipped for migration because:
   //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
   //  and migrating would break narrowing currently.
-  readonly product = input<IProduct>(undefined);
+  readonly product = input<IProduct>(ProductBox);
 
   cartItem$: Observable<ICart[]> = inject(Store).select(CartState.cartItems) as Observable<ICart[]>;
   readonly addToCartModal = viewChild<Addtocart>('addToCartModal');
 
-  public cartItem: ICart | null;
+  public cartItem: ICart | null = null;
 
   ngOnInit() {
     this.cartItem$.subscribe(items => {
@@ -50,3 +51,4 @@ export class ProductBox {
     this.store.dispatch(new AddToCartAction(params));
   }
 }
+*/

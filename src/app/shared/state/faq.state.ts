@@ -21,7 +21,7 @@ export class FaqStateModel {
     data: [] as IFaq[],
     total: 0,
   };
-  selectedFaq: IFaq | null;
+  selectedFaq: IFaq | null = null;
 }
 
 @State<FaqStateModel>({

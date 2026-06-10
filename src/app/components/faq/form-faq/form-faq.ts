@@ -13,8 +13,8 @@ import { Store } from '@ngxs/store';
 import { mergeMap, of, Subject, switchMap, takeUntil } from 'rxjs';
 
 import { CreateFaqAction, EditFaqAction, UpdateFaqAction } from '../../../shared/action/faq.action';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
 import { IFaq } from '../../../shared/interface/faq.interface';
 import { FaqState } from '../../../shared/state/faq.state';
 
@@ -22,7 +22,7 @@ import { FaqState } from '../../../shared/state/faq.state';
   selector: 'app-form-faq',
   templateUrl: './form-faq.html',
   styleUrls: ['./form-faq.scss'],
-  imports: [ReactiveFormsModule, FormFields, Button, TranslateModule],
+  imports: [ReactiveFormsModule,  TranslateModule],
 })
 export class FormFaq {
   private store = inject(Store);
@@ -30,10 +30,10 @@ export class FormFaq {
   private route = inject(ActivatedRoute);
   private formBuilder = inject(FormBuilder);
 
-  readonly type = input<string>(undefined);
+  //readonly type = input<string>(undefined);
 
   public form: FormGroup;
-  public faq: IFaq | null;
+  public faq: IFaq | null = null;
 
   private destroy$ = new Subject<void>();
 
@@ -70,9 +70,9 @@ export class FormFaq {
     this.form.markAllAsTouched();
     let action = new CreateFaqAction(this.form.value);
 
-    if (this.type() == 'edit' && this.faq?.id) {
+ /*   if (this.type() == 'edit' && this.faq?.id) {
       action = new UpdateFaqAction(this.form.value, this.faq.id);
-    }
+    }*/
 
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({

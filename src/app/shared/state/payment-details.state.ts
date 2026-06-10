@@ -12,7 +12,7 @@ import { NotificationService } from '../services/notification.service';
 import { PaymentDetailsService } from '../services/payment-details.service';
 
 export class PaymentDetailsStateModel {
-  paymentDetails: IPaymentDetails | null;
+  paymentDetails: IPaymentDetails | null = null;
 }
 
 @State<PaymentDetailsStateModel>({

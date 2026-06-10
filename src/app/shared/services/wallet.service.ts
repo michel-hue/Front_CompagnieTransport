@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { IWallet } from '../interface/wallet.interface';
 
@@ -14,6 +14,6 @@ export class WalletService {
   private http = inject(HttpClient);
 
   getUserTransaction(payload?: Params): Observable<IWallet> {
-    return this.http.get<IWallet>(`${environment.URL}/wallet.json`, { params: payload });
+    return this.http.get<IWallet>(`${URL}/wallet.json`, { params: payload });
   }
 }

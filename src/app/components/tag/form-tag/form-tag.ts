@@ -14,8 +14,8 @@ import { Subject, of } from 'rxjs';
 import { switchMap, mergeMap, takeUntil } from 'rxjs/operators';
 
 import { CreateTagAction, EditTagAction, UpdateTagAction } from '../../../shared/action/tag.action';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
 import { ITag } from '../../../shared/interface/tag.interface';
 import { TagState } from '../../../shared/state/tag.state';
 
@@ -23,7 +23,7 @@ import { TagState } from '../../../shared/state/tag.state';
   selector: 'app-form-tag',
   templateUrl: './form-tag.html',
   styleUrls: ['./form-tag.scss'],
-  imports: [ReactiveFormsModule, FormFields, Button, TranslateModule],
+  imports: [ReactiveFormsModule, TranslateModule],
 })
 export class FormTag {
   private store = inject(Store);
@@ -31,11 +31,11 @@ export class FormTag {
   private route = inject(ActivatedRoute);
   private formBuilder = inject(FormBuilder);
 
-  readonly type = input<string>(undefined);
+ // readonly type = input<string>(undefined);
   readonly tagType = input<string | null>('product');
 
   public form: FormGroup;
-  public tag: ITag | null;
+  public tag: ITag | null = null;
 
   private destroy$ = new Subject<void>();
 
@@ -77,9 +77,9 @@ export class FormTag {
     this.form.markAllAsTouched();
     let action = new CreateTagAction(this.form.value);
 
-    if (this.type() == 'edit' && this.tag?.id) {
+    /*if (this.type() == 'edit' && this.tag?.id) {
       action = new UpdateTagAction(this.form.value, this.tag.id);
-    }
+    }*/
 
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({

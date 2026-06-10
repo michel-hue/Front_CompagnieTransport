@@ -14,7 +14,7 @@ import { FormShipping } from '../../form-shipping/form-shipping';
 export class ShippingRuleModal {
   private modalService = inject(NgbModal);
 
-  public closeResult: string;
+  public closeResult?: string;
   public modalOpen: boolean = false;
 
   readonly CreateShippingRuleModal = viewChild<TemplateRef<string>>('createShippingRuleModal');

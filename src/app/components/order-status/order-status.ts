@@ -5,8 +5,8 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { GetOrderStatusAction } from '../../shared/action/order-status.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { Params } from '../../shared/interface/core.interface';
 import { IOrderStatus, IOrderStatusModel } from '../../shared/interface/order-status.interface';
 import { ITableConfig } from '../../shared/interface/table.interface';
@@ -16,7 +16,7 @@ import { OrderStatusState } from '../../shared/state/order-status.state';
   selector: 'app-order-status',
   templateUrl: './order-status.html',
   styleUrls: ['./order-status.scss'],
-  imports: [PageWrapper, Table],
+  imports: [],
 })
 export class OrderStatus {
   private store = inject(Store);

@@ -17,7 +17,7 @@ export class CurrencySymbolPipe implements PipeTransform {
   setting$: Observable<IValues> = inject(Store).select(SettingState.setting) as Observable<IValues>;
 
   public symbol: string = '$';
-  public setting: IValues;
+  public setting: IValues | null = null;
 
   constructor() {
     this.setting$.subscribe(setting => (this.setting = setting));

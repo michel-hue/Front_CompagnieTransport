@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { IReviewModel } from '../interface/review.interface';
 
@@ -14,6 +14,6 @@ export class ReviewService {
   private http = inject(HttpClient);
 
   getReviews(payload?: Params): Observable<IReviewModel> {
-    return this.http.get<IReviewModel>(`${environment.URL}/review.json`, { params: payload });
+    return this.http.get<IReviewModel>(`${URL}/review.json`, { params: payload });
   }
 }

@@ -13,14 +13,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 
 import { UpdatePasswordActionAction } from '../../../shared/action/auth.action';
-import { Alert } from '../../../shared/components/ui/alert/alert';
-import { Button } from '../../../shared/components/ui/button/button';
+//import { Alert } from '../../../shared/components/ui/alert/alert';
+//import { Button } from '../../../shared/components/ui/button/button';
 
 @Component({
   selector: 'app-update-password',
   templateUrl: './update-password.html',
   styleUrls: ['./update-password.scss'],
-  imports: [Alert, ReactiveFormsModule, NgClass, Button, TranslateModule],
+  imports: [ ReactiveFormsModule, NgClass,  TranslateModule],
 })
 export class UpdatePassword {
   private store = inject(Store);

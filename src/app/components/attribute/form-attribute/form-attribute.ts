@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2Module } from 'ng-select2-component';
+import { Select2Data,  } from 'ng-select2-component';
 import { Subject, of } from 'rxjs';
 import { mergeMap, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -21,15 +21,15 @@ import {
   EditAttributeAction,
   UpdateAttributeAction,
 } from '../../../shared/action/attribute.action';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
 import { AttributeState } from '../../../shared/state/attribute.state';
 
 @Component({
   selector: 'app-form-attribute',
   templateUrl: './form-attribute.html',
   styleUrls: ['./form-attribute.scss'],
-  imports: [ReactiveFormsModule, FormFields, Select2Module, Button, TranslateModule],
+  imports: [ReactiveFormsModule,  TranslateModule],
 })
 export class FormAttribute {
   private store = inject(Store);
@@ -37,11 +37,11 @@ export class FormAttribute {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
 
-  readonly type = input<string>(undefined);
+  //readonly type = input<string>(undefined);
 
   public form: FormGroup;
   public documents = [{ value: '', hex_color: '', id: '' }];
-  public id: number;
+  public id!: number;
   public isBrowser: boolean;
 
   private destroy$ = new Subject<void>();
@@ -120,7 +120,7 @@ export class FormAttribute {
         );
       });
 
-    if (this.type() == 'create') {
+   /* if (this.type() == 'create') {
       this.documents.forEach(document =>
         this.valueControl.push(
           this.formBuilder.group({
@@ -130,7 +130,7 @@ export class FormAttribute {
           }),
         ),
       );
-    }
+    }O*/
   }
 
   add(event: Event) {
@@ -156,10 +156,10 @@ export class FormAttribute {
     this.form.markAllAsTouched();
     let action = new CreateAttributeAction(this.form.value);
 
-    if (this.type() == 'edit' && this.id) {
+   /* if (this.type() == 'edit' && this.id) {
       action = new UpdateAttributeAction(this.form.value, this.id);
     }
-
+*/
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({
         complete: () => {

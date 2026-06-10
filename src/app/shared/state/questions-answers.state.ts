@@ -19,7 +19,7 @@ export class QuestionAnswersStateModel {
     data: [] as IQuestionAnswers[],
     total: 0,
   };
-  selectedQuestion: IQuestionAnswers | null;
+  selectedQuestion: IQuestionAnswers | null = null;
 }
 
 @State<QuestionAnswersStateModel>({

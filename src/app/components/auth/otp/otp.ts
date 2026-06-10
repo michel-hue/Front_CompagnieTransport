@@ -12,14 +12,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 
 import { VerifyEmailOtpAction } from '../../../shared/action/auth.action';
-import { Alert } from '../../../shared/components/ui/alert/alert';
-import { Button } from '../../../shared/components/ui/button/button';
+//import { Alert } from '../../../shared/components/ui/alert/alert';
+//import { Button } from '../../../shared/components/ui/button/button';
 
 @Component({
   selector: 'app-otp',
   templateUrl: './otp.html',
   styleUrls: ['./otp.scss'],
-  imports: [Alert, ReactiveFormsModule, Button, TranslateModule],
+  imports: [ReactiveFormsModule,  TranslateModule],
 })
 export class Otp {
   router = inject(Router);
@@ -28,7 +28,7 @@ export class Otp {
 
   public form: FormGroup;
   public email: string;
-  public loading: boolean;
+  public loading!: boolean;
 
   constructor() {
     this.email = this.store.selectSnapshot(state => state.auth.email);

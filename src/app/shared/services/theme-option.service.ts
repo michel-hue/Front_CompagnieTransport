@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { IThemeOption } from '../interface/theme-option.interface';
 
 @Injectable({
@@ -13,6 +13,6 @@ export class ThemeOptionService {
   private http = inject(HttpClient);
 
   getThemeOption(): Observable<IThemeOption> {
-    return this.http.get<IThemeOption>(`${environment.URL}/theme-option.json`);
+    return this.http.get<IThemeOption>(`${URL}/theme-option.json`);
   }
 }

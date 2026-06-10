@@ -28,7 +28,7 @@ import {
   ApexXAxis,
   ApexYAxis,
 } from 'ng-apexcharts';
-import { Select2Data, Select2Module, Select2UpdateEvent } from 'ng-select2-component';
+import { Select2Data,  Select2UpdateEvent } from 'ng-select2-component';
 import { Observable } from 'rxjs';
 
 import { GetBlogsAction } from '../../shared/action/blog.action';
@@ -41,8 +41,8 @@ import { GetOrdersAction } from '../../shared/action/order.action';
 import { GetProductsAction } from '../../shared/action/product.action';
 import { GetReviewsAction } from '../../shared/action/review.action';
 import { GetStoresAction } from '../../shared/action/store.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { IAccountUser } from '../../shared/interface/account.interface';
 import { IBlogModel } from '../../shared/interface/blog.interface';
@@ -87,10 +87,10 @@ export interface ChartOptions {
   styleUrls: ['./dashboard.scss'],
   providers: [CurrencySymbolPipe],
   imports: [
-    PageWrapper,
+  //  PageWrapper,
     HasPermissionDirective,
-    Select2Module,
-    Table,
+    //Select2Module,
+  //  Table,
     RouterModule,
     NgbRating,
     CommonModule,
@@ -120,7 +120,7 @@ export class Dashboard {
   blog$: Observable<IBlogModel> = inject(Store).select(BlogState.blog);
   category$: Observable<Select2Data> = inject(Store).select(CategoryState.categories);
   store$: Observable<IStoresModel> = inject(Store).select(StoreState.store);
-  user$: Observable<IAccountUser> = inject(Store).select(AccountState.user);
+  //user$: Observable<IAccountUser> = inject(Store).select(AccountState.user);
   readonly chart = viewChild.required<ElementRef>('chart');
   public chartOptions!: Partial<ChartOptions>;
 
@@ -360,14 +360,14 @@ export class Dashboard {
     });
   }
 
-  async ngAfterViewInit() {
+ /* async ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       const ApexCharts = (await import('apexcharts')).default;
       const element = this.chart().nativeElement;
-      var chart = new ApexCharts(element, this.chartOptions);
+   //   var chart = new ApexCharts(element, this.chartOptions);
       void chart.render();
     }
-  }
+  }*/
 
   ngOnInit() {
     this.store.dispatch(new GetStatisticsCountAction());

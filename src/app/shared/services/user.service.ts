@@ -3,7 +3,6 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
 import { Params } from '../interface/core.interface';
 import { IUserModel } from '../interface/user.interface';
 
@@ -14,6 +13,6 @@ export class UserService {
   private http = inject(HttpClient);
 
   getUsers(payload?: Params): Observable<IUserModel> {
-    return this.http.get<IUserModel>(`${environment.URL}/user.json`, { params: payload });
+    return this.http.get<IUserModel>(`${URL}/user.json`, { params: payload });
   }
 }

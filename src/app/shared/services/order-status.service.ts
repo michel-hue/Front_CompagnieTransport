@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { IOrderStatusModel } from '../interface/order-status.interface';
 
@@ -14,7 +14,7 @@ export class OrderStatusService {
   private http = inject(HttpClient);
 
   getOrderStatus(payload?: Params): Observable<IOrderStatusModel> {
-    return this.http.get<IOrderStatusModel>(`${environment.URL}/order-status.json`, {
+    return this.http.get<IOrderStatusModel>(`${URL}/order-status.json`, {
       params: payload,
     });
   }

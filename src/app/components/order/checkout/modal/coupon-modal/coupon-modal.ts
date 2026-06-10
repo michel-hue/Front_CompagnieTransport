@@ -11,7 +11,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class CouponModal {
   private modalService = inject(NgbModal);
 
-  public closeResult: string;
+  public closeResult?: string;
   public modalOpen: boolean = false;
 
   readonly CouponModal = viewChild<TemplateRef<string>>('couponModal');

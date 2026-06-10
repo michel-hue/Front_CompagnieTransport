@@ -11,8 +11,8 @@ import {
   GetTagsAction,
   UpdateTagStatusAction,
 } from '../../shared/action/tag.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -23,7 +23,7 @@ import { TagState } from '../../shared/state/tag.state';
   selector: 'app-tag',
   templateUrl: './tag.html',
   styleUrls: ['./tag.scss'],
-  imports: [PageWrapper, HasPermissionDirective, RouterModule, Table, TranslateModule],
+  imports: [HasPermissionDirective, RouterModule,  TranslateModule],
 })
 export class Tag {
   private store = inject(Store);

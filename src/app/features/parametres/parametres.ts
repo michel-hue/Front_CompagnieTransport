@@ -11,7 +11,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
 import { CategoriesComponent } from './components/categories/categories';
 
 @Component({
@@ -19,7 +19,7 @@ import { CategoriesComponent } from './components/categories/categories';
   templateUrl: './parametres.html',
   styleUrls: ['./parametres.scss'],
   imports: [
-    PageWrapper,
+   // PageWrapper,
     NgbNav,
     NgbNavItem,
     NgbNavItemRole,

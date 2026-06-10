@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { Table } from '../../../../shared/components/ui/table/table';
+//import { Table } from '../../../../shared/components/ui/table/table';
 import { Params } from '../../../../shared/interface/core.interface';
 import { ITableClickedAction, ITableConfig } from '../../../../shared/interface/table.interface';
 import { CategorieDataService, Categorie } from './data-access';
-import { ConfirmModalComponent } from '../../../../tools/confirm-modal/confirm-modal';
+//import { ConfirmModalComponent } from '../../../../tools/confirm-modal/confirm-modal';
 import { ModalFormCategorieComponent } from './modals/form-categorie/modal-form-categorie';
 import { SimpleDescriptionModalComponent } from './modals/simple-description/simple-description-modal';
 import { ErrorHandlerService } from '../../../../tools/error-handler.service';
@@ -17,14 +17,14 @@ import { ErrorHandlerService } from '../../../../tools/error-handler.service';
   templateUrl: './categories.html',
   styleUrls: ['./categories.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, Table, TranslateModule, ConfirmModalComponent, ModalFormCategorieComponent, SimpleDescriptionModalComponent],
+  imports: [CommonModule, FormsModule,  TranslateModule,  ModalFormCategorieComponent, SimpleDescriptionModalComponent],
 })
 export class CategoriesComponent {
   private categorieDataService = inject(CategorieDataService);
   private errorHandler = inject(ErrorHandlerService);
   private translate = inject(TranslateService);
-  
-  readonly confirmModal = viewChild<ConfirmModalComponent>('confirmModal');
+
+  //readonly confirmModal = viewChild<ConfirmModalComponent>('confirmModal');
   readonly formModal = viewChild<ModalFormCategorieComponent>('formModal');
   readonly descriptionModal = viewChild<SimpleDescriptionModalComponent>('descriptionModal');
 
@@ -45,12 +45,12 @@ export class CategoriesComponent {
   ngOnInit() {
     // Initialiser la config du tableau avec les traductions
     this.initTableConfig();
-    
+
     // S'abonner aux changements de langue
     this.translate.onLangChange.subscribe(() => {
       this.initTableConfig();
     });
-    
+
     // Le chargement sera déclenché automatiquement par le Table
   }
 
@@ -60,21 +60,21 @@ export class CategoriesComponent {
   private initTableConfig(): void {
     const currentData = this.tableConfig.data || [];
     const currentTotal = this.tableConfig.total || 0;
-    
+
     this.tableConfig = {
       columns: [
         { title: this.translate.instant('category_code'), dataField: 'code', sortable: true, sort_direction: 'desc' },
         { title: this.translate.instant('category_name'), dataField: 'name', sortable: true },
         { title: this.translate.instant('parent_category'), dataField: 'parent_name', sortable: false },
-        { 
-          title: this.translate.instant('visible'), 
-          dataField: 'is_visible', 
+        {
+          title: this.translate.instant('visible'),
+          dataField: 'is_visible',
           type: 'switch',
           sortable: false
         },
-        { 
-          title: this.translate.instant('featured'), 
-          dataField: 'is_featured', 
+        {
+          title: this.translate.instant('featured'),
+          dataField: 'is_featured',
           type: 'switch',
           sortable: false
         },
@@ -102,12 +102,12 @@ export class CategoriesComponent {
   loadCategories(params?: Params): void {
     const page = params?.['page'] || 1;
     const limit = params?.['perPage'] || 10;
-    
+
     // Utiliser setTimeout pour éviter ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
       this.loading = true;
     });
-    
+
     // Ajouter le filtre parentid selon le type sélectionné
     let parentidFilter: string | undefined = undefined;
     if (this.filterType === 'parent') {
@@ -115,8 +115,8 @@ export class CategoriesComponent {
     } else if (this.filterType === 'child') {
       parentidFilter = 'notnull'; // Sous-catégories (avec parent)
     }
-    
-    this.categorieDataService.getAllCategories(page, limit, undefined, parentidFilter).subscribe({
+
+    this.categorieDataService.getAllCategories().subscribe({
       next: (response) => {
         // Transformer les données pour afficher "Pas de parent" et convertir booléens en '1'/'0' pour switches
         const transformedData = response.data.map(cat => ({
@@ -125,17 +125,17 @@ export class CategoriesComponent {
           is_visible: cat.is_visible ? '1' : '0',
           is_featured: cat.is_featured ? '1' : '0',
         }));
-        
+
         // Stocker les catégories pour accès ultérieur
         this.categories = transformedData;
-        
+
         // Mettre à jour les données du tableau
         this.tableConfig = {
           ...this.tableConfig,
           data: transformedData,
           total: response.meta.total,
         };
-        
+
         this.loading = false;
       },
       error: (error) => {
@@ -167,7 +167,7 @@ export class CategoriesComponent {
     } else if (action.actionToPerform === 'edit') {
       this.edit(action.data);
     } else if (action.actionToPerform === 'custom-delete') {
-      void this.delete(action.data);
+      //void this.delete(action.data);
     }
   }
 
@@ -202,7 +202,7 @@ export class CategoriesComponent {
   /**
    * Supprimer une catégorie
    */
-  async delete(data: Categorie): Promise<void> {
+ /* async delete(data: Categorie): Promise<void> {
     const confirmed = await this.confirmModal()?.openModal({
       title: 'Supprimer la catégorie',
       message: `Êtes-vous sûr de vouloir supprimer la catégorie "${data.name}" ?`,
@@ -218,7 +218,7 @@ export class CategoriesComponent {
     if (confirmed) {
       // Utiliser l'id (UUID) au lieu de categorieid
       const categoryId = String(data.id || data.categorieid);
-      this.categorieDataService.deleteCategorie(categoryId).subscribe({
+      this.categorieDataService.deleteCategorie().subscribe({
         next: () => {
           this.errorHandler.handleSuccess(
             `La catégorie "${data.name}" a été supprimée avec succès`,
@@ -232,7 +232,7 @@ export class CategoriesComponent {
       });
     }
   }
-
+*/
   /**
    * Afficher le modal de description
    */

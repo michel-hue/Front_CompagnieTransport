@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { IAccountUser } from '../interface/account.interface';
 
 @Injectable({
@@ -13,6 +13,6 @@ export class AccountService {
   private http = inject(HttpClient);
 
   getUserDetails(): Observable<IAccountUser> {
-    return this.http.get<IAccountUser>(`${environment.URL}/account.json`);
+    return this.http.get<IAccountUser>(`${URL}/account.json`);
   }
 }

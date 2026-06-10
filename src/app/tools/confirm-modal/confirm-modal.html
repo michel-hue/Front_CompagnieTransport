@@ -1,3 +1,4 @@
+<!--
 <ng-template #confirmModal let-modal>
   <div class="modal-body">
     <i [class]="config.iconClass + ' ' + config.icon"></i>
@@ -5,7 +6,7 @@
     <p class="modal-message">{{ config.message }}</p>
     <div class="button-box">
       <app-button
-        [class]="config.cancelButtonClass"
+        [class]="config.cancelButtonClass || ''"
         [spinner]="false"
         [id]="'confirm_no_btn'"
         (click)="cancel()"
@@ -13,7 +14,7 @@
         {{ config.cancelText }}
       </app-button>
       <app-button
-        [class]="config.confirmButtonClass"
+        [class]="config.cancelButtonClass || ''"
         [id]="'confirm_yes_btn'"
         (click)="confirm()"
       >
@@ -23,3 +24,4 @@
   </div>
 </ng-template>
 
+-->

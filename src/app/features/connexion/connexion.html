@@ -2,13 +2,13 @@
   <div class="container w-100">
     <div class="row">
       <div class="col-xl-5 col-lg-6 me-auto">
-        <app-alert />
+<!--        <app-alert />-->
         <div class="log-in-box">
           <div class="log-in-title">
             <div class="logo-section mb-4">
-              <img 
-                src="assets/images/logo_principal.png" 
-                alt="Seller App" 
+              <img
+                src="assets/images/logo_principal.png"
+                alt="Seller App"
                 class="seller-logo"
               />
             </div>
@@ -27,7 +27,7 @@
             <div class="social-box mb-3">
               <p class="mb-2">Ou continuer avec</p>
               <div class="d-flex gap-2 flex-wrap">
-                <button
+               <!-- <button
                   type="button"
                   class="btn btn-outline-secondary d-inline-flex align-items-center gap-2"
                   (click)="connectWithProvider('Google')"
@@ -65,7 +65,7 @@
                     <i class="ri-music-2-line"></i>
                   }
                   TikTok
-                </button>
+                </button>-->
               </div>
               @if (socialError) {
                 <small class="text-danger d-block mt-2">
@@ -74,7 +74,7 @@
               }
             </div>
 
-            <form class="row g-4" [formGroup]="form" (ngSubmit)="submit();">
+            <form class="row g-4" [formGroup]="form">
               <div class="col-12">
                 <div class="form-floating theme-form-floating log-in-form">
                   <input
@@ -141,7 +141,7 @@
               <span class="text-muted me-1">Pas encore de compte ?</span>
               <a class="link-seller" [routerLink]="['/inscription']">S'inscrire</a>
             </div>
-                
+
                 @if (getHelpMessage()) {
                 <div class="form-help-text mt-2">
                   <small class="text-muted">
@@ -157,10 +157,10 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Modal de changement de mot de passe (première connexion) -->
   <app-change-password-modal #changePasswordModal />
-  
+
   <!-- Modal de mot de passe oublié -->
   <app-forgot-password-modal #forgotPasswordModal />
 </section>

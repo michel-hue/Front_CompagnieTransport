@@ -1,3 +1,4 @@
+/*
 import { NgClass } from '@angular/common';
 import { Component, Input, output, SimpleChanges } from '@angular/core';
 
@@ -103,3 +104,4 @@ export class Pagination {
     };
   }
 }
+*/

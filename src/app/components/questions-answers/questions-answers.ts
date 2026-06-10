@@ -10,8 +10,8 @@ import {
   DeleteQuestionAnswersAction,
   GetQuestionAnswersAction,
 } from '../../shared/action/questions-answers.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { IQnAModel, IQuestionAnswers } from '../../shared/interface/questions-answers.interface';
 import { IStores } from '../../shared/interface/store.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -21,7 +21,7 @@ import { QuestionAnswersState } from '../../shared/state/questions-answers.state
   selector: 'app-questions-answers',
   templateUrl: './questions-answers.html',
   styleUrls: ['./questions-answers.scss'],
-  imports: [PageWrapper, Table, AnswersModal],
+  imports: [ AnswersModal],
 })
 export class QuestionsAnswers {
   private store = inject(Store);
@@ -69,11 +69,11 @@ export class QuestionsAnswers {
     this.store.dispatch(new GetQuestionAnswersAction(data!));
   }
 
-  onActionClicked(action: ITableClickedAction) {
+/*  onActionClicked(action: ITableClickedAction) {
     if (action.actionToPerform == 'edit') void this.AnswersModal().openModal(action.data);
     else if (action.actionToPerform == 'delete') this.delete(action.data);
     else if (action.actionToPerform == 'deleteAll') this.deleteAll(action.data);
-  }
+  }*/
 
   delete(data: IStores) {
     this.store.dispatch(new DeleteQuestionAnswersAction(data.id));

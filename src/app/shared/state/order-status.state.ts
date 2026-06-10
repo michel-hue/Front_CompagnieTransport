@@ -12,7 +12,7 @@ export class OrderStatusStateModel {
     data: [] as IOrderStatus[],
     total: 0,
   };
-  selectedOrderStatus: IOrderStatus | null;
+  selectedOrderStatus: IOrderStatus | null = null;
 }
 
 @State<OrderStatusStateModel>({

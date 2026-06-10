@@ -64,7 +64,7 @@ export class ChangePasswordModalComponent {
    */
   async submit() {
     this.form.markAllAsTouched();
-    
+
     if (this.form.invalid) {
       return;
     }
@@ -81,17 +81,17 @@ export class ChangePasswordModalComponent {
     this.errorMessage = '';
 
     try {
-      const response = await this.authDataService.changeFirstPassword(
+    /*  const response = await this.authDataService.changeFirstPassword(
         this.username,
         newPassword,
         confirmPassword
-      );
+      );*/
 
-      if (response?.data) {
+   /*   if (response?.data) {
         this.modalRef?.close(response.data);
       } else {
         this.errorMessage = 'Erreur lors du changement de mot de passe';
-      }
+      }*/
     } catch (error: any) {
       console.error('Erreur changement mot de passe:', error);
       this.errorMessage = error?.message || 'Erreur lors du changement de mot de passe';

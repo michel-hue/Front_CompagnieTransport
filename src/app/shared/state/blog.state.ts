@@ -21,7 +21,7 @@ export class BlogStateModel {
     data: [] as IBlog[],
     total: 0,
   };
-  selectedBlog: IBlog | null;
+  selectedBlog: IBlog | null = null;
 }
 
 @State<BlogStateModel>({

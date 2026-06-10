@@ -1,3 +1,4 @@
+<!--
 @if (topbar()) {
 <div class="show-box">
   <div class="selection-box">
@@ -20,14 +21,14 @@
     <a
       href="javascript:void(0)"
       class="align-items-center btn btn-outline btn-sm d-flex"
-      (click)="ConfirmationModal().openModal('duplicate', selected); 
+      (click)="ConfirmationModal().openModal('duplicate', selected);
                      $event.preventDefault(); $event.stopPropagation()"
     >
       <i [class]="'ri-file-copy-line'"></i> {{ 'duplicate' | translate }}
     </a>
     }
   </div>
-  <!-- <div class="role-search"> -->
+  &lt;!&ndash; <div class="role-search"> &ndash;&gt;
   <div class="datepicker-wrap">
     @if (dateRange()) {
     <div class="dp-hidden position-absolute custom-dp-dropdown">
@@ -109,7 +110,7 @@
     <label for="role-search" class="form-label">{{ 'search' | translate }} :</label>
     <input type="search" class="form-control" id="role-search" [formControl]="term" />
   </div>
-  <!-- </div> -->
+  &lt;!&ndash; </div> &ndash;&gt;
 </div>
 }
 <div>
@@ -202,8 +203,8 @@
                 'name'].charAt(0).toString().toUpperCase() || 'F' }}
               </h4>
             </div>
-            } }             } @else { @if (columnHead?.type && columnHead?.type === 'order-status-badge') { 
-            <span 
+            } }             } @else { @if (columnHead?.type && columnHead?.type === 'order-status-badge') {
+            <span
               class="badge text-uppercase"
               [ngClass]="{
                 'bg-warning text-dark': columnData[columnHead?.dataField.toString()] === 'pending',
@@ -225,8 +226,8 @@
                   [disabled]="columnData['system_reserve'] === '1' || !hasPermission(['edit'])"
                   [value]="columnData[columnHead?.dataField.toString()] === '1' || columnData[columnHead?.dataField.toString()] === true ? 0 : 1"
                   [checked]="columnData[columnHead?.dataField.toString()] === '1' || columnData[columnHead?.dataField.toString()] === true"
-                  (click)="ConfirmationModal().openModal(columnHead?.dataField.toString(), columnData, 
-                                                        columnData[columnHead?.dataField.toString()] === '1' || columnData[columnHead?.dataField.toString()] === true ? 0 : 1); 
+                  (click)="ConfirmationModal().openModal(columnHead?.dataField.toString(), columnData,
+                                                        columnData[columnHead?.dataField.toString()] === '1' || columnData[columnHead?.dataField.toString()] === true ? 0 : 1);
                                                         $event.preventDefault(); $event.stopPropagation()"
                 />
                 <span
@@ -235,8 +236,8 @@
                 ></span>
               </label>
             </div>
-            } @else { @if (columnHead?.type && columnHead?.type === 'badge') { 
-            <span 
+            } @else { @if (columnHead?.type && columnHead?.type === 'badge') {
+            <span
               class="badge"
               [ngClass]="{
                 'badge-success': columnData[columnHead?.dataField.toString()] === 'Actif',
@@ -246,16 +247,16 @@
             >
               {{ columnData[columnHead?.dataField.toString()] }}
             </span>
-            } @else { @if (columnHead?.type && columnHead?.type === 'colored-badge') { 
-            <span 
+            } @else { @if (columnHead?.type && columnHead?.type === 'colored-badge') {
+            <span
               class="badge badge-colored"
               [style.background-color]="columnHead?.colorField ? columnData[columnHead?.colorField] : '#3B82F6'"
               [style.color]="'#ffffff'"
             >
               {{ columnData[columnHead?.dataField.toString()] || 'Sans catégorie' }}
             </span>
-            } @else { @if (columnHead?.type && columnHead?.type === 'number-badge') { 
-            <span 
+            } @else { @if (columnHead?.type && columnHead?.type === 'number-badge') {
+            <span
               class="badge"
               [ngClass]="{
                 'badge-success': columnData[columnHead?.dataField.toString()] > 0,
@@ -276,8 +277,8 @@
               placement="top"
               container="body"
             >
-              {{ columnData[columnHead?.dataField.toString()]?.length > columnHead.maxLength 
-                 ? (columnData[columnHead?.dataField.toString()] | slice:0:columnHead.maxLength) + '...' 
+              {{ columnData[columnHead?.dataField.toString()]?.length > columnHead.maxLength
+                 ? (columnData[columnHead?.dataField.toString()] | slice:0:columnHead.maxLength) + '...'
                  : columnData[columnHead?.dataField.toString()] }}
             </span>
             } @else {
@@ -287,11 +288,11 @@
           } @if (tableConfig?.rowActions?.length) {
           <td>
             @if (tableConfig?.actionsDropdown) {
-              <!-- Dropdown pour les actions -->
+              &lt;!&ndash; Dropdown pour les actions &ndash;&gt;
               <div class="dropdown" ngbDropdown container="body">
-                <button 
-                  class="btn btn-sm btn-light dropdown-toggle" 
-                  type="button" 
+                <button
+                  class="btn btn-sm btn-light dropdown-toggle"
+                  type="button"
                   ngbDropdownToggle
                   [disabled]="columnData['system_reserve'] === '1'"
                 >
@@ -307,11 +308,11 @@
                     @for (action of tableConfig?.rowActions; track action) {
                       @if (!action.hideWhen || !action.hideWhen(columnData)) {
                         <ng-container *hasPermission="action.permission">
-                          <a 
-                            class="dropdown-item" 
+                          <a
+                            class="dropdown-item"
                             href="javascript:void(0)"
-                            (click)="action?.actionToPerform === 'delete' 
-                                      ? DeleteModal().openModal('delete', columnData) 
+                            (click)="action?.actionToPerform === 'delete'
+                                      ? DeleteModal().openModal('delete', columnData)
                                       : onActionClicked(action?.actionToPerform.toString(), columnData)"
                           >
                             <i [class]="action?.icon + ' me-2'"></i>
@@ -324,7 +325,7 @@
                 </div>
               </div>
             } @else {
-              <!-- Affichage classique avec icônes -->
+              &lt;!&ndash; Affichage classique avec icônes &ndash;&gt;
               <ul id="actions">
                 @if (columnData['system_reserve'] === '1') {
                 <a href="javascript:void(0)">
@@ -336,8 +337,8 @@
                     <li>
                       <a
                         href="javascript:void(0)"
-                        (click)="action?.actionToPerform === 'delete' 
-                                                                    ? DeleteModal().openModal('delete', columnData) 
+                        (click)="action?.actionToPerform === 'delete'
+                                                                    ? DeleteModal().openModal('delete', columnData)
                                                                     : onActionClicked(action?.actionToPerform.toString(), columnData)"
                       >
                         <i [class]="action?.icon"></i>
@@ -354,7 +355,7 @@
         } @if (!tableConfig?.data?.length) {
         <tr>
           <td
-            [attr.colspan]="hasCheckbox ? (tableConfig?.rowActions?.length ? (tableConfig?.columns?.length + 1) : tableConfig?.columns?.length) + 1 
+            [attr.colspan]="hasCheckbox ? (tableConfig?.rowActions?.length ? (tableConfig?.columns?.length + 1) : tableConfig?.columns?.length) + 1
                                                         : (tableConfig?.rowActions?.length ? (tableConfig?.columns?.length + 1) : tableConfig?.columns?.length)"
           >
             <div class="no-data-added">
@@ -386,3 +387,4 @@
   #confirmationModal
   (confirmed)="onActionClicked($event?.actionToPerform, $event?.data, $event?.value)"
 />
+-->

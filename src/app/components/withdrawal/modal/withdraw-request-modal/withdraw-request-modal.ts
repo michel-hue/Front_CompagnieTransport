@@ -10,17 +10,17 @@ import {
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2Module } from 'ng-select2-component';
+import { Select2Data} from 'ng-select2-component';
 
 import { WithdrawRequestAction } from '../../../../shared/action/withdrawal.action';
-import { Button } from '../../../../shared/components/ui/button/button';
-import { FormFields } from '../../../../shared/components/ui/form-fields/form-fields';
+//import { Button } from '../../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../../shared/components/ui/form-fields/form-fields';
 
 @Component({
   selector: 'app-withdraw-request-modal',
   templateUrl: './withdraw-request-modal.html',
   styleUrls: ['./withdraw-request-modal.scss'],
-  imports: [ReactiveFormsModule, FormFields, Select2Module, Button, TranslateModule],
+  imports: [ReactiveFormsModule,  TranslateModule],
 })
 export class WithdrawRequestModal {
   private modalService = inject(NgbModal);
@@ -28,7 +28,7 @@ export class WithdrawRequestModal {
   private store = inject(Store);
 
   public modalOpen: boolean = false;
-  public closeResult: string;
+  //public closeResult: string;
   public active = 'upload';
   public form: FormGroup;
   public payment_type: Select2Data = [
@@ -63,10 +63,10 @@ export class WithdrawRequestModal {
       .result.then(
         result => {
           `Result ${result}`;
-          this.closeResult = `Closed with: ${result}`;
+         // this.closeResult = `Closed with: ${result}`;
         },
         reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         },
       );
   }

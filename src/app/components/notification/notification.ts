@@ -8,7 +8,7 @@ import {
   GetNotificationAction,
   MarkAsReadNotificationAction,
 } from '../../shared/action/notification.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
 import { INotification } from '../../shared/interface/notification.interface';
 import { NotificationState } from '../../shared/state/notification.state';
 
@@ -16,7 +16,7 @@ import { NotificationState } from '../../shared/state/notification.state';
   selector: 'app-notification',
   templateUrl: './notification.html',
   styleUrls: ['./notification.scss'],
-  imports: [PageWrapper, CommonModule, DatePipe],
+  imports: [ CommonModule, DatePipe],
 })
 export class Notification {
   private store = inject(Store);

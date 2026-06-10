@@ -10,11 +10,11 @@ import {
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Module } from 'ng-select2-component';
+
 
 import { CreateUserAction } from '../../../../../shared/action/user.action';
-import { Button } from '../../../../../shared/components/ui/button/button';
-import { FormFields } from '../../../../../shared/components/ui/form-fields/form-fields';
+//import { Button } from '../../../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../../../shared/components/ui/form-fields/form-fields';
 import * as data from '../../../../../shared/data/country-code';
 import { CustomValidators } from '../../../../../shared/validator/password-match';
 
@@ -22,7 +22,7 @@ import { CustomValidators } from '../../../../../shared/validator/password-match
   selector: 'app-customer-modal',
   templateUrl: './add-customer-modal.html',
   styleUrls: ['./add-customer-modal.scss'],
-  imports: [Button, ReactiveFormsModule, FormFields, Select2Module, TranslateModule],
+  imports: [ ReactiveFormsModule, TranslateModule],
 })
 export class AddCustomerModal {
   private modalService = inject(NgbModal);
@@ -30,7 +30,7 @@ export class AddCustomerModal {
   private formBuilder = inject(FormBuilder);
 
   public form: FormGroup;
-  public closeResult: string;
+  public closeResult?: string;
   public modalOpen: boolean = false;
   public codes = data.countryCodes;
 

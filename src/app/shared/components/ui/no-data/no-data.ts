@@ -1,3 +1,4 @@
+/*
 import { Component, input } from '@angular/core';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,3 +17,4 @@ export class NoData {
   readonly image = input<string>(undefined);
   readonly text = input<string>(undefined);
 }
+*/

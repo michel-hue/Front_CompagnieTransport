@@ -22,7 +22,7 @@ export class StoreStateModel {
     data: [] as IStores[],
     total: 0,
   };
-  selectedStore: IStores | null;
+  selectedStore: IStores | null = null;
 }
 
 @State<StoreStateModel>({

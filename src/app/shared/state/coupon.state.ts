@@ -21,7 +21,7 @@ export class CouponStateModel {
     data: [] as ICoupon[],
     total: 0,
   };
-  selectedCoupon: ICoupon | null;
+  selectedCoupon: ICoupon | null = null;
 }
 
 @State<CouponStateModel>({

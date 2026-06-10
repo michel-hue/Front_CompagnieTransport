@@ -11,19 +11,19 @@ import {
 import { NgbAccordionModule, NgbNavModule, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2, Select2Data, Select2Module, Select2SearchEvent } from 'ng-select2-component';
+import { Select2, Select2Data, Select2SearchEvent } from 'ng-select2-component';
 import { debounceTime, forkJoin, Observable, Subject } from 'rxjs';
 
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
 import { GetHomePageAction, UpdateHomePageAction } from '../../../shared/action/theme.action';
-import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
-import { Link } from '../../../shared/components/ui/link/link';
+//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+//import { Link } from '../../../shared/components/ui/link/link';
 import * as data from '../../../shared/data/home-page';
-import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
+//import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { Params } from '../../../shared/interface/core.interface';
 import { IBerlin, IBerlinContent, IServices } from '../../../shared/interface/theme.interface';
 import { CategoryState } from '../../../shared/state/category.state';
@@ -34,17 +34,17 @@ import { ThemeState } from '../../../shared/state/theme.state';
   selector: 'app-berlin',
   templateUrl: './berlin.html',
   imports: [
-    PageWrapper,
+   // PageWrapper,
     ReactiveFormsModule,
     NgbNavModule,
-    FormFields,
-    ImageUpload,
-    Link,
-    Button,
+   // FormFields,
+   // ImageUpload,
+  //  Link,
+   // Button,
     NgbAccordionModule,
-    Select2Module,
-    NgbNavOutlet,
-    HasPermissionDirective,
+  //  Select2Module,
+   // NgbNavOutlet,
+  //  HasPermissionDirective,
     CommonModule,
     TranslateModule,
   ],
@@ -56,11 +56,11 @@ export class Berlin {
   private document = inject<Document>(DOCUMENT);
 
   product$: Observable<Select2Data> = inject(Store).select(ProductState.products);
-  home_page$: Observable<IBerlin> = inject(Store).select(ThemeState.homePage<IBerlinContent>);
+  //home_page$: Observable<IBerlin> = inject(Store).select(ThemeState.homePage<IBerlinContent>);
   categories$: Observable<Select2Data> = inject(Store).select(CategoryState.categories);
 
   public form: FormGroup;
-  public page_data: IBerlin;
+  public page_data!: IBerlin;
   public active = 'home_banner';
   public banner = 1;
 
@@ -222,9 +222,9 @@ export class Berlin {
                 : 0;
             }
             this.store.dispatch(new GetProductsAction(this.filter)).subscribe({
-              complete: () => {
+           /*   complete: () => {
                 this.patchForm();
-              },
+              },*/
             });
           },
         });
@@ -240,7 +240,7 @@ export class Berlin {
         this.renderer.addClass(this.document.body, 'loader-none');
       });
   }
-
+/*
   patchForm() {
     this.store.select(ThemeState.homePage<IBerlinContent>).subscribe(homePage => {
       this.page_data = homePage;
@@ -399,7 +399,7 @@ export class Berlin {
         );
       }
     });
-  }
+  }*/
 
   getProducts(filter: Params) {
     this.filter['search'] = filter['search'];

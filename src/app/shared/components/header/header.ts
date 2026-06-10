@@ -1,3 +1,4 @@
+/*
 import { CommonModule } from '@angular/common';
 import { Component, DOCUMENT, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -84,3 +85,4 @@ export class Header {
     this.navServices.search = true;
   }
 }
+*/

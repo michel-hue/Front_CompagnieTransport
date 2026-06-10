@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { IStatisticsCount, IRevenueChart } from '../interface/dashboard.interface';
 
 @Injectable({
@@ -13,10 +13,10 @@ export class DashboardService {
   private http = inject(HttpClient);
 
   getStatisticsCount(): Observable<IStatisticsCount> {
-    return this.http.get<IStatisticsCount>(`${environment.URL}/count.json`);
+    return this.http.get<IStatisticsCount>(`${URL}/count.json`);
   }
 
   getRevenueChart(): Observable<IRevenueChart> {
-    return this.http.get<IRevenueChart>(`${environment.URL}/chart.json`);
+    return this.http.get<IRevenueChart>(`${URL}/chart.json`);
   }
 }

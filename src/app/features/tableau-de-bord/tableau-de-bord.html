@@ -1,4 +1,5 @@
-<!-- Tuiles de statistiques -->
+<!--
+&lt;!&ndash; Tuiles de statistiques &ndash;&gt;
 <section class="dashboard-tiles">
   <div class="container-fluid">
     <div class="row g-3">
@@ -50,7 +51,7 @@
   </div>
 </section>
 
-<!-- Graphique de revenus & Top Stores -->
+&lt;!&ndash; Graphique de revenus & Top Stores &ndash;&gt;
 <section>
   <div class="row m-0">
     <div class="col-xl-8 col-md-6 p-0">
@@ -81,7 +82,7 @@
     </div>
   </div>
 
-  <!-- Top Selling Products & Recent Orders -->
+  &lt;!&ndash; Top Selling Products & Recent Orders &ndash;&gt;
   <div class="row m-0">
     <div class="col-xl-5 col-md-6 p-0">
       <app-page-wrapper [gridClass]="'col-sm-12'" [title]="'top_selling_products'">
@@ -147,7 +148,7 @@
         </div>
       </app-page-wrapper>
     </div>
-    
+
     <div class="col-xl-7 col-md-6 p-0">
       <app-page-wrapper [gridClass]="'col-sm-12'" [title]="'recent_orders'">
         <app-table
@@ -161,7 +162,7 @@
     </div>
   </div>
 
-  <!-- Product Stock & Reviews/Blogs -->
+  &lt;!&ndash; Product Stock & Reviews/Blogs &ndash;&gt;
   <div class="row m-0">
     <div class="col-xl-7 col-md-6 p-0">
       <app-page-wrapper [gridClass]="'col-sm-12'" [title]="'product_stock_report'">
@@ -185,9 +186,9 @@
         />
       </app-page-wrapper>
     </div>
-    
+
     <div class="col-xl-5 col-md-6 p-0 overflow-hidden">
-      <!-- Latest Reviews -->
+      &lt;!&ndash; Latest Reviews &ndash;&gt;
       <app-page-wrapper [gridClass]="'col-sm-12'" [title]="'latest_reviews'">
         <div button>
           <a [routerLink]="['/review']" class="txt-primary">{{ 'view_all' | translate }}</a>
@@ -225,8 +226,8 @@
           </table>
         </div>
       </app-page-wrapper>
-      
-      <!-- Latest Blogs -->
+
+      &lt;!&ndash; Latest Blogs &ndash;&gt;
       <app-page-wrapper [gridClass]="'col-sm-12'" [title]="'latest_blogs'">
         @if (blogs?.length) {
         <div class="row g-3">
@@ -260,3 +261,4 @@
   </div>
 </section>
 
+-->
