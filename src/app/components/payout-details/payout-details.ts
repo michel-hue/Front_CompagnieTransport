@@ -18,9 +18,9 @@ import {
   GetPaymentDetailsAction,
   UpdatePaymentDetailsAction,
 } from '../../shared/action/payment-details.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Button } from '../../shared/components/ui/button/button';
-import { FormFields } from '../../shared/components/ui/form-fields/form-fields';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Button } from '../../shared/components/ui/button/button';
+//import { FormFields } from '../../shared/components/ui/form-fields/form-fields';
 import { NumberDirective } from '../../shared/directive/numbers-only.directive';
 import { IPaymentDetails } from '../../shared/interface/payment-details.interface';
 import { PaymentDetailsState } from '../../shared/state/payment-details.state';
@@ -30,7 +30,7 @@ import { PaymentDetailsState } from '../../shared/state/payment-details.state';
   templateUrl: './payout-details.html',
   styleUrls: ['./payout-details.scss'],
   imports: [
-    PageWrapper,
+  //  PageWrapper,
     ReactiveFormsModule,
     NgbNav,
     NgbNavItem,
@@ -38,10 +38,10 @@ import { PaymentDetailsState } from '../../shared/state/payment-details.state';
     NgbNavLink,
     NgbNavLinkBase,
     NgbNavContent,
-    FormFields,
+   // FormFields,
     NumberDirective,
     NgbNavOutlet,
-    Button,
+  //  Button,
     TranslateModule,
   ],
 })

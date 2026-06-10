@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { IProductModel } from '../interface/product.interface';
 
@@ -14,6 +14,6 @@ export class ProductService {
   private http = inject(HttpClient);
 
   getProducts(payload?: Params): Observable<IProductModel> {
-    return this.http.get<IProductModel>(`${environment.URL}/product.json`, { params: payload });
+    return this.http.get<IProductModel>(`${URL}/product.json`, { params: payload });
   }
 }

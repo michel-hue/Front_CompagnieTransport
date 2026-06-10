@@ -1,3 +1,4 @@
+/*
 import { Component, Input, viewChild, output, input } from '@angular/core';
 
 import { IAttachment } from '../../../interface/attachment.interface';
@@ -77,3 +78,4 @@ export class ImageUpload {
     this.selectedFiles.emit(this.images.length ? this.images : this.image);
   }
 }
+*/

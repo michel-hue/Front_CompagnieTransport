@@ -9,8 +9,8 @@ import {
   NgbAccordionDirective,
   NgbAccordionHeader,
   NgbAccordionItem,
-  NgbAccordionToggle,
-  NgbCollapse,
+  //NgbAccordionToggle,
+  //NgbCollapse,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
@@ -21,8 +21,8 @@ import {
   DeleteShippingRuleAction,
   EditShippingAction,
 } from '../../../shared/action/shipping.action';
-import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
-import { NoData } from '../../../shared/components/ui/no-data/no-data';
+//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+//import { NoData } from '../../../shared/components/ui/no-data/no-data';
 import { IShipping } from '../../../shared/interface/shipping.interface';
 import { ShippingState } from '../../../shared/state/shipping.state';
 import { FormShipping } from '../form-shipping/form-shipping';
@@ -33,18 +33,18 @@ import { ShippingRuleModal } from '../modal/shipping-rule-modal/shipping-rule-mo
   templateUrl: './shipping-country.html',
   styleUrls: ['./shipping-country.scss'],
   imports: [
-    PageWrapper,
+   // PageWrapper,
     RouterModule,
     NgbAccordionDirective,
     NgbAccordionItem,
     NgbAccordionHeader,
-    NgbAccordionToggle,
+   // NgbAccordionToggle,
     NgbAccordionButton,
-    NgbCollapse,
+  //  NgbCollapse,
     NgbAccordionCollapse,
     NgbAccordionBody,
     FormShipping,
-    NoData,
+   // NoData,
     ShippingRuleModal,
     CommonModule,
     TranslateModule,
@@ -60,7 +60,7 @@ export class ShippingCountry {
 
   readonly CreateShippingRuleModal = viewChild<ShippingRuleModal>('createShippingRuleModal');
 
-  public id: number;
+  public id!: number;
   private destroy$ = new Subject<void>();
 
   ngOnInit() {

@@ -1,8 +1,8 @@
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
+/*import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { firebaseWebConfig } from '../config/firebase.config';
 
-import { FirebaseApp, initializeApp, getApps } from 'firebase/app';
+
 import {
   Auth,
   FacebookAuthProvider,
@@ -64,9 +64,6 @@ export class FirebaseAuthService {
     }
   }
 
-  /**
-   * Démarre l’authentification OAuth via Firebase et renvoie les tokens utiles.
-   */
   async signInWithProvider(providerKey: SocialProviderKey): Promise<FirebaseAuthResult> {
     if (!this.isBrowser || !this.auth) {
       throw new Error("L'authentification Firebase est uniquement disponible dans le navigateur.");
@@ -131,9 +128,7 @@ export class FirebaseAuthService {
     };
   }
 
-  /**
-   * Envoyer un email de réinitialisation de mot de passe
-   */
+
   async sendPasswordResetEmail(email: string): Promise<void> {
     if (!this.isBrowser || !this.auth) {
       throw new Error("L'authentification Firebase est uniquement disponible dans le navigateur.");
@@ -194,4 +189,4 @@ export class FirebaseAuthService {
     }
   }
 }
-
+*/

@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { ITaxModel } from '../interface/tax.interface';
 
@@ -14,6 +14,6 @@ export class TaxService {
   private http = inject(HttpClient);
 
   getTaxes(payload?: Params): Observable<ITaxModel> {
-    return this.http.get<ITaxModel>(`${environment.URL}/tax.json`, { params: payload });
+    return this.http.get<ITaxModel>(`${URL}/tax.json`, { params: payload });
   }
 }

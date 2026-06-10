@@ -8,8 +8,8 @@ import { DashboardService } from '../services/dashboard.service';
 import { IStatisticsCount, IRevenueChart } from './../interface/dashboard.interface';
 
 export class DashboardStateModel {
-  statistics: IStatisticsCount | null;
-  revenueChart: IRevenueChart | null;
+  statistics: IStatisticsCount |null = null;
+  revenueChart: IRevenueChart | null = null;
 }
 
 @State<DashboardStateModel>({

@@ -3,7 +3,6 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
 import { ICountry } from '../interface/country.interface';
 
 @Injectable({
@@ -13,6 +12,6 @@ export class CountryService {
   private http = inject(HttpClient);
 
   getCountries(): Observable<ICountry[]> {
-    return this.http.get<ICountry[]>(`${environment.URL}/country.json`);
+    return this.http.get<ICountry[]>(`${URL}/country.json`);
   }
 }

@@ -20,18 +20,18 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2, Select2Data, Select2Module, Select2SearchEvent } from 'ng-select2-component';
+import { Select2, Select2Data,  Select2SearchEvent } from 'ng-select2-component';
 import { debounceTime, forkJoin, Observable, Subject } from 'rxjs';
 
 import { GetBlogsAction } from '../../../shared/action/blog.action';
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
 import { GetHomePageAction, UpdateHomePageAction } from '../../../shared/action/theme.action';
-import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
-import { Link } from '../../../shared/components/ui/link/link';
+//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+//import { Link } from '../../../shared/components/ui/link/link';
 import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { Params } from '../../../shared/interface/core.interface';
 import {
@@ -50,22 +50,22 @@ import { ThemeState } from '../../../shared/state/theme.state';
   selector: 'app-madrid',
   templateUrl: './madrid.html',
   imports: [
-    PageWrapper,
+   // PageWrapper,
     ReactiveFormsModule,
-    NgbNav,
-    NgbNavItem,
-    NgbNavItemRole,
-    NgbNavLink,
-    NgbNavLinkBase,
-    NgbNavContent,
-    FormFields,
-    ImageUpload,
-    Link,
-    Button,
-    Select2Module,
+  //  NgbNav,
+  //  NgbNavItem,
+   // NgbNavItemRole,
+   // NgbNavLink,
+   // NgbNavLinkBase,
+   // NgbNavContent,
+    //FormFields,
+   // ImageUpload,
+   // Link,
+   // Button,
+  //  Select2Module,
     NgbAccordionModule,
-    NgbNavOutlet,
-    HasPermissionDirective,
+   // NgbNavOutlet,
+  //  HasPermissionDirective,
     CommonModule,
     TranslateModule,
   ],
@@ -77,12 +77,12 @@ export class Madrid {
   private document = inject<Document>(DOCUMENT);
 
   product$: Observable<Select2Data> = inject(Store).select(ProductState.products);
-  home_page$: Observable<IMadrid> = inject(Store).select(ThemeState.homePage<IMadridContent>);
+  //home_page$: Observable<IMadrid> = inject(Store).select(ThemeState.homePage<IMadridContent>);
   categories$: Observable<Select2Data> = inject(Store).select(CategoryState.categories);
   blogs$: Observable<Select2Data> = inject(Store).select(BlogState.blogs);
 
   public form: FormGroup;
-  public page_data: IMadrid;
+  public page_data!: IMadrid;
   public active = 'home_banner';
   public banner = 1;
   public delivery_banner = 1;
@@ -262,9 +262,9 @@ export class Madrid {
                 : 0;
             }
             this.store.dispatch(new GetProductsAction(this.filter)).subscribe({
-              complete: () => {
+             /* complete: () => {
                 this.patchForm();
-              },
+              },*/
             });
           },
         });
@@ -280,7 +280,7 @@ export class Madrid {
         this.renderer.addClass(this.document.body, 'loader-none');
       });
   }
-
+/*
   patchForm() {
     this.store.select(ThemeState.homePage<IMadridContent>).subscribe(homePage => {
       this.page_data = homePage;
@@ -454,7 +454,7 @@ export class Madrid {
         ),
       );
     });
-  }
+  }*/
 
   getProducts(filter: Params) {
     this.filter['search'] = filter['search'];

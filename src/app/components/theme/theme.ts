@@ -6,11 +6,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { ITableClickedAction } from 'src/app/shared/interface/table.interface';
+//import { ITableClickedAction } from 'src/app/shared/interface/table.interface';
 
 import { GetThemesAction, UpdateThemeAction } from '../../shared/action/theme.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { IThemes, IThemesModel } from '../../shared/interface/theme.interface';
 import { ThemeState } from '../../shared/state/theme.state';
@@ -19,20 +19,20 @@ import { ThemeState } from '../../shared/state/theme.state';
   selector: 'app-theme',
   templateUrl: './theme.html',
   styleUrls: ['./theme.scss'],
-  imports: [PageWrapper, HasPermissionDirective, ConfirmationModal, CommonModule, TranslateModule],
+  imports: [HasPermissionDirective, CommonModule, TranslateModule],
 })
 export class Theme {
   private store = inject(Store);
   private router = inject(Router);
 
-  public themes: IThemes[];
-  public selectedTheme: number | null;
+  public themes: IThemes[] = [];
+  public selectedTheme: number | null = null;
 
   themes$: Observable<IThemesModel> = inject(Store).select(
     ThemeState.themes,
   ) as Observable<IThemesModel>;
 
-  readonly ConfirmationModal = viewChild<ConfirmationModal>('confirmationModal');
+ // readonly ConfirmationModal = viewChild<ConfirmationModal>('confirmationModal');
 
   ngOnInit() {
     this.store.dispatch(new GetThemesAction());
@@ -47,9 +47,9 @@ export class Theme {
     void this.router.navigateByUrl(`/theme/${route}`);
   }
 
-  activeTheme(theme: ITableClickedAction) {
+  /*activeTheme(theme: ITableClickedAction) {
     this.selectedTheme = null;
     this.selectedTheme = theme.data.id!;
     this.store.dispatch(new UpdateThemeAction(theme.data.id, 1));
-  }
+  }*/
 }

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
 import { FormBlog } from '../form-blog/form-blog';
 
 @Component({
   selector: 'app-edit-blog',
   templateUrl: './edit-blog.html',
   styleUrls: ['./edit-blog.scss'],
-  imports: [PageWrapper, FormBlog],
+  imports: [ FormBlog],
 })
 export class EditBlog {}

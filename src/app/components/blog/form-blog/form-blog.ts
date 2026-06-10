@@ -22,10 +22,10 @@ import {
 } from '../../../shared/action/blog.action';
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetTagsAction } from '../../../shared/action/tag.action';
-import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+//Import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
 import { IAttachment } from '../../../shared/interface/attachment.interface';
 import { IBlog } from '../../../shared/interface/blog.interface';
 import { ICategoryModel } from '../../../shared/interface/category.interface';
@@ -40,11 +40,11 @@ import { TagState } from '../../../shared/state/tag.state';
   styleUrls: ['./form-blog.scss'],
   imports: [
     ReactiveFormsModule,
-    FormFields,
+   // FormFields,
     NgxEditorModule,
-    ImageUpload,
-    AdvancedDropdown,
-    Button,
+   // ImageUpload,
+   // AdvancedDropdown,
+  //  Button,
     CommonModule,
     TranslateModule,
   ],
@@ -55,7 +55,7 @@ export class FormBlog {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
 
-  readonly type = input<string>(undefined);
+ // readonly type = input<string>(undefined);
 
   blog$: Observable<IBlog> = inject(Store).select(BlogState.selectedBlog) as Observable<IBlog>;
   category$: Observable<ICategoryModel> = inject(Store).select(
@@ -64,11 +64,11 @@ export class FormBlog {
   tag$: Observable<ITagModel> = inject(Store).select(TagState.tag);
 
   public form: FormGroup;
-  public id: number;
+  public id!: number;
   public selectedCategories: number[] = [];
   public selectedTags: number[] = [];
   public html = '';
-  public editor: Editor;
+  public editor?: Editor;
   private destroy$ = new Subject<void>();
   public isBrowser: boolean;
 
@@ -157,10 +157,10 @@ export class FormBlog {
   submit() {
     this.form.markAllAsTouched();
     let action = new CreateBlogAction(this.form.value);
-
+/*
     if (this.type() == 'edit' && this.id) {
       action = new UpdateBlogAction(this.form.value, this.id);
-    }
+    }*/
 
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({

@@ -5,8 +5,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { IPayoutStatus } from 'src/app/shared/interface/refund.interface';
-import { ITransactionsData } from 'src/app/shared/interface/vendor-wallet.interface';
+//import { IPayoutStatus } from 'src/app/shared/interface/refund.interface';
+//import { ITransactionsData } from 'src/app/shared/interface/vendor-wallet.interface';
 
 import { WithdrawRequestModal } from './modal/withdraw-request-modal/withdraw-request-modal';
 import { GetVendorTransactionAction } from '../../shared/action/vendor-wallet.action';
@@ -14,9 +14,9 @@ import {
   GetWithdrawRequestAction,
   UpdateWithdrawStatusAction,
 } from '../../shared/action/withdrawal.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { PayoutModal } from '../../shared/components/ui/modal/payout-modal/payout-modal';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { PayoutModal } from '../../shared/components/ui/modal/payout-modal/payout-modal';
+//import { Table } from '../../shared/components/ui/table/table';
 import { Params } from '../../shared/interface/core.interface';
 import { IValues } from '../../shared/interface/setting.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -32,9 +32,9 @@ import { WithdrawalState } from '../../shared/state/withdrawal.state';
   templateUrl: './withdrawal.html',
   styleUrls: ['./withdrawal.scss'],
   imports: [
-    PageWrapper,
-    Table,
-    PayoutModal,
+    //PageWrapper,
+    //Table,
+    //PayoutModal,
     WithdrawRequestModal,
     CommonModule,
     TranslateModule,
@@ -48,14 +48,14 @@ export class Withdrawal {
   wallet$: Observable<{
     consumer_id: number | null;
     balance: number;
-    transactions: { data: ITransactionsData[]; total: number };
+   // transactions: { data: ; total: number };
   }> = inject(Store).select(VendorWalletState.vendorWallet);
   setting$: Observable<IValues> = inject(Store).select(SettingState.setting) as Observable<IValues>;
   roleName$: Observable<string> = inject(Store).select(
     AccountState.getRoleName,
   ) as Observable<string>;
 
-  readonly PayoutModal = viewChild<PayoutModal>('payoutModal');
+  //readonly PayoutModal = viewChild<PayoutModal>('payoutModal');
   readonly RequestModal = viewChild<WithdrawRequestModal>('requestModal');
 
   public tableConfig: ITableConfig = {
@@ -98,14 +98,14 @@ export class Withdrawal {
   }
 
   onActionClicked(action: ITableClickedAction) {
-    if (action.actionToPerform == 'view') void this.PayoutModal().openModal(action.data);
+   // if (action.actionToPerform == 'view') void this.PayoutModal().openModal(action.data);
   }
 
   onTableChange(data?: Params) {
     this.store.dispatch(new GetWithdrawRequestAction(data));
   }
 
-  approved(event: IPayoutStatus) {
+  /*approved(event: IPayoutStatus) {
     this.store.dispatch(new UpdateWithdrawStatusAction(event.data.id, event.status));
-  }
+  }*/
 }

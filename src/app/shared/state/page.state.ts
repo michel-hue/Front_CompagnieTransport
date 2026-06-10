@@ -21,7 +21,7 @@ export class PageStateModel {
     data: [] as IPage[],
     total: 0,
   };
-  selectedPage: IPage | null;
+  selectedPage: IPage | null = null;
 }
 
 @State<PageStateModel>({

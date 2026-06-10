@@ -1,3 +1,4 @@
+/*
 import { CommonModule, SlicePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -35,3 +36,4 @@ export class Notification {
     this.active = !this.active;
   }
 }
+*/

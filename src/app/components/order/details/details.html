@@ -1,3 +1,4 @@
+<!--
 <div class="row g-2">
   <div class="col-xxl-9">
     @if (!order?.sub_orders?.length) {
@@ -7,7 +8,7 @@
           @for (orderStatus of (orderStatus$ | async)?.data; track orderStatus.id) {
           <li
             [class.active]="orderStatus?.sequence <= order?.order_status?.sequence"
-            [ngClass]="{'d-none': (orderStatus?.sequence >= order?.order_status?.sequence && order?.order_status?.slug === 'cancelled') || 
+            [ngClass]="{'d-none': (orderStatus?.sequence >= order?.order_status?.sequence && order?.order_status?.slug === 'cancelled') ||
                                                    orderStatus?.slug === 'cancelled'}"
           >
             <div class="panel-content">
@@ -75,10 +76,10 @@
             <tr>
               <td class="product-image">
                 <img
-                  [src]="product?.pivot?.variation && product?.pivot?.variation?.variation_image 
+                  [src]="product?.pivot?.variation && product?.pivot?.variation?.variation_image
                                         ? product?.pivot?.variation?.variation_image?.original_url
-                                        : product?.product_thumbnail 
-                                        ? product?.product_thumbnail?.original_url 
+                                        : product?.product_thumbnail
+                                        ? product?.product_thumbnail?.original_url
                                         : 'assets/images/product.png'"
                   class="img-fluid"
                   alt="product"
@@ -243,3 +244,4 @@
     </div>
   </div>
 </div>
+-->

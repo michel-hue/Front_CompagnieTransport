@@ -1,4 +1,5 @@
-import { Component, TemplateRef, inject, output, viewChild } from '@angular/core';
+/*
+/!**!/import { Component, TemplateRef, inject, output, viewChild } from '@angular/core';
 
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -66,3 +67,4 @@ export class DeleteModal {
     }
   }
 }
+*/

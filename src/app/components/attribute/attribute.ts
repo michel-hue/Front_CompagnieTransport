@@ -10,9 +10,9 @@ import {
   DeleteAttributeAction,
   GetAttributesAction,
 } from '../../shared/action/attribute.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
-import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
+//import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { IAttribute, IAttributeModel } from '../../shared/interface/attribute.interface';
 import { Params } from '../../shared/interface/core.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -22,7 +22,7 @@ import { AttributeState } from '../../shared/state/attribute.state';
   selector: 'app-attribute',
   templateUrl: './attribute.html',
   styleUrls: ['./attribute.scss'],
-  imports: [PageWrapper, HasPermissionDirective, RouterModule, Table, TranslateModule],
+  imports: [  RouterModule,  TranslateModule],
 })
 export class Attribute {
   private store = inject(Store);

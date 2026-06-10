@@ -1,4 +1,4 @@
-<app-page-wrapper [gridClass]="'col-xxl-8 m-auto'" [title]="'notifications'">
+<!--<app-page-wrapper [gridClass]="'col-xxl-8 m-auto'" [title]="'notifications'">-->
   @if ((notification$ | async)?.length) {
   <ul class="notification-setting">
     @for (notification of (notification$ | async); track notification.id) {
@@ -11,4 +11,4 @@
     }
   </ul>
   }
-</app-page-wrapper>
+<!--</app-page-wrapper>-->

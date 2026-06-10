@@ -29,7 +29,7 @@ import {
   ApexXAxis,
   ApexYAxis,
 } from 'ng-apexcharts';
-import { Select2Data, Select2Module, Select2UpdateEvent } from 'ng-select2-component';
+import { Select2Data,  Select2UpdateEvent } from 'ng-select2-component';
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -47,12 +47,12 @@ export interface ChartOptions {
   responsive?: ApexResponsive[];
 }
 
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { ITableConfig } from '../../shared/interface/table.interface';
 import { CurrencySymbolPipe } from '../../shared/pipe/currency-symbol.pipe';
-import { 
-  DashboardDataService, 
+import {
+  DashboardDataService,
   DashboardStatistics,
   TopProduct,
   TopStore,
@@ -66,10 +66,11 @@ import {
   styleUrls: ['./tableau-de-bord.scss'],
   providers: [CurrencySymbolPipe],
   imports: [
-    PageWrapper,
-    Select2Module,
+ /*   PageWrapper,
+   Select2Module,
     Table,
-    RouterModule,
+
+*/    RouterModule,
     NgbRating,
     CommonModule,
     SlicePipe,
@@ -78,7 +79,7 @@ import {
     CurrencySymbolPipe,
   ],
 })
-export class TableauDeBord implements AfterViewInit, OnDestroy {
+class TableauDeBord implements AfterViewInit, OnDestroy {
   private renderer = inject(Renderer2);
   private platformId = inject(PLATFORM_ID);
   private document = inject<Document>(DOCUMENT);
@@ -319,9 +320,9 @@ export class TableauDeBord implements AfterViewInit, OnDestroy {
             intersect: false,
             y: {
               formatter: (value: number) => {
-                return value.toLocaleString('fr-FR', { 
-                  style: 'currency', 
-                  currency: 'EUR' 
+                return value.toLocaleString('fr-FR', {
+                  style: 'currency',
+                  currency: 'EUR'
                 });
               },
             },
@@ -331,8 +332,8 @@ export class TableauDeBord implements AfterViewInit, OnDestroy {
         try {
           const ApexCharts = (await import('apexcharts')).default;
           const element = this.chart().nativeElement;
-          const chartInstance = new ApexCharts(element, this.chartOptions);
-          await chartInstance.render();
+          const chartInstance = '';
+         // await chartInstance.render();
           console.log('📈 Graphique de revenus chargé avec succès');
         } catch (error) {
           console.error('❌ Erreur lors du chargement du graphique:', error);
@@ -486,7 +487,7 @@ export class TableauDeBord implements AfterViewInit, OnDestroy {
    */
   filterProduct(data: Select2UpdateEvent) {
     console.log('⚠️ Filtre temporaire - Période:', data.value);
-    
+
     // Simuler un filtrage des statistiques
     this.dashboardService.filterStatistics(data.value as string).subscribe({
       next: (stats) => {
@@ -503,4 +504,6 @@ export class TableauDeBord implements AfterViewInit, OnDestroy {
     this.renderer.removeClass(this.document.body, 'loader-none');
   }
 }
+
+export default TableauDeBord
 

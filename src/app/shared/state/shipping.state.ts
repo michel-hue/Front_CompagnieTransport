@@ -21,7 +21,7 @@ export class ShippingStateModel {
   shipping = {
     data: [] as IShipping[],
   };
-  selectedShipping: IShipping | null;
+  selectedShipping: IShipping | null = null;
 }
 
 @State<ShippingStateModel>({

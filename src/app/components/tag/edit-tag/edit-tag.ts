@@ -1,13 +1,13 @@
 import { Component, input } from '@angular/core';
 
-import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+///import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
 import { FormTag } from '../form-tag/form-tag';
 
 @Component({
   selector: 'app-edit-tag',
   templateUrl: './edit-tag.html',
   styleUrls: ['./edit-tag.scss'],
-  imports: [PageWrapper, FormTag],
+  imports: [ FormTag],
 })
 export class EditTag {
   readonly tagType = input<string | null>('product');

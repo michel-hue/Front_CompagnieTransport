@@ -20,9 +20,9 @@ import {
   EditPageAction,
   UpdatePageAction,
 } from '../../../shared/action/page.action';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
 import { IAttachment } from '../../../shared/interface/attachment.interface';
 import { IPage } from '../../../shared/interface/page.interface';
 import { PageState } from '../../../shared/state/page.state';
@@ -33,10 +33,10 @@ import { PageState } from '../../../shared/state/page.state';
   styleUrls: ['./form-page.scss'],
   imports: [
     ReactiveFormsModule,
-    FormFields,
+   // FormFields,
     NgxEditorModule,
-    ImageUpload,
-    Button,
+    //ImageUpload,
+   // Button,
     CommonModule,
     TranslateModule,
   ],
@@ -47,14 +47,14 @@ export class FormPage {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
 
-  readonly type = input<string>(undefined);
+ // readonly type = input<string>(undefined);
 
   page$: Observable<IPage> = inject(Store).select(PageState.selectedPage) as Observable<IPage>;
 
   public form: FormGroup;
-  public id: number;
+  public id?: number;
 
-  public editor: Editor;
+  public editor!: Editor;
   public html = '';
   public isBrowser: boolean;
 
@@ -111,9 +111,9 @@ export class FormPage {
     this.form.markAllAsTouched();
     let action = new CreatePageAction(this.form.value);
 
-    if (this.type() == 'edit' && this.id) {
+  /*  if (this.type() == 'edit' && this.id) {
       action = new UpdatePageAction(this.form.value, this.id);
-    }
+    }*/
 
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({

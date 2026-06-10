@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2UpdateEvent, Select2Module } from 'ng-select2-component';
+import { Select2Data, Select2UpdateEvent } from 'ng-select2-component';
 import { Subject, of } from 'rxjs';
 import { switchMap, mergeMap, takeUntil } from 'rxjs/operators';
 
@@ -20,8 +20,8 @@ import {
   EditCurrencyAction,
   UpdateCurrencyAction,
 } from '../../../shared/action/currency.action';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
 import * as data from '../../../shared/data/currency';
 import { CurrencyState } from '../../../shared/state/currency.state';
 
@@ -29,7 +29,7 @@ import { CurrencyState } from '../../../shared/state/currency.state';
   selector: 'app-form-currency',
   templateUrl: './form-currency.html',
   styleUrls: ['./form-currency.scss'],
-  imports: [ReactiveFormsModule, FormFields, Select2Module, Button, TranslateModule],
+  imports: [ReactiveFormsModule, TranslateModule],
 })
 export class FormCurrency {
   private store = inject(Store);
@@ -37,10 +37,10 @@ export class FormCurrency {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
 
-  readonly type = input<string>(undefined);
+ // readonly type = input<string>(undefined);
 
   public form: FormGroup;
-  public id: number;
+  public id!: number;
   public isBrowser: boolean;
 
   public symbolPosition: Select2Data = [
@@ -109,9 +109,9 @@ export class FormCurrency {
     this.form.markAllAsTouched();
     let action = new CreateCurrencyAction(this.form.value);
 
-    if (this.type() == 'edit' && this.id) {
+  /*  if (this.type() == 'edit' && this.id) {
       action = new UpdateCurrencyAction(this.form.value, this.id);
-    }
+    }*/
 
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({

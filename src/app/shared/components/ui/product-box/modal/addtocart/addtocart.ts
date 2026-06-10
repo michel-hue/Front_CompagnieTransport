@@ -1,3 +1,4 @@
+/*
 import { Component, TemplateRef, inject, viewChild } from '@angular/core';
 
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -131,3 +132,4 @@ export class Addtocart {
     }
   }
 }
+*/

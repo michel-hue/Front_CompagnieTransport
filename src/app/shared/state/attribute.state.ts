@@ -22,8 +22,8 @@ export class AttributeStateModel {
     data: [] as IAttribute[],
     total: 0,
   };
-  attribute_values: IAttributeValue[];
-  selectedAttribute: IAttribute | null;
+  attribute_values: IAttributeValue[] = [];
+  selectedAttribute: IAttribute | null = null;
 }
 
 @State<AttributeStateModel>({

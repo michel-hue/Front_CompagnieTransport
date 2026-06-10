@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { INotificationModel } from '../interface/notification.interface';
 
@@ -42,7 +42,7 @@ export class NotificationService {
   }
 
   getNotifications(payload?: Params): Observable<INotificationModel> {
-    return this.http.get<INotificationModel>(`${environment.URL}/notification.json`, {
+    return this.http.get<INotificationModel>(`${URL}/notification.json`, {
       params: payload,
     });
   }

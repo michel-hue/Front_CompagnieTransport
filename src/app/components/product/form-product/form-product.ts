@@ -45,7 +45,6 @@ import { Store } from '@ngxs/store';
 import {
   Select2,
   Select2Data,
-  Select2Module,
   Select2SearchEvent,
   Select2UpdateEvent,
 } from 'ng-select2-component';
@@ -74,10 +73,10 @@ import {
 import { GetStoresAction } from '../../../shared/action/store.action';
 import { GetTagsAction } from '../../../shared/action/tag.action';
 import { GetTaxesAction } from '../../../shared/action/tax.action';
-import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+//import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
 import { IAttachment } from '../../../shared/interface/attachment.interface';
 import { ICategoryModel } from '../../../shared/interface/category.interface';
 import { Params } from '../../../shared/interface/core.interface';
@@ -114,21 +113,21 @@ function convertToNgbDate(date: NgbDateStruct): NgbDate {
     NgbNavLink,
     NgbNavLinkBase,
     NgbNavContent,
-    FormFields,
+    //FormFields,
     NgxEditorModule,
-    Select2Module,
+  //  Select2Module,
     NgbInputDatepicker,
-    Button,
+  //  Button,
     NgbAccordionDirective,
     NgbAccordionItem,
     NgbAccordionHeader,
-    NgbAccordionToggle,
+   // NgbAccordionToggle,
     NgbAccordionButton,
-    NgbCollapse,
+   // NgbCollapse,
     NgbAccordionCollapse,
     NgbAccordionBody,
-    ImageUpload,
-    AdvancedDropdown,
+  //  ImageUpload,
+ //   AdvancedDropdown,
     NgbNavOutlet,
     CommonModule,
     TranslateModule,
@@ -144,7 +143,7 @@ export class FormProduct {
   private renderer = inject(Renderer2);
   private document = inject<Document>(DOCUMENT);
 
-  readonly type = input<string>(undefined);
+ // readonly type = input<string>(undefined);
 
   readonly nav = viewChild<NgbNav>('nav');
 
@@ -162,19 +161,19 @@ export class FormProduct {
 
   public attribute$: Observable<Select2Data>;
   public active = 'general';
-  public tabError: string | null;
+  public tabError: string | null = null;
   public form: FormGroup;
-  public id: number;
+  public id?: number;
   public selectedCategories: Number[] = [];
   public selectedTags: Number[] = [];
   public variationCombinations: IVariationCombination[] = [];
   public retrieveVariants: boolean = false;
   public variantCount: number = 0;
-  public fromDate: NgbDate | null;
-  public toDate: NgbDate | null;
+  public fromDate: NgbDate | null = null;
+  public toDate: NgbDate | null = null;
   public hoveredDate: NgbDate | null = null;
-  public collectionProduct: Select2Data;
-  public product: IProduct;
+  public collectionProduct!: Select2Data;
+  public product!: IProduct;
   private destroy$ = new Subject<void>();
   public isBrowser: boolean;
 
@@ -218,7 +217,7 @@ export class FormProduct {
   ];
   public variations: IVariation[] = [];
   private search = new Subject<string>();
-  public editor: Editor;
+  public editor?: Editor;
   public html = '';
 
   constructor() {
@@ -248,7 +247,7 @@ export class FormProduct {
       stock_status: new FormControl('in_stock', []),
       sku: new FormControl('', [Validators.required]),
       quantity: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required, priceValidator]),
+   //   price: new FormControl('', [Validators.required, priceValidator]),
       discount: new FormControl(),
       is_sale_enable: new FormControl(false),
       sale_starts_at: new FormControl(),
@@ -407,7 +406,7 @@ export class FormProduct {
             });
 
             // Set Variants and Variations
-            this.variants = variants;
+            //this.variants = variants;
             this.variations = product?.variations!;
 
             if (product?.type == 'classified') {
@@ -429,7 +428,7 @@ export class FormProduct {
         });
       });
 
-    if (this.type() == 'create') {
+ /*   if (this.type() == 'create') {
       this.variants.forEach(variant =>
         this.variantControl.push(
           this.formBuilder.group({
@@ -440,7 +439,7 @@ export class FormProduct {
           }),
         ),
       );
-    }
+    }*/
 
     this.variantControl.valueChanges
       .pipe(debounceTime(200), distinctUntilChanged())
@@ -544,9 +543,9 @@ export class FormProduct {
     const control = variantControl.at(index); // get the control at the specified index
 
     let variant_option = null;
-    this.getAttributeValues(data ? +data?.value : null).subscribe(
+  /*  this.getAttributeValues(data ? +data?.value : null).subscribe(
       option => (variant_option = option),
-    );
+    );*/
     control.patchValue({ variant_option: variant_option }); // patch the new value
     this.variantCount++;
     if (!this.retrieveVariants) {
@@ -634,7 +633,7 @@ export class FormProduct {
             id: new FormControl(variationValue?.id, []),
             variation_name: new FormControl(variation?.name, []),
             name: new FormControl(variationValue?.name, [Validators.required]),
-            price: new FormControl(variationValue?.price, [Validators.required, priceValidator]),
+           // price: new FormControl(variationValue?.price, [Validators.required, priceValidator]),
             discount: new FormControl(variationValue?.discount, []),
             stock_status: new FormControl(
               variationValue?.stock_status ? variationValue?.stock_status : 'in_stock',
@@ -756,9 +755,9 @@ export class FormProduct {
       this.clearVariations();
     }
 
-    if (this.type() == 'edit' && this.id) {
+  /*  if (this.type() == 'edit' && this.id) {
       action = new UpdateProductAction(this.form.value, this.id);
-    }
+    }*/
 
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({
@@ -779,7 +778,7 @@ export class FormProduct {
           ?.closest('div.tab')
           ?.getAttribute('tab');
         if (div) {
-          this.nav().select(div);
+        //  this.nav().select(div);
           this.tabError = div;
         }
       }

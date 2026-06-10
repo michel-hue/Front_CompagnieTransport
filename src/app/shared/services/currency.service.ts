@@ -3,7 +3,6 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
 import { Params } from '../interface/core.interface';
 import { ICurrencyModel } from '../interface/currency.interface';
 
@@ -14,6 +13,6 @@ export class CurrencyService {
   private http = inject(HttpClient);
 
   getCurrencies(payload?: Params): Observable<ICurrencyModel> {
-    return this.http.get<ICurrencyModel>(`${environment.URL}/currency.json`, { params: payload });
+    return this.http.get<ICurrencyModel>(`${URL}/currency.json`, { params: payload });
   }
 }

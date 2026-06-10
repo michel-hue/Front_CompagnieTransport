@@ -11,14 +11,14 @@ import {
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2Module } from 'ng-select2-component';
+import { Select2Data } from 'ng-select2-component';
 import { Observable } from 'rxjs';
 
 import {
   CreateShippingAction,
   UpdateShippingAction,
 } from '../../../../shared/action/shipping.action';
-import { Button } from '../../../../shared/components/ui/button/button';
+//import { Button } from '../../../../shared/components/ui/button/button';
 import { IShipping } from '../../../../shared/interface/shipping.interface';
 import { CountryState } from '../../../../shared/state/country.state';
 
@@ -26,7 +26,7 @@ import { CountryState } from '../../../../shared/state/country.state';
   selector: 'app-shipping-country-modal',
   templateUrl: './shipping-country-modal.html',
   styleUrls: ['./shipping-country-modal.scss'],
-  imports: [ReactiveFormsModule, Select2Module, Button, CommonModule, TranslateModule],
+  imports: [ReactiveFormsModule,  CommonModule, TranslateModule],
 })
 export class ShippingCountryModal {
   private modalService = inject(NgbModal);
@@ -35,10 +35,10 @@ export class ShippingCountryModal {
 
   countries$: Observable<Select2Data> = inject(Store).select(CountryState.countries);
 
-  public closeResult: string;
+  public closeResult?: string;
   public modalOpen: boolean = false;
   public form: FormGroup;
-  public data: IShipping | null;
+  public data: IShipping | null = null ;
 
   readonly CountryShippingModal = viewChild<TemplateRef<string>>('countryShippingModal');
 

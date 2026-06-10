@@ -10,26 +10,26 @@ import { Router, RouterModule } from '@angular/router';
 
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Alert } from '../../shared/components/ui/alert/alert';
+//import { Alert } from '../../shared/components/ui/alert/alert';
 import { AuthDataService } from './data-access';
 import { LocalStorageService, UserService } from '../../tools';
 import { ChangePasswordModalComponent } from './modals/change-password-modal/change-password-modal';
 import { ForgotPasswordModalComponent } from './modals/forgot-password-modal/forgot-password-modal';
-import { FirebaseAuthService } from '../../shared/services/firebase-auth.service';
-import { SocialProviderKey } from '../../shared/services/firebase-auth.service';
+//import { FirebaseAuthService } from '../../shared/services/firebase-auth.service';
+//import { SocialProviderKey } from '../../shared/services/firebase-auth.service';
 
 @Component({
   selector: 'app-connexion',
   templateUrl: './connexion.html',
   styleUrls: ['./connexion.scss'],
-  imports: [Alert, ReactiveFormsModule, RouterModule, TranslateModule, ChangePasswordModalComponent, ForgotPasswordModalComponent],
+  imports: [ReactiveFormsModule, RouterModule, TranslateModule, ChangePasswordModalComponent, ForgotPasswordModalComponent],
 })
 export class Connexion implements OnInit {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
   private localStorageService = inject(LocalStorageService);
   private userService = inject(UserService);
-  private firebaseAuth = inject(FirebaseAuthService);
+  //private firebaseAuth = inject(FirebaseAuthService);
   private authDataService = inject(AuthDataService);
 
   readonly changePasswordModal = viewChild<ChangePasswordModalComponent>('changePasswordModal');
@@ -41,7 +41,7 @@ export class Connexion implements OnInit {
   public showPassword = false;
   public socialLoading = false;
   public socialError = '';
-  public lastProviderAttempt: SocialProviderKey | null = null;
+  //public lastProviderAttempt: SocialProviderKey | null = null;
 
   constructor() {
     this.form = this.formBuilder.group({
@@ -53,7 +53,7 @@ export class Connexion implements OnInit {
   ngOnInit(): void {
     // Vider le localStorage UNIQUEMENT si on n'a pas de token valide
     const user = this.localStorageService.getJsonValue('user');
-    
+
     // Si pas de token ou token expiré, vider le localStorage
     if (!user || !user.token) {
       this.localStorageService.clear();
@@ -105,7 +105,7 @@ export class Connexion implements OnInit {
     if (this.form.invalid && this.form.touched) {
       const emailError = this.form.get('email')?.errors;
       const passwordError = this.form.get('password')?.errors;
-      
+
       if (emailError?.['required'] && passwordError?.['required']) {
         return 'Veuillez saisir votre nom d\'utilisateur et votre mot de passe';
       } else if (emailError?.['required']) {
@@ -116,76 +116,81 @@ export class Connexion implements OnInit {
     }
     return '';
   }
+}
 
-  async submit() {
+/*  async submit() {
     this.form.markAllAsTouched();
-    
+
     if (this.form.valid) {
       this.isLoading = true;
       this.errorMessage = '';
 
       try {
-        const { email, password } = this.form.value;
-        // Connexion via Firebase côté front
-        const result = await this.firebaseAuth.loginWithEmail(email, password);
-        const token = result.idToken;
-        if (!token) {
-          throw new Error('Impossible de récupérer le token Firebase.');
-        }
-        const userData = {
-          access_token: token,
-          token,
-          email: result.email || email,
-          message: 'Connexion réussie',
-          status: 'success',
-          name: result.displayName || email,
-          permissions: [] as string[],
-        };
-        this.localStorageService.setJsonValue('user', userData);
-        this.userService.setUser(userData);
+        /!*   const { email, password } = this.form.value;
+           // Connexion via Firebase côté front
+           const result = await this.firebaseAuth.loginWithEmail(email, password);
+           const token = result.idToken;
+           if (!token) {
+             throw new Error('Impossible de récupérer le token Firebase.');
+           }
+           const userData = {
+             access_token: token,
+             token,
+             email: result.email || email,
+             message: 'Connexion réussie',
+             status: 'success',
+             name: result.displayName || email,
+             permissions: [] as string[],
+           };
+           this.localStorageService.setJsonValue('user', userData);
+           this.userService.setUser(userData);*!/
         // Vérification côté API: email + token_firebase enregistré
         try {
-          const verifyResponse = await this.authDataService.verifyFirebaseLogin(userData.email, token);
-          if (verifyResponse?.data?.token) {
-            // Décoder le JWT retourné par l'API
-            const decoded = this.decodeJWT(verifyResponse.data.token);
-            if (decoded) {
-              // Formater les données pour userService
-              const formattedUserData = {
-                token: verifyResponse.data.token,
-                access_token: verifyResponse.data.token,
-                email: decoded.vendeur?.email || userData.email,
-                name: `${decoded.vendeur?.prenom || ''} ${decoded.vendeur?.nom || ''}`.trim() || userData.name,
-                role: decoded.user?.role === 1 ? 'Vendeur' : 'Utilisateur',
-                permissions: [] as string[],
-                vendeur: decoded.vendeur,
-                user: decoded.user,
-                boutique: decoded.boutique,
-              };
-              this.localStorageService.setJsonValue('user', formattedUserData);
-              this.userService.setUser(formattedUserData);
-            }
-          }
-        } catch (verifyErr: any) {
-          this.errorMessage = verifyErr?.message || 'Vérification serveur échouée.';
-          return;
+          /!*  const verifyResponse = await this.authDataService.verifyFirebaseLogin(userData.email, token);
+            if (verifyResponse?.data?.token) {
+              // Décoder le JWT retourné par l'API
+              const decoded = this.decodeJWT(verifyResponse.data.token);
+              if (decoded) {
+                // Formater les données pour userService
+                const formattedUserData = {
+                  token: verifyResponse.data.token,
+                  access_token: verifyResponse.data.token,
+                  email: decoded.vendeur?.email || userData.email,
+                  name: `${decoded.vendeur?.prenom || ''} ${decoded.vendeur?.nom || ''}`.trim() || userData.name,
+                  role: decoded.user?.role === 1 ? 'Vendeur' : 'Utilisateur',
+                  permissions: [] as string[],
+                  vendeur: decoded.vendeur,
+                  user: decoded.user,
+                  boutique: decoded.boutique,
+                };
+                this.localStorageService.setJsonValue('user', formattedUserData);
+                this.userService.setUser(formattedUserData);
+              }*!/
         }
-        await this.router.navigateByUrl('/tableau-de-bord');
-      } catch (error: any) {
-        console.error('Erreur de connexion:', error);
-        this.errorMessage = error?.message || 'Identifiants invalides. Veuillez réessayer.';
-      } finally {
-        this.isLoading = false;
+      } catch (verifyErr: any) {
+        this.errorMessage = verifyErr?.message || 'Vérification serveur échouée.';
+        return;
       }
+      await this.router.navigateByUrl('/tableau-de-bord');
     }
   }
+
+  catch(error: any) {
+    console.error('Erreur de connexion:', error);
+    this.errorMessage = error?.message || 'Identifiants invalides. Veuillez réessayer.';
+  }
+}finally {
+        this.isLoading = false;
+
+  }*/
+/*
 
   async connectWithProvider(provider: SocialProviderKey) {
     this.socialError = '';
     this.lastProviderAttempt = provider;
     this.socialLoading = true;
     try {
-      const result = await this.firebaseAuth.signInWithProvider(provider);
+   /!*   const result = await this.firebaseAuth.signInWithProvider(provider);
       const token = result.idToken || result.accessToken;
       if (!token) {
         throw new Error('Impossible de récupérer le token Firebase.');
@@ -200,9 +205,9 @@ export class Connexion implements OnInit {
         permissions: [] as string[],
       };
       this.localStorageService.setJsonValue('user', userData);
-      this.userService.setUser(userData);
+      this.userService.setUser(userData);*!/
       try {
-        const verifyResponse = await this.authDataService.verifyFirebaseLogin(userData.email, token);
+      /!*  const verifyResponse = await this.authDataService.verifyFirebaseLogin(userData.email, token);
         if (verifyResponse?.data?.token) {
           // Décoder le JWT retourné par l'API
           const decoded = this.decodeJWT(verifyResponse.data.token);
@@ -222,17 +227,18 @@ export class Connexion implements OnInit {
             this.localStorageService.setJsonValue('user', formattedUserData);
             this.userService.setUser(formattedUserData);
           }
-        }
+        }*!/
       } catch (verifyErr: any) {
-        this.socialError = verifyErr?.message || 'Vérification serveur échouée.';
+       // this.socialError = verifyErr?.message || 'Vérification serveur échouée.';
         return;
       }
-      await this.router.navigateByUrl('/tableau-de-bord');
+     // await this.router.navigateByUrl('/tableau-de-bord');
     } catch (e: any) {
-      this.socialError = e?.message || 'Erreur lors de la connexion sociale.';
+    //  this.socialError = e?.message || 'Erreur lors de la connexion sociale.';
     } finally {
-      this.socialLoading = false;
+     // this.socialLoading = false;
     }
   }
-}
+*/
+
 

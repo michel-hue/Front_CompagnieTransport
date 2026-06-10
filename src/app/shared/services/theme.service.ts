@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { IThemesModel } from '../interface/theme.interface';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class ThemeService {
   private http = inject(HttpClient);
 
   getThemes(): Observable<IThemesModel> {
-    return this.http.get<IThemesModel>(`${environment.URL}/theme.json`);
+    return this.http.get<IThemesModel>(`${URL}/theme.json`);
   }
 
   getHomePage<T>(slug?: string): Observable<{ id: number; slug: string; content: T }> {
@@ -21,7 +21,7 @@ export class ThemeService {
       slug = 'paris';
     }
     return this.http.get<{ id: number; slug: string; content: T }>(
-      `${environment.URL}/themes/${slug}.json`,
+      `${URL}/themes/${slug}.json`,
     );
   }
 }

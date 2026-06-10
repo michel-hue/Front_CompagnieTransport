@@ -1,3 +1,4 @@
+/*
 import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -118,3 +119,4 @@ export class Link {
     this.destroy$.complete();
   }
 }
+*/

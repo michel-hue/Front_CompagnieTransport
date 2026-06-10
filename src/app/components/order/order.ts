@@ -6,9 +6,9 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { GetOrdersAction } from '../../shared/action/order.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
-import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
+//import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { IOrder, IOrderModel } from '../../shared/interface/order.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -18,7 +18,7 @@ import { OrderState } from '../../shared/state/order.state';
   selector: 'app-order',
   templateUrl: './order.html',
   styleUrls: ['./order.scss'],
-  imports: [PageWrapper, HasPermissionDirective, RouterModule, Table, TranslateModule],
+  imports: [ RouterModule,  TranslateModule],
 })
 export class Order {
   private store = inject(Store);

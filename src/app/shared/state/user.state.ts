@@ -24,7 +24,7 @@ export class UserStateModel {
     data: [] as IUser[],
     total: 0,
   };
-  selectedUser: IUser | null;
+  selectedUser: IUser | null = null;
 }
 
 @State<UserStateModel>({

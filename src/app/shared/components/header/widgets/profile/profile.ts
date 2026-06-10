@@ -1,3 +1,4 @@
+/*
 import { CommonModule } from '@angular/common';
 import { Component, inject, viewChild, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -33,7 +34,7 @@ export class Profile implements OnInit {
   ngOnInit(): void {
     // Charger les données utilisateur depuis le localStorage
     this.userService.loadUserFromStorage();
-    
+
     // S'abonner aux changements
     this.currentUser$.subscribe(user => {
       this.currentUser = user;
@@ -53,9 +54,9 @@ export class Profile implements OnInit {
     return this.userService.getUserInitial();
   }
 
-  /**
+  /!**
    * Tronquer le nom de l'utilisateur s'il dépasse 12 caractères
-   */
+   *!/
   getTruncatedName(name: string | undefined): string {
     if (!name) return 'Utilisateur';
     if (name.length > 12) {
@@ -64,3 +65,4 @@ export class Profile implements OnInit {
     return name;
   }
 }
+*/

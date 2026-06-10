@@ -12,10 +12,10 @@ import {
   GetUsersAction,
   UpdateUserStatusAction,
 } from '../../shared/action/user.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { ImportCsvModal } from '../../shared/components/ui/modal/import-csv-modal/import-csv-modal';
-import { Table } from '../../shared/components/ui/table/table';
-import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { ImportCsvModal } from '../../shared/components/ui/modal/import-csv-modal/import-csv-modal';
+//import { Table } from '../../shared/components/ui/table/table';
+//import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
 import { IUser, IUserModel } from '../../shared/interface/user.interface';
@@ -26,11 +26,11 @@ import { UserState } from '../../shared/state/user.state';
   templateUrl: './user.html',
   styleUrls: ['./user.scss'],
   imports: [
-    PageWrapper,
-    HasPermissionDirective,
+   // PageWrapper,
+   // HasPermissionDirective,
     RouterModule,
-    Table,
-    ImportCsvModal,
+   // Table,
+   // ImportCsvModal,
     TranslateModule,
   ],
 })
@@ -40,7 +40,7 @@ export class User {
 
   user$: Observable<IUserModel> = inject(Store).select(UserState.user);
 
-  readonly CSVModal = viewChild<ImportCsvModal>('csvModal');
+ // readonly CSVModal = viewChild<ImportCsvModal>('csvModal');
 
   public tableConfig: ITableConfig = {
     columns: [

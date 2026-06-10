@@ -6,22 +6,22 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 
 import { UpdateQuestionAnswersAction } from '../../../shared/action/questions-answers.action';
-import { Button } from '../../../shared/components/ui/button/button';
+//import { Button } from '../../../shared/components/ui/button/button';
 import { IQuestionAnswers } from '../../../shared/interface/questions-answers.interface';
 
 @Component({
   selector: 'app-answers-modal',
   templateUrl: './answers-modal.html',
   styleUrls: ['./answers-modal.scss'],
-  imports: [Button, ReactiveFormsModule, TranslateModule],
+  imports: [ReactiveFormsModule, TranslateModule],
 })
 export class AnswersModal {
   private modalService = inject(NgbModal);
   private store = inject(Store);
 
   public modalOpen: boolean = false;
-  public closeResult: string;
-  public qna: IQuestionAnswers;
+  public closeResult?: string;
+  public qna!: IQuestionAnswers;
   public answers = new FormControl('', [Validators.required]);
 
   readonly AnswersModal = viewChild<TemplateRef<string>>('answersModal');

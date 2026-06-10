@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
 import { FormRole } from '../form-role/form-role';
 
 @Component({
   selector: 'app-create-role',
   templateUrl: './create-role.html',
   styleUrls: ['./create-role.scss'],
-  imports: [PageWrapper, FormRole],
+  imports: [ FormRole],
 })
 export class CreateRole {}

@@ -18,11 +18,11 @@ import {
   EditCategoryAction,
   UpdateCategoryAction,
 } from '../../../shared/action/category.action';
-import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
-import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+//import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
 import { NumberDirective } from '../../../shared/directive/numbers-only.directive';
 import { IAttachment } from '../../../shared/interface/attachment.interface';
 import { ICategory } from '../../../shared/interface/category.interface';
@@ -33,13 +33,13 @@ import { CategoryState } from '../../../shared/state/category.state';
   templateUrl: './form-category.html',
   styleUrls: ['./form-category.scss'],
   imports: [
-    PageWrapper,
+    //PageWrapper,
     ReactiveFormsModule,
-    FormFields,
+   // FormFields,
     NumberDirective,
-    AdvancedDropdown,
-    ImageUpload,
-    Button,
+    //AdvancedDropdown,
+   // ImageUpload,
+  //  Button,
     TranslateModule,
   ],
 })
@@ -49,13 +49,13 @@ export class FormCategory {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
 
-  readonly type = input<string>(undefined);
-  readonly categories = input<ICategory[]>(undefined);
+ // readonly type = input<string>(undefined);
+ // readonly categories = input<ICategory[]>(undefined);
   readonly categoryType = input<string | null>('product');
 
   public form: FormGroup;
-  public category: ICategory;
-  public id: number;
+  public category?: ICategory;
+  public id!: number;
 
   private destroy$ = new Subject<void>();
 
@@ -126,11 +126,11 @@ export class FormCategory {
     this.form.markAllAsTouched();
     let action = new CreateCategoryAction(this.form.value);
 
-    if (this.type() == 'edit' && this.category?.id) {
+  /*  if (this.type() == 'edit' && this.category?.id) {
       action = new UpdateCategoryAction(this.form.value, this.category.id);
-    }
+    }*/
 
-    if (this.form.valid) {
+   /* if (this.form.valid) {
       this.store.dispatch(action).subscribe({
         complete: () => {
           if (this.type() == 'create') {
@@ -147,7 +147,7 @@ export class FormCategory {
           }
         },
       });
-    }
+    }*/
   }
 
   ngOnDestroy() {

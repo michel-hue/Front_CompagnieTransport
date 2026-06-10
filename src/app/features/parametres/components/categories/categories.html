@@ -13,7 +13,7 @@
           </button>
         </div>
       </div>
-      
+
       <!-- Filtre Type de catégorie -->
       <div class="col-12 col-md-auto ms-md-auto">
         <div class="filter-box d-flex align-items-center">
@@ -37,7 +37,8 @@
     </div>
   </div>
 
-  <!-- Datatable -->
+<!--
+  &lt;!&ndash; Datatable &ndash;&gt;
   <app-table
     [tableConfig]="tableConfig"
     [hasCheckbox]="true"
@@ -45,11 +46,12 @@
     (tableChanged)="onTableChange($event)"
     (action)="onActionClicked($event)"
   />
-  
+-->
+
   <!-- Modals -->
-  <app-confirm-modal #confirmModal />
-  <app-modal-form-categorie #formModal />
-  
+<!--  <app-confirm-modal #confirmModal />
+  <app-modal-form-categorie #formModal />-->
+
   <!-- Modal Description Simple -->
   <app-simple-description-modal #descriptionModal />
 </div>

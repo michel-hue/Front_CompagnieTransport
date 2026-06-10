@@ -1,4 +1,4 @@
-<app-page-wrapper [gridClass]="'col-sm-12'" [title]="'themes'">
+<!--<app-page-wrapper [gridClass]="'col-sm-12'" [title]="'themes'">-->
   <div
     class="row row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-sm-2 row-cols-1 g-lg-5 g-4 layout-selection-sec ratio_square"
   >
@@ -27,17 +27,17 @@
         </div>
         <div class="content-sec">
           <h5>{{ theme.name }}</h5>
-          <a
+         <!-- <a
             href="javascript:void(0)"
             *hasPermission="'theme.edit'"
             (click)="theme?.id !== selectedTheme && ConfirmationModal().openModal('theme', theme)"
           >
             {{ theme?.id === selectedTheme ? 'Activated' : 'Active' }}
-          </a>
+          </a>-->
         </div>
       </div>
     </div>
     }
   </div>
-</app-page-wrapper>
-<app-confirmation-modal #confirmationModal (confirmed)="activeTheme($event)" />
+<!--</app-page-wrapper>
+<app-confirmation-modal #confirmationModal (confirmed)="activeTheme($event)" />-->

@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { ICartModel } from '../interface/cart.interface';
 
 @Injectable({
@@ -13,6 +13,6 @@ export class CartService {
   private http = inject(HttpClient);
 
   getCartItems(): Observable<ICartModel> {
-    return this.http.get<ICartModel>(`${environment.URL}/cart.json`);
+    return this.http.get<ICartModel>(`${URL}/cart.json`);
   }
 }

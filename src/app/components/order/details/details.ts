@@ -11,13 +11,13 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2Module, Select2UpdateEvent } from 'ng-select2-component';
+import { Select2Data,  Select2UpdateEvent } from 'ng-select2-component';
 import { Observable, of, Subject } from 'rxjs';
 import { mergeMap, switchMap, takeUntil } from 'rxjs/operators';
 
 import { GetOrderStatusAction } from '../../../shared/action/order-status.action';
 import { UpdateOrderStatusAction, ViewOrderAction } from '../../../shared/action/order.action';
-import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
 import { IOrderStatus, IOrderStatusModel } from '../../../shared/interface/order-status.interface';
 import { IOrder } from '../../../shared/interface/order.interface';
 import { CurrencySymbolPipe } from '../../../shared/pipe/currency-symbol.pipe';
@@ -30,8 +30,6 @@ import { OrderState } from '../../../shared/state/order.state';
   styleUrls: ['./details.scss'],
   imports: [
     NgClass,
-    PageWrapper,
-    Select2Module,
     RouterModule,
     CommonModule,
     UpperCasePipe,
@@ -50,7 +48,7 @@ export class Details {
     OrderStatusState.orderStatuses,
   ) as Observable<Select2Data>;
 
-  public order: IOrder;
+  public order!: IOrder;
   public statuses: IOrderStatus[] = [];
   public isBrowser: boolean;
 

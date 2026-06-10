@@ -23,8 +23,8 @@ export class ProductStateModel {
     data: [] as IProduct[],
     total: 0,
   };
-  selectedProduct: IProduct | null;
-  topSellingProducts: IProduct[];
+  selectedProduct: IProduct | null = null;
+  topSellingProducts: IProduct[] = [];
 }
 
 @State<ProductStateModel>({

@@ -1,15 +1,16 @@
+<!--
 <li class="profile-nav onhover-dropdown pe-0 me-0">
   <div class="media profile-media" (click)="clickHeaderOnMobile()">
     <div class="profile-img">
       @if (currentUser?.vendeur?.photourl) {
-        <!-- Afficher la photo du vendeur si disponible -->
+        &lt;!&ndash; Afficher la photo du vendeur si disponible &ndash;&gt;
         <img
           class="user-profile rounded-circle"
           [src]="currentUser.vendeur.photourl"
           alt="profile"
         />
       } @else if (currentUser?.name) {
-        <!-- Afficher l'initiale du nom de l'utilisateur connecté -->
+        &lt;!&ndash; Afficher l'initiale du nom de l'utilisateur connecté &ndash;&gt;
         <div class="user-round">
           <h4>{{ getUserInitial() }}</h4>
         </div>
@@ -26,7 +27,7 @@
       }
     </div>
     <div class="user-name-hide media-body">
-      <!-- Afficher les données du localStorage si disponibles -->
+      &lt;!&ndash; Afficher les données du localStorage si disponibles &ndash;&gt;
       @if (currentUser) {
         <span [title]="currentUser.name || (currentUser.vendeur ? currentUser.vendeur.prenom + ' ' + currentUser.vendeur.nom : 'Utilisateur')">
           {{ getTruncatedName(currentUser.name || (currentUser.vendeur ? currentUser.vendeur.prenom + ' ' + currentUser.vendeur.nom : 'Utilisateur')) }}
@@ -51,7 +52,7 @@
         <span>{{ 'my_account' | translate }}</span>
       </a>
     </li>
-    <!-- Afficher l'email si disponible -->
+    &lt;!&ndash; Afficher l'email si disponible &ndash;&gt;
     @if (currentUser?.email || currentUser?.vendeur?.email) {
       <li class="user-info-item">
         <div class="user-info">
@@ -60,7 +61,7 @@
         </div>
       </li>
     }
-    <!-- Afficher le téléphone si disponible -->
+    &lt;!&ndash; Afficher le téléphone si disponible &ndash;&gt;
     @if (currentUser?.vendeur?.tel || currentUser?.phone) {
       <li class="user-info-item">
         <div class="user-info">
@@ -79,3 +80,4 @@
 </li>
 
 <app-confirmation-modal #confirmationModal (confirmed)="logout()" />
+-->

@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2Module } from 'ng-select2-component';
+import { Select2Data} from 'ng-select2-component';
 import { Observable } from 'rxjs';
 
 import {
@@ -20,9 +20,9 @@ import {
   DeleteShippingRuleAction,
   UpdateShippingRuleAction,
 } from '../../../shared/action/shipping.action';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-import { DeleteModal } from '../../../shared/components/ui/modal/delete-modal/delete-modal';
+///import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { DeleteModal } from '../../../shared/components/ui/modal/delete-modal/delete-modal';
 import { IValues } from '../../../shared/interface/setting.interface';
 import { IShipping, IShippingRule } from '../../../shared/interface/shipping.interface';
 import { SettingState } from '../../../shared/state/setting.state';
@@ -33,10 +33,10 @@ import { SettingState } from '../../../shared/state/setting.state';
   styleUrls: ['./form-shipping.scss'],
   imports: [
     ReactiveFormsModule,
-    FormFields,
-    Select2Module,
-    Button,
-    DeleteModal,
+  //  FormFields,
+
+   // Button,
+  //  DeleteModal,
     CommonModule,
     TranslateModule,
   ],
@@ -50,9 +50,9 @@ export class FormShipping {
   // TODO: Skipped for migration because:
   //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
   //  and migrating would break narrowing currently.
-  readonly data = input<IShippingRule>(undefined);
+ // readonly data = input<IShippingRule>(undefined);
 
-  readonly DeleteModal = viewChild<DeleteModal>('deleteModal');
+ // readonly DeleteModal = viewChild<DeleteModal>('deleteModal');
   setting$: Observable<IValues> = inject(Store).select(SettingState.setting) as Observable<IValues>;
 
   public form: FormGroup;
@@ -99,7 +99,7 @@ export class FormShipping {
   }
 
   ngOnChanges() {
-    const dataValue = this.data();
+/*    const dataValue = this.data();
     if (dataValue) {
       this.form.patchValue({
         name: dataValue?.name,
@@ -123,7 +123,7 @@ export class FormShipping {
           new FormControl(dataVal ? dataVal.amount : '', [Validators.required]),
         );
       }
-    });
+    });*/
   }
 
   selectShippingType() {
@@ -133,10 +133,10 @@ export class FormShipping {
   submit() {
     this.form.markAllAsTouched();
     let action = new CreateShippingRuleAction(this.form.value);
-    const data = this.data();
+  /*  const data = this.data();
     if (data) {
       action = new UpdateShippingRuleAction(this.form.value, data.id);
-    }
+    }*/
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({
         complete: () => {

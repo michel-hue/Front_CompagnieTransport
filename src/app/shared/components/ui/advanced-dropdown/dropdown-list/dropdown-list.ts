@@ -1,3 +1,4 @@
+/*
 import { Component, output, input } from '@angular/core';
 
 @Component({
@@ -28,3 +29,4 @@ export class DropdownList {
     this.subItemClicked.emit(data);
   }
 }
+*/

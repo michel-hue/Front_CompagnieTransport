@@ -4,9 +4,9 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { GetRefundAction, UpdateRefundStatusAction } from '../../shared/action/refund.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { PayoutModal } from '../../shared/components/ui/modal/payout-modal/payout-modal';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { PayoutModal } from '../../shared/components/ui/modal/payout-modal/payout-modal';
+//import { Table } from '../../shared/components/ui/table/table';
 import { Params } from '../../shared/interface/core.interface';
 import { IRefund, IRefundModel } from '../../shared/interface/refund.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -16,14 +16,14 @@ import { RefundState } from '../../shared/state/refund.state';
   selector: 'app-refund',
   templateUrl: './refund.html',
   styleUrls: ['./refund.scss'],
-  imports: [PageWrapper, Table, PayoutModal],
+  imports: [],
 })
 export class Refund {
   private store = inject(Store);
 
   refund$: Observable<IRefundModel> = inject(Store).select(RefundState.refund);
 
-  readonly PayoutModal = viewChild<PayoutModal>('payoutModal');
+ // readonly PayoutModal = viewChild<PayoutModal>('payoutModal');
 
   public tableConfig: ITableConfig = {
     columns: [
@@ -64,15 +64,15 @@ export class Refund {
     });
   }
 
-  onActionClicked(action: ITableClickedAction) {
+/*  onActionClicked(action: ITableClickedAction) {
     if (action.actionToPerform == 'view') void this.PayoutModal().openModal(action.data);
-  }
+  }*/
 
   onTableChange(data?: Params) {
     this.store.dispatch(new GetRefundAction(data));
   }
 
-  approved(event: { data: IRefund; status?: string }): void {
+  /*approved(event: { data: IRefund; status?: string }): void {
     this.store.dispatch(new UpdateRefundStatusAction(event.data.id, event.status));
-  }
+  }*/
 }

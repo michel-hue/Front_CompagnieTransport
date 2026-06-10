@@ -1,3 +1,4 @@
+/*
 import { CommonModule } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 
@@ -26,3 +27,4 @@ export class PageWrapper {
     LoaderState.status,
   ) as Observable<boolean>;
 }
+*/

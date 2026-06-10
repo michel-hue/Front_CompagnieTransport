@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { IStoresModel } from '../interface/store.interface';
 
@@ -14,6 +14,6 @@ export class StoreService {
   private http = inject(HttpClient);
 
   getStores(payload?: Params): Observable<IStoresModel> {
-    return this.http.get<IStoresModel>(`${environment.URL}/store.json`, { params: payload });
+    return this.http.get<IStoresModel>(`${URL}/store.json`, { params: payload });
   }
 }

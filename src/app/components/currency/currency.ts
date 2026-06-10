@@ -11,8 +11,8 @@ import {
   GetCurrenciesAction,
   UpdateCurrencyStatusAction,
 } from '../../shared/action/currency.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { ICurrency, ICurrencyModel } from '../../shared/interface/currency.interface';
@@ -23,7 +23,7 @@ import { CurrencyState } from '../../shared/state/currency.state';
   selector: 'app-currency',
   templateUrl: './currency.html',
   styleUrls: ['./currency.scss'],
-  imports: [PageWrapper, HasPermissionDirective, RouterModule, Table, TranslateModule],
+  imports: [ HasPermissionDirective, RouterModule,  TranslateModule],
 })
 export class Currency {
   private store = inject(Store);

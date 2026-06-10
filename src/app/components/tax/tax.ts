@@ -11,8 +11,8 @@ import {
   GetTaxesAction,
   UpdateTaxStatusAction,
 } from '../../shared/action/tax.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -23,7 +23,7 @@ import { TaxState } from '../../shared/state/tax.state';
   selector: 'app-tax',
   templateUrl: './tax.html',
   styleUrls: ['./tax.scss'],
-  imports: [PageWrapper, HasPermissionDirective, RouterModule, Table, TranslateModule],
+  imports: [ HasPermissionDirective, RouterModule,TranslateModule],
 })
 export class Tax {
   private store = inject(Store);

@@ -11,9 +11,9 @@ import {
   DeleteStoreAction,
   GetStoresAction,
 } from '../../shared/action/store.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Table } from '../../shared/components/ui/table/table';
-import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Table } from '../../shared/components/ui/table/table';
+//import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { IStores, IStoresModel } from '../../shared/interface/store.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -23,7 +23,7 @@ import { StoreState } from '../../shared/state/store.state';
   selector: 'app-store',
   templateUrl: './stores.html',
   styleUrls: ['./stores.scss'],
-  imports: [PageWrapper, HasPermissionDirective, RouterModule, Table, TranslateModule],
+  imports: [  RouterModule,  TranslateModule],
 })
 export class Stores {
   private store = inject(Store);

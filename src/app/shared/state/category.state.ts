@@ -20,7 +20,7 @@ export class CategoryStateModel {
     data: [] as ICategory[],
     total: 0,
   };
-  selectedCategory: ICategory | null;
+  selectedCategory: ICategory | null = null;
 }
 
 @State<CategoryStateModel>({

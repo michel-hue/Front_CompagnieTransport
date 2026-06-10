@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { IOrderModel } from '../interface/order.interface';
 
@@ -14,6 +14,6 @@ export class OrderService {
   private http = inject(HttpClient);
 
   getOrders(payload?: Params): Observable<IOrderModel> {
-    return this.http.get<IOrderModel>(`${environment.URL}/order.json`, { params: payload });
+    return this.http.get<IOrderModel>(`${URL}/order.json`, { params: payload });
   }
 }

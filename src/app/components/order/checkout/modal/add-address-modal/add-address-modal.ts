@@ -11,13 +11,13 @@ import {
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2Module, Select2UpdateEvent } from 'ng-select2-component';
+import { Select2Data, Select2UpdateEvent } from 'ng-select2-component';
 import { map, Observable } from 'rxjs';
 
 import { SelectUserAction } from '../../../../../shared/action/order.action';
 import { CreateUserAddressAction } from '../../../../../shared/action/user.action';
-import { Button } from '../../../../../shared/components/ui/button/button';
-import { FormFields } from '../../../../../shared/components/ui/form-fields/form-fields';
+//import { Button } from '../../../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../../../shared/components/ui/form-fields/form-fields';
 import * as data from '../../../../../shared/data/country-code';
 import { NumberDirective } from '../../../../../shared/directive/numbers-only.directive';
 import { CountryState } from '../../../../../shared/state/country.state';
@@ -28,13 +28,13 @@ import { StateState } from '../../../../../shared/state/state.state';
   templateUrl: './add-address-modal.html',
   styleUrls: ['./add-address-modal.scss'],
   imports: [
-    Button,
+  //  Button,
     ReactiveFormsModule,
-    FormFields,
-    Select2Module,
-    NumberDirective,
+   // FormFields,
+   // Select2Module,
+   // NumberDirective,
     CommonModule,
-    TitleCasePipe,
+   // TitleCasePipe,
     TranslateModule,
   ],
 })
@@ -44,16 +44,16 @@ export class AddAddressModal {
   private formBuilder = inject(FormBuilder);
 
   public form: FormGroup;
-  public closeResult: string;
+  public closeResult?: string;
   public modalOpen: boolean = false;
-  public states$: Observable<Select2Data>;
+  public states$!: Observable<Select2Data>;
 
   public codes = data.countryCodes;
 
   readonly AddAddressModal = viewChild<TemplateRef<string>>('addAddressModal');
   countries$: Observable<Select2Data> = inject(Store).select(CountryState.countries);
 
-  readonly id = input<number>(undefined);
+ // readonly id = input<number>(undefined);
 
   constructor() {
     this.form = this.formBuilder.group({
@@ -70,14 +70,14 @@ export class AddAddressModal {
     });
   }
 
-  countryChange(data: Select2UpdateEvent) {
+ /* countryChange(data: Select2UpdateEvent) {
     if (data && data?.value) {
-      this.states$ = this.store
+     // this.states$ = this.store
         .select(StateState.states)
-        .pipe(map(filterFn => filterFn(+data?.value)));
+      //  .pipe(map(filterFn => filterFn(+data?.value)));
       this.form.controls['state_id'].setValue('');
     }
-  }
+  }*/
 
   async openModal(value?: string) {
     this.form.controls['type'].setValue(value);

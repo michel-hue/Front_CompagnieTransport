@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { FormCategory } from './form-category/form-category';
 import { Tree } from './tree/tree';
 import { GetCategoriesAction } from '../../shared/action/category.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { ICategoryModel } from '../../shared/interface/category.interface';
 import { CategoryState } from '../../shared/state/category.state';
@@ -19,7 +19,7 @@ import { CategoryState } from '../../shared/state/category.state';
   templateUrl: './category.html',
   styleUrls: ['./category.scss'],
   imports: [
-    PageWrapper,
+
     HasPermissionDirective,
     RouterModule,
     Tree,

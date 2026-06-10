@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../public/environments/environment';
+
 import { Params } from '../interface/core.interface';
 import { ITagModel } from '../interface/tag.interface';
 
@@ -14,6 +14,6 @@ export class TagService {
   private http = inject(HttpClient);
 
   getTags(payload?: Params): Observable<ITagModel> {
-    return this.http.get<ITagModel>(`${environment.URL}/tag.json`, { params: payload });
+    return this.http.get<ITagModel>(`${URL}/tag.json`, { params: payload });
   }
 }

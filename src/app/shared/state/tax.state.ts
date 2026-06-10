@@ -21,7 +21,7 @@ export class TaxStateModel {
     data: [] as ITax[],
     total: 0,
   };
-  selectedTax: ITax | null;
+  selectedTax: ITax | null = null;
 }
 
 @State<TaxStateModel>({

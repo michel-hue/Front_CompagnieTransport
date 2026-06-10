@@ -1,3 +1,4 @@
+/*
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Renderer2, inject, viewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,12 +28,12 @@ export class Search {
   navServices = inject(NavService);
   private renderer = inject(Renderer2);
 
-  public menuItems: IMenu[];
+  public menuItems: IMenu[] = [];
   public items: IMenu[] = data.menu;
 
   public searchResult: boolean = false;
   public searchResultEmpty: boolean = false;
-  public text: string;
+  public text: string = '';
   public open = false;
 
   readonly toggleButton = viewChild<ElementRef>('toggleButton');
@@ -105,3 +106,4 @@ export class Search {
     this.searchResult = false;
   }
 }
+*/

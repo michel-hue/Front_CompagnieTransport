@@ -12,7 +12,7 @@ export class MenuStateModel {
   menu = {
     data: [] as IMenu[],
   };
-  badges: IBadges | null;
+  badges: IBadges | null = null;
 }
 
 @State<MenuStateModel>({

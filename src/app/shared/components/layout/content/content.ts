@@ -6,8 +6,7 @@ import { Store } from '@ngxs/store';
 
 import { NavService } from '../../../services/nav.service';
 import { Footer } from '../../footer/footer';
-import { Header } from '../../header/header';
-import { Sidebar } from '../../sidebar/sidebar';
+
 import { GetUserDetailsAction } from './../../../action/account.action';
 import { GetBadgesAction } from './../../../action/menu.action';
 import { GetNotificationAction } from './../../../action/notification.action';
@@ -17,7 +16,7 @@ import { SidebarMenuSkeleton } from '../../ui/skeleton/sidebar-menu-skeleton/sid
   selector: 'app-content',
   templateUrl: './content.html',
   styleUrls: ['./content.scss'],
-  imports: [Header, SidebarMenuSkeleton, Sidebar, RouterModule, Footer],
+  imports: [SidebarMenuSkeleton,  RouterModule, Footer],
 })
 export class Content {
   private store = inject(Store);
@@ -28,7 +27,7 @@ export class Content {
 
   constructor() {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    
+
     // ⚠️ Actions commentées car on utilise notre propre API maintenant
     // this.store.dispatch(new GetBadgesAction());
     // this.store.dispatch(new GetNotificationAction());
@@ -37,7 +36,7 @@ export class Content {
     //     this.navServices.sidebarLoading = false;
     //   },
     // });
-    
+
     // Désactiver le loader de la sidebar immédiatement
     this.navServices.sidebarLoading = false;
   }

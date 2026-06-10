@@ -21,7 +21,7 @@ export class CurrencyStateModel {
     data: [] as ICurrency[],
     total: 0,
   };
-  selectedCurrency: ICurrency | null;
+  selectedCurrency: ICurrency | null = null;
 }
 
 @State<CurrencyStateModel>({

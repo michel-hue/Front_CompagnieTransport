@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 
 import { ShippingCountryModal } from './modal/shipping-country-modal/shipping-country-modal';
 import { DeleteShippingAction, GetShippingsAction } from '../../shared/action/shipping.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { DeleteModal } from '../../shared/components/ui/modal/delete-modal/delete-modal';
-import { NoData } from '../../shared/components/ui/no-data/no-data';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { DeleteModal } from '../../shared/components/ui/modal/delete-modal/delete-modal';
+//import { NoData } from '../../shared/components/ui/no-data/no-data';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { IShipping, IShippingModel } from '../../shared/interface/shipping.interface';
 import { ShippingState } from '../../shared/state/shipping.state';
@@ -20,12 +20,12 @@ import { ShippingState } from '../../shared/state/shipping.state';
   templateUrl: './shipping.html',
   styleUrls: ['./shipping.scss'],
   imports: [
-    PageWrapper,
+   // PageWrapper,
     HasPermissionDirective,
     RouterModule,
-    NoData,
+   // NoData,
     ShippingCountryModal,
-    DeleteModal,
+   // DeleteModal,
     CommonModule,
     TranslateModule,
   ],
@@ -38,7 +38,7 @@ export class Shipping {
   ) as Observable<IShippingModel>;
 
   readonly CountryShippingModal = viewChild<ShippingCountryModal>('countryShippingModal');
-  readonly DeleteModal = viewChild<DeleteModal>('deleteModal');
+  //readonly DeleteModal = viewChild<DeleteModal>('deleteModal');
 
   constructor() {
     this.store.dispatch(new GetShippingsAction());

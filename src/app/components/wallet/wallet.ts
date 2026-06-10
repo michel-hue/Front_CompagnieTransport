@@ -10,7 +10,7 @@ import {
 
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2Module } from 'ng-select2-component';
+import { Select2Data} from 'ng-select2-component';
 import { Observable } from 'rxjs';
 
 import { GetUsersAction } from '../../shared/action/user.action';
@@ -19,10 +19,10 @@ import {
   DebitWalletAction,
   GetUserTransactionAction,
 } from '../../shared/action/wallet.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Button } from '../../shared/components/ui/button/button';
-import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Button } from '../../shared/components/ui/button/button';
+//import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
+//import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { NumberDirective } from '../../shared/directive/numbers-only.directive';
 import { Params } from '../../shared/interface/core.interface';
@@ -41,13 +41,13 @@ import { WalletState } from '../../shared/state/wallet.state';
   providers: [CurrencySymbolPipe],
   imports: [
     ReactiveFormsModule,
-    PageWrapper,
-    Select2Module,
+   // PageWrapper,
+    //Select2Module,
     NumberDirective,
     HasPermissionDirective,
-    Button,
-    Table,
-    ConfirmationModal,
+    //Button,
+    //Table,
+    //ConfirmationModal,
     CommonModule,
     TranslateModule,
     CurrencySymbolPipe,
@@ -63,11 +63,11 @@ export class Wallet {
   wallet$: Observable<IWallet> = inject(Store).select(WalletState.wallet) as Observable<IWallet>;
   setting$: Observable<IValues> = inject(Store).select(SettingState.setting) as Observable<IValues>;
 
-  readonly ConfirmationModal = viewChild<ConfirmationModal>('confirmationModal');
+  //readonly ConfirmationModal = viewChild<ConfirmationModal>('confirmationModal');
 
   public form: FormGroup;
-  public balance: number;
-  public paginateInitialData: Params;
+  public balance!: number;
+  public paginateInitialData!: Params;
   public isBrowser: boolean;
 
   public tableConfig: ITableConfig = {

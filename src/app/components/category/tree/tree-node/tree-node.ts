@@ -4,15 +4,15 @@ import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 
 import { DeleteCategoryAction } from '../../../../shared/action/category.action';
-import { DeleteModal } from '../../../../shared/components/ui/modal/delete-modal/delete-modal';
-import { HasPermissionDirective } from '../../../../shared/directive/has-permission.directive';
+//import { DeleteModal } from '../../../../shared/components/ui/modal/delete-modal/delete-modal';
+//import { HasPermissionDirective } from '../../../../shared/directive/has-permission.directive';
 import { ICategory } from '../../../../shared/interface/category.interface';
 
 @Component({
   selector: 'app-tree-node',
   templateUrl: './tree-node.html',
   styleUrls: ['./tree-node.scss'],
-  imports: [HasPermissionDirective, RouterModule, DeleteModal],
+  imports: [RouterModule, ],
 })
 export class TreeNode {
   private store = inject(Store);
@@ -26,14 +26,14 @@ export class TreeNode {
   // TODO: Skipped for migration because:
   //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
   //  and migrating would break narrowing currently.
-  readonly recursionKey = input<string>(undefined);
-  readonly displayKey = input<string>(undefined);
+ // readonly recursionKey = input<string>(undefined);
+ // readonly displayKey = input<string>(undefined);
   readonly categoryType = input<string | null>('product');
 
-  readonly DeleteModal = viewChild<DeleteModal>('deleteModal');
+  //readonly DeleteModal = viewChild<DeleteModal>('deleteModal');
 
   public showChildrenNode: boolean = true;
-  public id: number;
+  public id!: number;
 
   ngOnInit() {
     this.route.params.subscribe(params => (this.id = params['id']));

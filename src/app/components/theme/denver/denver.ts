@@ -21,17 +21,17 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2, Select2Data, Select2Module, Select2SearchEvent } from 'ng-select2-component';
+import { Select2, Select2Data,  Select2SearchEvent } from 'ng-select2-component';
 import { debounceTime, forkJoin, Observable, Subject } from 'rxjs';
 
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
 import { GetHomePageAction, UpdateHomePageAction } from '../../../shared/action/theme.action';
-import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
-import { Button } from '../../../shared/components/ui/button/button';
-import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
-import { Link } from '../../../shared/components/ui/link/link';
+//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+//import { Button } from '../../../shared/components/ui/button/button';
+//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+//import { Link } from '../../../shared/components/ui/link/link';
 import * as data from '../../../shared/data/home-page';
 import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { Params } from '../../../shared/interface/core.interface';
@@ -44,29 +44,29 @@ import { ThemeState } from '../../../shared/state/theme.state';
   selector: 'app-denver',
   templateUrl: './denver.html',
   imports: [
-    PageWrapper,
+    //PageWrapper,
     ReactiveFormsModule,
-    NgbNav,
-    NgbNavItem,
-    NgbNavItemRole,
-    NgbNavLink,
-    NgbNavLinkBase,
-    NgbNavContent,
-    FormFields,
-    ImageUpload,
-    Link,
-    Select2Module,
-    NgbNavOutlet,
-    NgbAccordionDirective,
-    NgbAccordionItem,
-    NgbAccordionHeader,
-    NgbAccordionToggle,
-    NgbAccordionButton,
-    NgbCollapse,
-    NgbAccordionCollapse,
-    NgbAccordionBody,
-    HasPermissionDirective,
-    Button,
+   // NgbNav,
+   // NgbNavItem,
+   // NgbNavItemRole,
+  //  NgbNavLink,
+  //  NgbNavLinkBase,
+  //  NgbNavContent,
+   // FormFields,
+   // ImageUpload,
+  //  Link,
+  //  Select2Module,
+  //  NgbNavOutlet,
+    //NgbAccordionDirective,
+    //NgbAccordionItem,
+    //NgbAccordionHeader,
+   // NgbAccordionToggle,
+   // NgbAccordionButton,
+   // NgbCollapse,
+   // NgbAccordionCollapse,
+   // NgbAccordionBody,
+  //  HasPermissionDirective,
+    //Button,
     CommonModule,
     TranslateModule,
   ],
@@ -78,10 +78,10 @@ export class Denver {
   private document = inject<Document>(DOCUMENT);
 
   product$: Observable<Select2Data> = inject(Store).select(ProductState.products);
-  home_page$: Observable<IDenver> = inject(Store).select(ThemeState.homePage<IDenverContent>);
+  //home_page$: Observable<IDenver> = inject(Store).select(ThemeState.homePage<IDenverContent>);
   categories$: Observable<Select2Data> = inject(Store).select(CategoryState.categories);
 
-  public page_data: IDenver;
+  public page_data!: IDenver;
   public active = 'home_banner';
   public form: FormGroup;
   public banner = 1;
@@ -232,9 +232,9 @@ export class Denver {
                 : 0;
             }
             this.store.dispatch(new GetProductsAction(this.filter)).subscribe({
-              complete: () => {
+            /*  complete: () => {
                 this.patchForm();
-              },
+              },*/
             });
           },
         });
@@ -251,7 +251,7 @@ export class Denver {
       });
   }
 
-  patchForm() {
+ /* patchForm() {
     this.store.select(ThemeState.homePage<IDenverContent>).subscribe(homePage => {
       this.page_data = homePage;
       this.form.patchValue({
@@ -386,7 +386,7 @@ export class Denver {
         slug: homePage?.slug,
       });
     });
-  }
+  }*/
 
   getProducts(filter: Params) {
     this.filter['search'] = filter['search'];

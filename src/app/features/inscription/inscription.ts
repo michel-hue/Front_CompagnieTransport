@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
-import {
+/*import {
   FirebaseAuthService,
   FirebaseEmailRegistrationResult,
   SocialProviderKey,
-} from '../../shared/services/firebase-auth.service';
+} from '../../shared/services/firebase-auth.service';*/
 import { InscriptionDataService } from './data-access/inscription-data.service';
 import { AuthDataService } from '../connexion/data-access/auth-data.service';
 import { finalize } from 'rxjs/operators';
@@ -32,7 +32,7 @@ interface FirebaseAccountMeta {
 })
 export class Inscription {
   private fb = inject(FormBuilder);
-  private firebaseAuth = inject(FirebaseAuthService);
+  //private firebaseAuth = inject(FirebaseAuthService);
   private inscriptionDataService = inject(InscriptionDataService);
   private authDataService = inject(AuthDataService);
   private userService = inject(UserService);
@@ -57,10 +57,10 @@ export class Inscription {
   ];
 
   public currentStep = 0;
-  public readonly socialProviders: SocialProviderKey[] = ['Google', 'Facebook', 'TikTok'];
+  //public readonly socialProviders: SocialProviderKey[] = ['Google', 'Facebook', 'TikTok'];
   public socialAuthLoading = false;
   public socialAuthError = '';
-  public lastProviderAttempt: SocialProviderKey | null = null;
+  //public lastProviderAttempt: SocialProviderKey | null = null;
   public submitLoading = false;
   public submitError = '';
   public submitSuccess = false;
@@ -146,6 +146,7 @@ export class Inscription {
     passwordControl?.updateValueAndValidity();
     socialProviderControl?.updateValueAndValidity();
   }
+/*
 
   public async connectWithProvider(provider: SocialProviderKey): Promise<void> {
     this.selectMode('social');
@@ -195,6 +196,7 @@ export class Inscription {
       this.socialAuthLoading = false;
     }
   }
+*/
 
   public goToStep(step: number): void {
     if (step < 0 || step > this.steps.length - 1) {
@@ -241,12 +243,12 @@ export class Inscription {
 
     try {
       if (this.isEmailMode) {
-        const registration = await this.firebaseAuth.registerWithEmail(
+      /*  const registration = await this.firebaseAuth.registerWithEmail(
           this.accountForm.get('email')?.value,
           this.accountForm.get('password')?.value,
           `${this.accountForm.get('prenom')?.value} ${this.accountForm.get('nom')?.value}`.trim(),
         );
-        this.firebaseAccountMeta = this.buildFirebaseMetaFromEmail(registration);
+        this.firebaseAccountMeta = this.buildFirebaseMetaFromEmail(registration);*/
 
       } else if (!this.firebaseAccountMeta) {
         this.submitError = 'Veuillez finaliser la connexion via votre réseau social.';
@@ -288,7 +290,7 @@ export class Inscription {
           // Après inscription réussie, vérifier la connexion pour obtenir le JWT avec toutes les infos
           const idToken = this.firebaseAccountMeta?.id_token || this.firebaseAccountMeta?.access_token || '';
           const email = this.firebaseAccountMeta?.email || this.accountForm.get('email')?.value || '';
-          
+
           if (idToken && email) {
             try {
               const verifyResponse = await this.authDataService.verifyFirebaseLogin(email, idToken);
@@ -442,7 +444,7 @@ export class Inscription {
     return rest;
   }
 
-  private buildFirebaseMetaFromEmail(
+  /*private buildFirebaseMetaFromEmail(
     registration: FirebaseEmailRegistrationResult,
   ): FirebaseAccountMeta {
     return {
@@ -455,5 +457,5 @@ export class Inscription {
       access_token: null,
       id_token: registration.idToken,
     };
-  }
+  }*/
 }

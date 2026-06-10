@@ -10,7 +10,7 @@ import {
 
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data, Select2Module } from 'ng-select2-component';
+import { Select2Data } from 'ng-select2-component';
 import { Observable } from 'rxjs';
 
 import {
@@ -19,10 +19,10 @@ import {
   GetUserTransactionAction,
 } from '../../shared/action/point.action';
 import { GetUsersAction } from '../../shared/action/user.action';
-import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-import { Button } from '../../shared/components/ui/button/button';
-import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
-import { Table } from '../../shared/components/ui/table/table';
+//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+//import { Button } from '../../shared/components/ui/button/button';
+//import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
+//import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { NumberDirective } from '../../shared/directive/numbers-only.directive';
 import { Params } from '../../shared/interface/core.interface';
@@ -36,13 +36,13 @@ import { UserState } from '../../shared/state/user.state';
   styleUrls: ['./point.scss'],
   imports: [
     ReactiveFormsModule,
-    PageWrapper,
-    Select2Module,
+   // PageWrapper,
+  //  Select2Module,
     NumberDirective,
     HasPermissionDirective,
-    Button,
-    Table,
-    ConfirmationModal,
+  //  Button,
+    //Table,
+  //  ConfirmationModal,
     CommonModule,
     TranslateModule,
   ],
@@ -56,11 +56,11 @@ export class Point {
   users$: Observable<Select2Data> = inject(Store).select(UserState.users);
   point$: Observable<IPoint> = inject(Store).select(PointState.point) as Observable<IPoint>;
 
-  readonly ConfirmationModal = viewChild<ConfirmationModal>('confirmationModal');
+  //readonly ConfirmationModal = viewChild<ConfirmationModal>('confirmationModal');
 
   public form: FormGroup;
   public balance: number = 0.0;
-  public paginateInitialData: Params;
+  public paginateInitialData!: Params;
   public isBrowser: boolean;
 
   public tableConfig = {
