@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import {
@@ -10,10 +9,10 @@ import {
 } from '../action/loader.action';
 
 export class LoaderStateModel {
-  public status?: boolean;
+  public status: boolean = false;           // ✅ Plus optionnel, valeur par défaut
   public loadingCount: number = 0;
-  public button_spinner?: boolean;
-  public button_id?: string | null;
+  public button_spinner: boolean = false;  // ✅ Plus optionnel
+  public button_id: string | null = null;  // ✅ Typage explicite
 }
 
 @State<LoaderStateModel>({
@@ -28,33 +27,39 @@ export class LoaderStateModel {
 @Injectable()
 export class LoaderState {
   @Selector()
-  public static status(state: LoaderStateModel) {
+  public static status(state: LoaderStateModel): boolean {  // ✅ Return type explicite
     return state.status;
   }
 
   @Selector()
-  public static loadingCount(state: LoaderStateModel) {
-    return state?.loadingCount;
+  public static loadingCount(state: LoaderStateModel): number {
+    return state.loadingCount;
   }
 
   @Selector()
-  public static buttonSpinner(state: LoaderStateModel) {
+  public static buttonSpinner(state: LoaderStateModel): boolean {
     return state.button_spinner;
   }
 
   @Action(ShowLoaderAction)
-  public showLoaderAction(ctx: StateContext<LoaderStateModel>, action: ShowLoaderAction) {
+  public showLoaderAction(
+    ctx: StateContext<LoaderStateModel>,
+    action: ShowLoaderAction,
+  ) {
     const state = ctx.getState();
-    const count = state?.loadingCount ? state?.loadingCount : 0;
-    ctx.patchState({ status: action?.loading, loadingCount: count + 1 });
+    const count = state.loadingCount;  // ✅ Plus besoin de ?. car toujours défini
+    ctx.patchState({
+      status: action.loading,
+      loadingCount: count + 1,
+    });
   }
 
   @Action(HideLoaderAction)
   public hideLoaderAction(ctx: StateContext<LoaderStateModel>) {
     const state = ctx.getState();
     ctx.patchState({
-      status: state?.loadingCount === 1 ? false : true,
-      loadingCount: state?.loadingCount - 1,
+      status: state.loadingCount === 1 ? false : true,
+      loadingCount: state.loadingCount - 1,
     });
   }
 
@@ -63,13 +68,11 @@ export class LoaderState {
     ctx: StateContext<LoaderStateModel>,
     action: ShowButtonSpinnerAction,
   ) {
-    const state = ctx.getState();
-    ctx.patchState({ ...state, button_spinner: action?.loading });
+    ctx.patchState({ button_spinner: action.loading });
   }
 
   @Action(HideButtonSpinnerAction)
-  public HideButtonSpinnerAction(ctx: StateContext<LoaderStateModel>) {
-    const state = ctx.getState();
-    ctx.patchState({ ...state, button_spinner: false });
+  public hideButtonSpinnerAction(ctx: StateContext<LoaderStateModel>) {  // ✅ camelCase
+    ctx.patchState({ button_spinner: false });
   }
 }

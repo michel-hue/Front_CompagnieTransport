@@ -1,4 +1,3 @@
-<!--
 <form class="theme-form theme-form-2 mega-form" [formGroup]="form" (ngSubmit)="submit()">
   <div class="vertical-tabs">
     <div class="row">
@@ -308,7 +307,7 @@
                   @if(isBrowser) {
                   <select2
                     class="custom-select"
-                    [data]="(product$ | async)?.length ? (product$ | async) : []"
+                    [data]="(product$ | async)?? []"
                     [templates]="template"
                     [placeholder]="'select_product' | translate"
                     formControlName="exclude_products"
@@ -339,7 +338,7 @@
                   @if(isBrowser) {
                   <select2
                     class="custom-select"
-                    [data]="(product$ | async)?.length ? (product$ | async) : []"
+                    [data]="(product$ | async)??[]"
                     [templates]="template"
                     [placeholder]="'select_product' | translate"
                     formControlName="products"
@@ -450,8 +449,7 @@
                     formControlName="usage_per_customer"
                   />
                   <p class="help-text">
-                    {{ '*Specify the maximum number of times a single customer can utilize the
-                    coupon.' }}
+                    {{ '*Specify the maximum number of times a single customer can utilize the coupon.' }}
                   </p>
                 </app-form-fields>
                 }
@@ -469,4 +467,3 @@
     </app-button>
   </div>
 </form>
--->

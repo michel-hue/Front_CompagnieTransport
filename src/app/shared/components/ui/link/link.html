@@ -1,4 +1,4 @@
-<!--
+
 <div [formGroup]="linkForm()">
   <app-form-fields [label]="'select_link'" [for]="'type'">
     @if(isBrowser) {
@@ -21,7 +21,7 @@
     <select2
       class="custom-select"
       [templates]="template"
-      [data]="products().length ? products() : []"
+      [data]="products() ?? []"
       [placeholder]="'select_product' | translate"
       formControlName="link"
       noResultMessage="{{'no_data_found' | translate }}"
@@ -75,4 +75,4 @@
   </app-form-fields>
   }
 </div>
--->
+

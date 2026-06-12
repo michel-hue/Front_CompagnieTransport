@@ -1,4 +1,3 @@
-<!--
 @if ((loadingStatus$ | async)) {
 <app-loader />
 }
@@ -19,7 +18,7 @@
                     <a
                       href="javascript:void(0)"
                       class="d-flex align-items-center fw-bold"
-                      (click)="AddCustomerModal.openModal()"
+                      (click)="addCustomerModal().openModal()"
                       *hasPermission="'user.create'"
                     >
                       <i class="ri-add-line me-1"></i> {{ 'add_new' | translate }}
@@ -29,7 +28,7 @@
                     <select2
                       class="custom-select"
                       [placeholder]="'select_customer' | translate"
-                      [data]="(users$ | async)?.length ? (users$ | async) : []"
+                      [data]="(users$ | async)?? []"
                       formControlName="consumer_id"
                       [customSearchEnabled]="true"
                       noResultMessage="{{'no_data_found' | translate }}"
@@ -51,7 +50,7 @@
                     <a
                       href="javascript:void(0)"
                       class="d-flex align-items-center fw-bold"
-                      (click)="AddAddressModal().openModal('shipping')"
+                      (click)="addAddressModal.openModal('shipping')"
                     >
                       <i class="ri-add-line me-1"></i> {{ 'add_new' | translate }}
                     </a>
@@ -59,7 +58,7 @@
                   </div>
                   <div class="checkout-detail">
                     <app-address-block
-                      [addresses]="(selectedUser$ | async )?.address"
+                      [addresses]="(selectedUser$ | async)?.address ?? []"
                       [type]="'shipping'"
                       (selectAddress)="selectShippingAddress($event)"
                     />
@@ -77,7 +76,7 @@
                     <a
                       href="javascript:void(0)"
                       class="d-flex align-items-center fw-bold"
-                      (click)="AddAddressModal().openModal('billing')"
+                      (click)="addAddressModal.openModal('billing')"
                     >
                       <i class="ri-add-line me-1"></i> {{ 'add_new' | translate }}
                     </a>
@@ -85,7 +84,7 @@
                   </div>
                   <div class="checkout-detail">
                     <app-address-block
-                      [addresses]="(selectedUser$ | async)?.address"
+                      [addresses]="(selectedUser$ | async)?.address ?? []"
                       [type]="'billing'"
                       (selectAddress)="selectBillingAddress($event)"
                     />
@@ -104,12 +103,9 @@
                   <div class="empty-box">
                     <h2>{{ 'no_delivery_options_found' | translate }}</h2>
                   </div>
-                  } @if ((selectedUser$ | async)) {
-                  <app-delivery-block
-                    [setting]="(setting$ | async)"
-                    (selectDelivery)="selectDelivery($event)"
-                  />
-                  }
+                  } @if (setting$ | async; as setting) {
+<!--                  <app-delivery-block [setting]="setting" (selectDelivery)="selectDelivery($event)" />-->
+                }
                 </div>
               </li>
               <li>
@@ -142,13 +138,13 @@
               </div>
             </div>
             <div class="product-details">
-              @if (!(cartItem$ | async).length) {
+              @if (!(cartItem$ | async)?.length) {
               <app-no-data
                 [class]="'empty-cart'"
                 [image]="'assets/svg/empty-cart.svg'"
                 [text]="'No items in a cart'"
               />
-              } @if ((cartItem$ | async).length) {
+              } @if (!(cartItem$ | async)?.length){
               <ul class="cart-listing">
                 @for (item of cartItem$ | async; track item.id) {
                 <li>
@@ -164,12 +160,12 @@
                   <div class="cart-content">
                     <h4>{{ item?.variation ? item?.variation?.name : item?.product?.name }}</h4>
                     <h5 class="text-theme">
-                      {{ (item?.variation ? item?.variation.sale_price : item?.product?.sale_price)
-                      | currencySymbol }} X {{ item?.quantity }}
+                      {{ (item?.variation?.sale_price ?? item?.product?.sale_price ?? 0) | currencySymbol }}
+                      {{ ((item?.variation?.sale_price ?? item?.product?.sale_price ?? 0) * (item?.quantity ?? 1)) | currencySymbol }}
                     </h5>
                     <h5 class="price">
-                      {{ (item?.variation ? item?.variation.sale_price : item?.product?.sale_price)
-                      * item?.quantity | currencySymbol }}
+                      {{ (item?.variation?.sale_price ?? item?.product?.sale_price ?? 0) | currencySymbol }}
+                      {{ ((item?.variation?.sale_price ?? item?.product?.sale_price ?? 0) * (item?.quantity ?? 1)) | currencySymbol }}
                     </h5>
                   </div>
                 </li>
@@ -186,43 +182,41 @@
                 }
                 <ul class="summary-total">
                   <li>
-                    <h4>{{ 'subtotal' | translate }}</h4>
+                  <!--  <h4>{{ 'subtotal' | translate }}</h4>
                     <h4 class="price">
                       {{ (checkoutTotal ? (checkoutTotal?.total?.sub_total | currencySymbol) :
                       'not_calculated_yet' | translate) }}
-                    </h4>
+                    </h4>-->
                   </li>
                   <li>
-                    <h4>{{ 'shipping' | translate }}</h4>
+                 <!--   <h4>{{ 'shipping' | translate }}</h4>
                     <h4 class="price">
                       {{ (checkoutTotal ? (checkoutTotal?.total?.shipping_total | currencySymbol) :
                       'not_calculated_yet' | translate) }}
-                    </h4>
+                    </h4>-->
                   </li>
                   <li>
-                    <h4>{{ 'tax' | translate }}</h4>
+                   <!-- <h4>{{ 'tax' | translate }}</h4>
                     <h4 class="price">
                       {{ (checkoutTotal ? (checkoutTotal?.total?.tax_total | currencySymbol) :
                       'not_calculated_yet' | translate) }}
-                    </h4>
+                    </h4>-->
                   </li>
-                  @if ((selectedUser$ | async) && checkoutTotal && (selectedUser$ |
-                  async).point?.balance) {
+                  @if ((selectedUser$ | async)?.point?.balance && checkoutTotal) {
                   <li>
                     <h4
                       [class]="form.controls['points_amount'].value ? 'txt-primary fw-bold' : 'text-muted'"
                     >
                       {{ 'points' | translate }}
                     </h4>
-                    <h4
+                <!--    <h4
                       [class]="form.controls['points_amount'].value ? 'txt-primary fw-bold price' : 'text-muted price'"
                     >
                       {{ (checkoutTotal ? (checkoutTotal?.total?.convert_point_amount |
                       currencySymbol) : 'not_calculated_yet' | translate) }}
-                    </h4>
+                    </h4>-->
                   </li>
-                  } @if ((selectedUser$ | async) && checkoutTotal && (selectedUser$ |
-                  async).point?.balance) {
+                  }@if ((selectedUser$ | async)?.point?.balance && checkoutTotal) {
                   <li class="border-cls">
                     <label class="form-check-label m-0" for="ponts"
                       >{{ 'would_you_prefer_to_pay_using_points?' | translate }}</label
@@ -234,23 +228,21 @@
                       formControlName="points_amount"
                     />
                   </li>
-                  } @if ((selectedUser$ | async) && checkoutTotal && (selectedUser$ |
-                  async).wallet?.balance) {
+                  } @if ((selectedUser$ | async)?.point?.balance && checkoutTotal) {
                   <li>
                     <h4
                       [class]="form.controls['wallet_balance'].value ? 'txt-primary fw-bold' : 'text-muted'"
                     >
                       {{ 'wallet_balance' | translate }}
                     </h4>
-                    <h4
+                 <!--   <h4
                       [class]="form.controls['wallet_balance'].value ? 'txt-primary fw-bold price' : 'text-muted price'"
                     >
                       {{ (checkoutTotal ? (checkoutTotal?.total?.convert_wallet_balance |
                       currencySymbol) : 'not_calculated_yet' | translate ) }}
-                    </h4>
+                    </h4>-->
                   </li>
-                  } @if ((selectedUser$ | async) && checkoutTotal && (selectedUser$ |
-                  async).wallet?.balance) {
+                  } @if ((selectedUser$ | async)?.point?.balance && checkoutTotal) {
                   <li class="border-cls">
                     <label class="form-check-label m-0" for="wallet"
                       >{{ 'would_you_prefer_to_pay_using_wallet?' | translate }}</label
@@ -296,7 +288,7 @@
                     </div>
                     } @if (appliedCoupon) {
                     <div class="apply-sec mb-3">
-                      <div>
+                     <!-- <div>
                         <img src="assets/images/offer.gif" class="img-fluid" alt="offer" />
                         <h4>
                           {{ 'you_saved' | translate }}
@@ -307,7 +299,7 @@
                           {{ 'with_this_code' | translate }} 🎉
                           <p>{{ 'coupon_applied' | translate }}</p>
                         </h4>
-                      </div>
+                      </div>-->
                       <a href="javascript:void(0)" (click)="couponRemove()"
                         >{{ 'remove' | translate }}</a
                       >
@@ -317,10 +309,10 @@
                   }
                   <li class="list-total">
                     <h4>{{ 'total' | translate }}</h4>
-                    <h4 class="price">
+                   <!-- <h4 class="price">
                       {{ (checkoutTotal ? (checkoutTotal?.total?.total | currencySymbol) :
                       'not_calculated_yet' | translate ) }}
-                    </h4>
+                    </h4>-->
                   </li>
                 </ul>
                 <ng-container *hasPermission="'order.create'">
@@ -343,4 +335,3 @@
 <app-customer-modal #AddCustomerModal />
 <app-address-modal #addAddressModal [id]="form.controls['consumer_id'].value" />
 <app-coupon-modal #couponModal />
--->

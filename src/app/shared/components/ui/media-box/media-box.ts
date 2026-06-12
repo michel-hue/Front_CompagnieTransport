@@ -1,4 +1,4 @@
-/*
+
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -22,10 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 import { Observable, debounceTime, distinctUntilChanged } from 'rxjs';
 
-import {
-  DeleteModal,
-  DeleteModal as DeleteModalComponent_1,
-} from '../../../../shared/components/ui/modal/delete-modal/delete-modal';
+import { DeleteModal } from '../../../../shared/components/ui/modal/delete-modal/delete-modal';
 import { IAttachment, IAttachmentModel } from '../../../../shared/interface/attachment.interface';
 import { Params } from '../../../../shared/interface/core.interface';
 import { DeleteAttachmentAction, GetAttachmentsAction } from '../../../action/attachment.action';
@@ -49,7 +46,7 @@ import { Pagination } from '../pagination/pagination';
     NgbDropdownItem,
     Pagination,
     NoData,
-    DeleteModalComponent_1,
+    DeleteModal,
     CommonModule,
     TranslateModule,
   ],
@@ -59,9 +56,9 @@ export class MediaBox {
   private document = inject<Document>(DOCUMENT);
   private renderer = inject(Renderer2);
 
-  attachment$: Observable<IAttachmentModel> = inject(Store).select(AttachmentState.attachment);
+  attachment$: Observable<IAttachmentModel> = inject(Store).select(AttachmentState.attachment) as Observable<IAttachmentModel>;
 
-  readonly DeleteModal = viewChild<DeleteModal>('deleteModal');
+  readonly deleteModal = viewChild<DeleteModal>('deleteModal');
 
   // TODO: Skipped for migration because:
   //  Your application code writes to the input. This prevents migration.
@@ -87,7 +84,7 @@ export class MediaBox {
   public totalItems: number = 0;
 
   constructor() {
-    this.attachment$.subscribe(attachment => (this.totalItems = attachment?.total));
+    this.attachment$.subscribe(attachment => (this.totalItems = attachment?.total ?? 0));
     this.getAttachments(this.filter, true);
     this.term.valueChanges
       .pipe(debounceTime(400), distinctUntilChanged())
@@ -150,4 +147,4 @@ export class MediaBox {
     this.renderer.removeClass(this.document.body, 'loader-none');
   }
 }
-*/
+

@@ -37,8 +37,8 @@ import {
 import { GetBackendSettingOptionAction } from '../../../shared/action/setting.action';
 import { GetUsersAction } from '../../../shared/action/user.action';
 import { Loader } from '../../../shared/components/loader/loader';
-//import { Button } from '../../../shared/components/ui/button/button';
-//import { NoData } from '../../../shared/components/ui/no-data/no-data';
+import { Button } from '../../../shared/components/ui/button/button';
+import { NoData } from '../../../shared/components/ui/no-data/no-data';
 import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { ICart } from '../../../shared/interface/cart.interface';
 import { IOrderCheckout } from '../../../shared/interface/order.interface';
@@ -59,12 +59,12 @@ import { UserState } from '../../../shared/state/user.state';
     Loader,
     HasPermissionDirective,
     ReactiveFormsModule,
-   // Select2Module,
+Select2,
     AddressBlock,
     DeliveryBlock,
     PaymentBlock,
-   // NoData,
-   // Button,
+    NoData,
+    Button,
     AddCustomerModal,
     AddAddressModal,
     CouponModal,
@@ -93,9 +93,9 @@ export class Checkout {
   ) as Observable<IUser>;
   setting$: Observable<IValues> = inject(Store).select(SettingState.setting) as Observable<IValues>;
 
-  readonly AddAddressModal = viewChild<AddAddressModal>('addAddressModal');
-  readonly AddCustomerModal = viewChild<AddCustomerModal>('addCustomerModal');
-  readonly CouponModal = viewChild<CouponModal>('couponModal');
+  readonly addAddressModal = viewChild.required(AddAddressModal);
+  readonly addCustomerModal = viewChild.required(AddCustomerModal);
+  readonly couponModal = viewChild.required(CouponModal);
 
   readonly cpnRef = viewChild<ElementRef<HTMLInputElement>>('cpn');
 
@@ -109,7 +109,15 @@ export class Checkout {
   private search = new Subject<string>();
 
   constructor() {
-    this.store.dispatch(new GetUsersAction({ role: 'consumer', status: 1, paginate: 15 }));
+    this.store.dispatch(new GetUsersAction({
+      role: 'consumer',
+      status: 1,
+      search: '',
+      field: '',
+      sort: '',
+      page: 1,
+      paginate: 15
+    }));
     this.store.dispatch(new GetCartItemsAction());
     this.store.dispatch(new GetBackendSettingOptionAction());
 
@@ -156,9 +164,15 @@ export class Checkout {
     this.search
       .pipe(debounceTime(300)) // Adjust the debounce time as needed (in milliseconds)
       .subscribe(inputValue => {
-        this.store.dispatch(
-          new GetUsersAction({ role: 'consumer', status: 1, paginate: 15, search: inputValue }),
-        );
+        this.store.dispatch(new GetUsersAction({
+          role: 'consumer',
+          status: 1,
+          search: '',
+          field: '',
+          sort: '',
+          page: 1,
+          paginate: 15
+        }));
         this.renderer.addClass(this.document.body, 'loader-none');
       });
   }

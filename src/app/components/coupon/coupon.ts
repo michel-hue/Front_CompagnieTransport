@@ -11,8 +11,8 @@ import {
   GetCouponsAction,
   UpdateCouponStatusAction,
 } from '../../shared/action/coupon.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { Table } from '../../shared/components/ui/table/table';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { ICoupon, ICouponModel } from '../../shared/interface/coupon.interface';
@@ -23,7 +23,7 @@ import { CouponState } from '../../shared/state/coupon.state';
   selector: 'app-coupon',
   templateUrl: './coupon.html',
   styleUrls: ['./coupon.scss'],
-  imports: [ HasPermissionDirective, RouterModule,  TranslateModule],
+  imports: [ HasPermissionDirective, PageWrapper, Table, RouterModule,  TranslateModule],
 })
 export class Coupon {
   private store = inject(Store);
@@ -75,7 +75,7 @@ export class Coupon {
     else if (action.actionToPerform == 'deleteAll') this.deleteAll(action.data);
   }
 
-  edit(data: ICoupon) {
+  edit(data: any) {
     void this.router.navigateByUrl(`/coupon/edit/${data.id}`);
   }
 

@@ -1,4 +1,3 @@
-/*
 import { Component, output, input } from '@angular/core';
 
 @Component({
@@ -12,9 +11,9 @@ export class DropdownList {
   //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
   //  and migrating would break narrowing currently.
   readonly data = input<any>(undefined);
-  readonly selectedPillIds = input<number[]>(undefined);
-  readonly key = input<string>(undefined);
-  readonly subArrayKey = input<string>(undefined);
+  readonly selectedPillIds = input<number[]>([]);
+  readonly key = input<string>('');
+  readonly subArrayKey = input<string>('');
 
   readonly selected = output<any>();
   readonly subItemClicked = output<any>();
@@ -29,4 +28,3 @@ export class DropdownList {
     this.subItemClicked.emit(data);
   }
 }
-*/

@@ -1,4 +1,4 @@
-/*
+
 import { Component, Input, viewChild, output, input } from '@angular/core';
 
 import { IAttachment } from '../../../interface/attachment.interface';
@@ -14,30 +14,30 @@ import {
   imports: [MediaModalComponent_1],
 })
 export class ImageUpload {
-  readonly MediaModal = viewChild<MediaModal>('mediaModal');
+  readonly mediaModal = viewChild.required<MediaModal>('mediaModal');
 
   // TODO: Skipped for migration because:
   //  Your application code writes to the input. This prevents migration.
   @Input() images: IAttachment[] = [];
   // TODO: Skipped for migration because:
   //  Your application code writes to the input. This prevents migration.
-  @Input() image: IAttachment | null;
-  readonly id = input<string>(undefined);
+  @Input() image: IAttachment | null = null;
+  readonly id = input<string>();
   // TODO: Skipped for migration because:
   //  Your application code writes to the input. This prevents migration.
-  @Input() imageUrl: string | null;
+  @Input() imageUrl: string | null = null;
   readonly url = input<boolean>(false);
   readonly multipleImage = input<boolean>(false);
   // TODO: Skipped for migration because:
   //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
   //  and migrating would break narrowing currently.
-  @Input() helpText: string;
+  @Input() helpText: string = "";
 
   readonly selectedFiles = output<any>();
 
   public showImages: IAttachment[] = [];
-  public showImage: IAttachment | null;
-  public showImageUrl: String | null;
+  public showImage: IAttachment | null = null;
+  public showImageUrl: String | null = null;
 
   ngOnChanges() {
     this.showImage = this.image;
@@ -78,4 +78,4 @@ export class ImageUpload {
     this.selectedFiles.emit(this.images.length ? this.images : this.image);
   }
 }
-*/
+

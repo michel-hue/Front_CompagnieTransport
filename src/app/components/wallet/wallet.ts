@@ -10,7 +10,7 @@ import {
 
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data} from 'ng-select2-component';
+import {Select2, Select2Data} from 'ng-select2-component';
 import { Observable } from 'rxjs';
 
 import { GetUsersAction } from '../../shared/action/user.action';
@@ -19,10 +19,10 @@ import {
   DebitWalletAction,
   GetUserTransactionAction,
 } from '../../shared/action/wallet.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { Button } from '../../shared/components/ui/button/button';
-//import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
-//import { Table } from '../../shared/components/ui/table/table';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { Button } from '../../shared/components/ui/button/button';
+import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
+import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { NumberDirective } from '../../shared/directive/numbers-only.directive';
 import { Params } from '../../shared/interface/core.interface';
@@ -41,16 +41,16 @@ import { WalletState } from '../../shared/state/wallet.state';
   providers: [CurrencySymbolPipe],
   imports: [
     ReactiveFormsModule,
-   // PageWrapper,
-    //Select2Module,
+    PageWrapper,
     NumberDirective,
     HasPermissionDirective,
-    //Button,
-    //Table,
-    //ConfirmationModal,
+    Button,
+    Table,
+    ConfirmationModal,
     CommonModule,
     TranslateModule,
     CurrencySymbolPipe,
+    Select2,
   ],
 })
 export class Wallet {
@@ -63,7 +63,7 @@ export class Wallet {
   wallet$: Observable<IWallet> = inject(Store).select(WalletState.wallet) as Observable<IWallet>;
   setting$: Observable<IValues> = inject(Store).select(SettingState.setting) as Observable<IValues>;
 
-  //readonly ConfirmationModal = viewChild<ConfirmationModal>('confirmationModal');
+  readonly confirmationModal = viewChild.required<ConfirmationModal>('confirmationModal');
 
   public form: FormGroup;
   public balance!: number;
@@ -87,7 +87,15 @@ export class Wallet {
 
     this.isBrowser = isPlatformBrowser(platformId);
 
-    this.store.dispatch(new GetUsersAction({ role: 'consumer', status: 1 }));
+    this.store.dispatch(new GetUsersAction({
+      role: 'consumer',
+      status: 1,
+      search: '',
+      field: '',
+      sort: '',
+      page: 1,
+      paginate: 100,
+    }));
     this.form = this.formBuilder.group({
       consumer_id: new FormControl('', [Validators.required]),
       balance: new FormControl('', [Validators.required]),
@@ -147,4 +155,5 @@ export class Wallet {
   ngOnDestroy() {
     this.renderer.removeClass(this.document.body, 'loader-none');
   }
+
 }

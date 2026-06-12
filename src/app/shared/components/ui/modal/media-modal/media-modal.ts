@@ -1,4 +1,4 @@
-/*
+
 import { Component, TemplateRef, inject, viewChild, output, input } from '@angular/core';
 
 import {
@@ -49,10 +49,10 @@ export class MediaModal {
   private modalService = inject(NgbModal);
 
   public active = 'select';
-  public closeResult: string;
+  public closeResult: string = "";
   public modalOpen: boolean = false;
 
-  public media: IAttachment;
+  public media!: IAttachment;
   public files: File[] = [];
 
   readonly selectMedia = input<boolean>(true);
@@ -138,4 +138,4 @@ export class MediaModal {
     }
   }
 }
-*/
+

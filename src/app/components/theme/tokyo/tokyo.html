@@ -1,4 +1,3 @@
-<!--
 <app-page-wrapper [gridClass]="'col-sm-12'" [title]="'theme_tokyo_settings'">
   <form class="theme-form theme-form-2 mega-form" (ngSubmit)="submit()" [formGroup]="form">
     <div class="vertical-tabs">
@@ -33,7 +32,7 @@
                             </app-form-fields>
                             <app-link
                               (productFilter)="getProducts($event)"
-                              [products]="(product$ | async)?.length ? (product$ | async) : []"
+                             [products]="(product$ | async) ?? []"
                               [linkForm]="form.get('content.home_banner.main_banner.redirect_link')"
                             />
                           </div>
@@ -54,7 +53,7 @@
                             </app-form-fields>
                             <app-link
                               (productFilter)="getProducts($event)"
-                              [products]="(product$ | async)?.length ? (product$ | async) : []"
+                             [products]="(product$ | async) ?? []"
                               [linkForm]="form.get('content.home_banner.sub_banner_1.redirect_link')"
                             />
                           </div>
@@ -75,7 +74,7 @@
                             </app-form-fields>
                             <app-link
                               (productFilter)="getProducts($event)"
-                              [products]="(product$ | async)?.length ? (product$ | async) : []"
+                             [products]="(product$ | async) ?? []"
                               [linkForm]="form.get('content.home_banner.sub_banner_2.redirect_link')"
                             />
                           </div>
@@ -107,7 +106,7 @@
                     <select2
                       class="custom-select"
                       [templates]="template"
-                      [data]="(categories$ | async) ? (categories$ | async) : []"
+                     [data]="(categories$ | async) ?? []"
                       [placeholder]="'select_categories' | translate "
                       formControlName="category_ids"
                       multiple="true"
@@ -149,7 +148,7 @@
                   </app-form-fields>
                   <app-link
                     (productFilter)="getProducts($event)"
-                    [products]="(product$ | async)?.length ? (product$ | async) : []"
+                   [products]="(product$ | async) ?? []"
                     [linkForm]="form.get('content.coupons.redirect_link')"
                   />
                   <app-form-fields [label]="'status'" [for]="'status'">
@@ -213,7 +212,7 @@
                                       </app-form-fields>
                                       <app-link
                                         (productFilter)="getProducts($event)"
-                                        [products]="(product$ | async)?.length ? (product$ | async) : []"
+                                       [products]="(product$ | async) ?? []"
                                         [linkForm]="banners.get('redirect_link')"
                                       />
                                       <app-form-fields [label]="'status'" [for]="'status'">
@@ -295,7 +294,7 @@
                                             <select2
                                               class="custom-select"
                                               [templates]="template"
-                                              [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                              [data]="(product$ | async) ?? []"
                                               [placeholder]="'select_product' | translate "
                                               formControlName="product_ids"
                                               noResultMessage="{{'no_data_found' | translate }}"
@@ -363,7 +362,7 @@
                                             <select2
                                               class="custom-select"
                                               [templates]="template"
-                                              [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                              [data]="(product$ | async) ?? []"
                                               [placeholder]="'select_product' | translate "
                                               formControlName="product_ids"
                                               noResultMessage="{{'no_data_found' | translate }}"
@@ -406,7 +405,7 @@
                                   <div ngbAccordionHeader>
                                     <button ngbAccordionButton>
                                       {{
-                                      form.get('content.main_content.section3_products.title').value
+                                     form.get('content.main_content.section3_products.title')?.value
                                       }}
                                     </button>
                                   </div>
@@ -431,7 +430,7 @@
                                             <select2
                                               class="custom-select"
                                               [templates]="template"
-                                              [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                              [data]="(product$ | async) ?? []"
                                               [placeholder]="'select_product' | translate "
                                               formControlName="product_ids"
                                               noResultMessage="{{'no_data_found' | translate }}"
@@ -474,7 +473,7 @@
                                   <div ngbAccordionHeader>
                                     <button ngbAccordionButton>
                                       {{
-                                      form.get('content.main_content.section4_products.title').value
+                                     form.get('content.main_content.section4_products.title')?.value
                                       }}
                                     </button>
                                   </div>
@@ -499,7 +498,7 @@
                                             <select2
                                               class="custom-select"
                                               [templates]="template"
-                                              [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                              [data]="(product$ | async) ?? []"
                                               [placeholder]="'select_product' | translate "
                                               formControlName="product_ids"
                                               noResultMessage="{{'no_data_found' | translate }}"
@@ -578,7 +577,7 @@
                                         </app-form-fields>
                                         <app-link
                                           (productFilter)="getProducts($event)"
-                                          [products]="(product$ | async)?.length ? (product$ | async) : []"
+                                         [products]="(product$ | async) ?? []"
                                           [linkForm]="form.get('content.main_content.sidebar.right_side_banners.banner_1.redirect_link')"
                                         />
                                       </div>
@@ -599,7 +598,7 @@
                                         </app-form-fields>
                                         <app-link
                                           (productFilter)="getProducts($event)"
-                                          [products]="(product$ | async)?.length ? (product$ | async) : []"
+                                         [products]="(product$ | async) ?? []"
                                           [linkForm]="form.get('content.main_content.sidebar.right_side_banners.banner_2.redirect_link')"
                                         />
                                       </div>
@@ -636,7 +635,7 @@
                   </app-form-fields>
                   <app-link
                     (productFilter)="getProducts($event)"
-                    [products]="(product$ | async)?.length ? (product$ | async) : []"
+                   [products]="(product$ | async) ?? []"
                     [linkForm]="form.get('content.full_width_banner.redirect_link')"
                   />
                   <app-form-fields [label]="'status'" [for]="'status'">
@@ -695,7 +694,7 @@
                                     <select2
                                       class="custom-select"
                                       [templates]="template"
-                                      [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                      [data]="(product$ | async) ?? []"
                                       [placeholder]="'select_product' | translate "
                                       formControlName="product_ids"
                                       noResultMessage="{{'no_data_found' | translate }}"
@@ -737,7 +736,7 @@
                         <div ngbAccordionItem [collapsed]="false">
                           <div ngbAccordionHeader>
                             <button ngbAccordionButton>
-                              {{ form.get('content.slider_products.product_slider_2.title').value }}
+                              {{ form.get('content.slider_products.product_slider_2.title')?.value }}
                             </button>
                           </div>
                           <div ngbAccordionCollapse>
@@ -758,7 +757,7 @@
                                     <select2
                                       class="custom-select"
                                       [templates]="template"
-                                      [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                      [data]="(product$ | async) ?? []"
                                       [placeholder]="'select_product' | translate "
                                       formControlName="product_ids"
                                       noResultMessage="{{'no_data_found' | translate }}"
@@ -800,7 +799,7 @@
                         <div ngbAccordionItem [collapsed]="false">
                           <div ngbAccordionHeader>
                             <button ngbAccordionButton>
-                              {{ form.get('content.slider_products.product_slider_3.title').value }}
+                              {{ form.get('content.slider_products.product_slider_3.title')?.value }}
                             </button>
                           </div>
                           <div ngbAccordionCollapse>
@@ -821,7 +820,7 @@
                                     <select2
                                       class="custom-select"
                                       [templates]="template"
-                                      [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                      [data]="(product$ | async) ?? []"
                                       [placeholder]="'select_product' | translate "
                                       formControlName="product_ids"
                                       noResultMessage="{{'no_data_found' | translate }}"
@@ -863,7 +862,7 @@
                         <div ngbAccordionItem [collapsed]="false">
                           <div ngbAccordionHeader>
                             <button ngbAccordionButton>
-                              {{ form.get('content.slider_products.product_slider_4.title').value }}
+                              {{ form.get('content.slider_products.product_slider_4.title')?.value }}
                             </button>
                           </div>
                           <div ngbAccordionCollapse>
@@ -884,7 +883,7 @@
                                     <select2
                                       class="custom-select"
                                       [templates]="template"
-                                      [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                      [data]="(product$ | async) ?? []"
                                       [placeholder]="'select_product' | translate "
                                       formControlName="product_ids"
                                       noResultMessage="{{'no_data_found' | translate }}"
@@ -983,4 +982,3 @@
     </div>
   </form>
 </app-page-wrapper>
--->

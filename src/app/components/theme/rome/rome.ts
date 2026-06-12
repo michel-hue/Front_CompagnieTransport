@@ -34,11 +34,11 @@ import { GetBlogsAction } from '../../../shared/action/blog.action';
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
 import { GetHomePageAction, UpdateHomePageAction } from '../../../shared/action/theme.action';
-//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
-//import { Button } from '../../../shared/components/ui/button/button';
-//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
-//import { Link } from '../../../shared/components/ui/link/link';
+import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+import { Button } from '../../../shared/components/ui/button/button';
+import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+import { Link } from '../../../shared/components/ui/link/link';
 import * as data from '../../../shared/data/home-page';
 import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { Params } from '../../../shared/interface/core.interface';
@@ -52,7 +52,7 @@ import { ThemeState } from '../../../shared/state/theme.state';
   selector: 'app-rome',
   templateUrl: './rome.html',
   imports: [
-    //PageWrapper,
+    PageWrapper,
     ReactiveFormsModule,
     NgbNav,
     NgbNavItem,
@@ -60,19 +60,19 @@ import { ThemeState } from '../../../shared/state/theme.state';
     NgbNavLink,
     NgbNavLinkBase,
     NgbNavContent,
-   // FormFields,
-    //ImageUpload,
+    FormFields,
+    ImageUpload,
     NgbAccordionDirective,
     NgbAccordionItem,
     NgbAccordionHeader,
    // NgbAccordionToggle,
     NgbAccordionButton,
-    //NgbCollapse,
+   // NgbCollapse,
     NgbAccordionCollapse,
     NgbAccordionBody,
-   // Link,
-    //Select2Module,
-   // Button,
+    Link,
+  Select2,
+    Button,
     NgbNavOutlet,
     HasPermissionDirective,
     CommonModule,
@@ -86,7 +86,7 @@ export class Rome {
   private document = inject<Document>(DOCUMENT);
 
   product$: Observable<Select2Data> = inject(Store).select(ProductState.products);
- // home_page$: Observable<IRome> = inject(Store).select(ThemeState.homePage<IContentRome>);
+  home_page$: Observable<IRome> = inject(Store).select(ThemeState.homePage) as Observable<IRome>;
   categories$: Observable<Select2Data> = inject(Store).select(CategoryState.categories);
   blogs$: Observable<Select2Data> = inject(Store).select(BlogState.blogs);
 
@@ -109,6 +109,9 @@ export class Rome {
     ids: '',
     with_union_products: 0,
     is_approved: 1,
+    field: '',    // manquant
+    sort: '',     // manquant
+    page: 1,      // manquant
   };
 
   constructor() {
@@ -235,14 +238,14 @@ export class Rome {
   }
 
   ngOnInit() {
-    const blogs$ = this.store.dispatch(new GetBlogsAction({ status: 1 }));
+    const blogs$ = this.store.dispatch(new GetBlogsAction({ status: 1, search: '', field: '', sort: '', page: 1, paginate: 15 }));
     const categories$ = this.store.dispatch(
-      new GetCategoriesAction({ status: 1, type: 'product' }),
-    );
+      new GetBlogsAction({ status: 1, search: '', field: '', sort: '', page: 1, paginate: 15 })
+  );
     const home_page$ = this.store.dispatch(new GetHomePageAction({ slug: 'rome' }));
     forkJoin([blogs$, home_page$, categories$]).subscribe({
-      complete: () => {
-        this.store.select(ThemeState.homePage<IContentRome>).subscribe({
+      complete: () => {(
+        this.store.select(ThemeState.homePage) as Observable<IRome>).subscribe({
           next: homePage => {
             if (homePage?.content?.products_ids) {
               this.filter['paginate'] =
@@ -270,15 +273,25 @@ export class Rome {
       .pipe(debounceTime(300)) // Adjust the debounce time as needed (in milliseconds)
       .subscribe(inputValue => {
         this.store.dispatch(
-          new GetProductsAction({ status: 1, is_approved: 1, paginate: 15, search: inputValue }),
+          new GetProductsAction({
+            status: 1,
+            is_approved: 1,
+            paginate: 15,
+            search: inputValue,
+            field: '',   // manquant
+            sort: '',    // manquant
+            page: 1,     // manquant
+          })
         );
         this.renderer.addClass(this.document.body, 'loader-none');
       });
   }
-/*
+
   patchForm() {
-    this.store.select(ThemeState.homePage<IContentRome>).subscribe(homePage => {
+    (this.store.select(ThemeState.homePage) as Observable<IRome>).subscribe(homePage => {
+      if (!homePage) return;
       this.page_data = homePage;
+
       this.form.patchValue({
         content: {
           home_banner: {
@@ -416,7 +429,7 @@ export class Rome {
         ),
       );
     });
-  }*/
+  }
 
   getProducts(filter: Params) {
     this.filter['search'] = filter['search'];

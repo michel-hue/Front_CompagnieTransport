@@ -17,34 +17,35 @@ import { debounceTime, forkJoin, Observable, Subject } from 'rxjs';
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
 import { GetHomePageAction, UpdateHomePageAction } from '../../../shared/action/theme.action';
-//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
-//import { Button } from '../../../shared/components/ui/button/button';
-//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
-//import { Link } from '../../../shared/components/ui/link/link';
+import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+import { Button } from '../../../shared/components/ui/button/button';
+import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+import { Link } from '../../../shared/components/ui/link/link';
 import * as data from '../../../shared/data/home-page';
-//import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
+import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { Params } from '../../../shared/interface/core.interface';
-import { IBerlin, IBerlinContent, IServices } from '../../../shared/interface/theme.interface';
+import {IBerlin, IBerlinContent, IMadrid, IServices} from '../../../shared/interface/theme.interface';
 import { CategoryState } from '../../../shared/state/category.state';
 import { ProductState } from '../../../shared/state/product.state';
 import { ThemeState } from '../../../shared/state/theme.state';
+import {GetBlogsAction} from '../../../shared/action/blog.action';
 
 @Component({
   selector: 'app-berlin',
   templateUrl: './berlin.html',
   imports: [
-   // PageWrapper,
+    PageWrapper,
     ReactiveFormsModule,
     NgbNavModule,
-   // FormFields,
-   // ImageUpload,
-  //  Link,
-   // Button,
+    FormFields,
+    ImageUpload,
+    Link,
+    Button,
     NgbAccordionModule,
-  //  Select2Module,
-   // NgbNavOutlet,
-  //  HasPermissionDirective,
+Select2,
+    NgbNavOutlet,
+    HasPermissionDirective,
     CommonModule,
     TranslateModule,
   ],
@@ -56,7 +57,10 @@ export class Berlin {
   private document = inject<Document>(DOCUMENT);
 
   product$: Observable<Select2Data> = inject(Store).select(ProductState.products);
-  //home_page$: Observable<IBerlin> = inject(Store).select(ThemeState.homePage<IBerlinContent>);
+  home_page$: Observable<IBerlin> = inject(Store).select(ThemeState.homePage) as Observable<IBerlin>;
+
+
+
   categories$: Observable<Select2Data> = inject(Store).select(CategoryState.categories);
 
   public form: FormGroup;
@@ -76,6 +80,9 @@ export class Berlin {
     ids: '',
     with_union_products: 0,
     is_approved: 1,
+    field: '',    // manquant
+    sort: '',     // manquant
+    page: 1,      // manquant
   };
 
   constructor() {
@@ -201,9 +208,9 @@ export class Berlin {
   }
 
   ngOnInit() {
-    const home_page$ = this.store.dispatch(new GetHomePageAction({ slug: 'berlin' }));
+    const home_page$ = this.store.dispatch(new GetBlogsAction({ status: 1, search: '', field: '', sort: '', page: 1, paginate: 15 }));
     const categories$ = this.store.dispatch(
-      new GetCategoriesAction({ status: 1, type: 'product' }),
+      new GetBlogsAction({ status: 1, search: '', field: '', sort: '', page: 1, paginate: 15 }),
     );
     forkJoin([home_page$, categories$]).subscribe({
       complete: () => {
@@ -235,15 +242,26 @@ export class Berlin {
       .pipe(debounceTime(300)) // Adjust the debounce time as needed (in milliseconds)
       .subscribe(inputValue => {
         this.store.dispatch(
-          new GetProductsAction({ status: 1, is_approved: 1, paginate: 15, search: inputValue }),
+          new GetProductsAction({
+            status: 1,
+            is_approved: 1,
+            paginate: 15,
+            search: inputValue,
+            field: '',   // manquant
+            sort: '',    // manquant
+            page: 1,     // manquant
+          })
         );
         this.renderer.addClass(this.document.body, 'loader-none');
       });
   }
-/*
+
   patchForm() {
-    this.store.select(ThemeState.homePage<IBerlinContent>).subscribe(homePage => {
-      this.page_data = homePage;
+    (this.store.select(ThemeState.homePage) as Observable<IBerlin>).subscribe(homePage => {
+
+        if (!homePage) return;
+        this.page_data = homePage;
+
       if (homePage) {
         this.form.patchValue({
           content: {
@@ -399,7 +417,7 @@ export class Berlin {
         );
       }
     });
-  }*/
+  }
 
   getProducts(filter: Params) {
     this.filter['search'] = filter['search'];

@@ -1,5 +1,6 @@
 import { Component, inject, viewChild } from '@angular/core';
-import { Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { Params } from '../../shared/interface/core.interface';
 
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -10,8 +11,8 @@ import {
   DeleteQuestionAnswersAction,
   GetQuestionAnswersAction,
 } from '../../shared/action/questions-answers.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { Table } from '../../shared/components/ui/table/table';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { Table } from '../../shared/components/ui/table/table';
 import { IQnAModel, IQuestionAnswers } from '../../shared/interface/questions-answers.interface';
 import { IStores } from '../../shared/interface/store.interface';
 import { ITableClickedAction, ITableConfig } from '../../shared/interface/table.interface';
@@ -21,7 +22,11 @@ import { QuestionAnswersState } from '../../shared/state/questions-answers.state
   selector: 'app-questions-answers',
   templateUrl: './questions-answers.html',
   styleUrls: ['./questions-answers.scss'],
-  imports: [ AnswersModal],
+  imports: [
+    AnswersModal,
+    PageWrapper,
+    Table
+  ],
 })
 export class QuestionsAnswers {
   private store = inject(Store);
@@ -31,7 +36,7 @@ export class QuestionsAnswers {
     QuestionAnswersState.questionAnswers,
   );
 
-  readonly AnswersModal = viewChild<AnswersModal>('answersModal');
+  readonly answersModal = viewChild.required(AnswersModal);
 
   public tableConfig: ITableConfig = {
     columns: [
@@ -65,15 +70,15 @@ export class QuestionsAnswers {
     });
   }
 
-  onTableChange(data?: Params) {
-    this.store.dispatch(new GetQuestionAnswersAction(data!));
+  onTableChange(data: Params) {
+    this.store.dispatch(new GetQuestionAnswersAction(data));
   }
 
-/*  onActionClicked(action: ITableClickedAction) {
-    if (action.actionToPerform == 'edit') void this.AnswersModal().openModal(action.data);
+  onActionClicked(action: ITableClickedAction) {
+    if (action.actionToPerform == 'edit') void this.answersModal().openModal(action.data);
     else if (action.actionToPerform == 'delete') this.delete(action.data);
     else if (action.actionToPerform == 'deleteAll') this.deleteAll(action.data);
-  }*/
+  }
 
   delete(data: IStores) {
     this.store.dispatch(new DeleteQuestionAnswersAction(data.id));

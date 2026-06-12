@@ -19,15 +19,15 @@ import { GetBlogsAction } from '../../../shared/action/blog.action';
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
 import { GetHomePageAction, UpdateHomePageAction } from '../../../shared/action/theme.action';
-//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
-//import { Button } from '../../../shared/components/ui/button/button';
-//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
-//import { Link } from '../../../shared/components/ui/link/link';
+import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+import { Button } from '../../../shared/components/ui/button/button';
+import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+import { Link } from '../../../shared/components/ui/link/link';
 import * as data from '../../../shared/data/home-page';
-//import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
+import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { Params } from '../../../shared/interface/core.interface';
-import { IBanners, IContent, IParis } from '../../../shared/interface/theme.interface';
+import {IBanners, IContent, IParis, IRome} from '../../../shared/interface/theme.interface';
 import { BlogState } from '../../../shared/state/blog.state';
 import { CategoryState } from '../../../shared/state/category.state';
 import { ProductState } from '../../../shared/state/product.state';
@@ -46,17 +46,17 @@ export type CustomLinkForm = AbstractControl & {
   templateUrl: './paris.html',
   styleUrls: ['./paris.scss'],
   imports: [
-    //PageWrapper,
+    PageWrapper,
     ReactiveFormsModule,
     NgbNavModule,
-   // FormFields,
-   // ImageUpload,
-   // Link,
-   // NgbNavOutlet,
-   // Button,
+    FormFields,
+    ImageUpload,
+    Link,
+    NgbNavOutlet,
+    Button,
     NgbAccordionModule,
-   // Select2Module,
-   // HasPermissionDirective,
+    Select2,
+    HasPermissionDirective,
     CommonModule,
     TranslateModule,
   ],
@@ -68,7 +68,8 @@ export class Paris {
   private document = inject<Document>(DOCUMENT);
 
   product$: Observable<Select2Data> = inject(Store).select(ProductState.products);
- // home_page$: Observable<IParis> = inject(Store).select(ThemeState.homePage<IContent>);
+  home_page$: Observable<IParis> = inject(Store).select(ThemeState.homePage) as Observable<IParis>;
+
   categories$: Observable<Select2Data> = inject(Store).select(CategoryState.categories);
   blogs$: Observable<Select2Data> = inject(Store).select(BlogState.blogs);
 
@@ -92,6 +93,9 @@ export class Paris {
     ids: '',
     with_union_products: 0,
     is_approved: 1,
+    field: '',    // manquant
+    sort: '',     // manquant
+    page: 1,      // manquant
   };
 
   constructor() {
@@ -270,10 +274,10 @@ export class Paris {
   }
 
   ngOnInit() {
-    const blogs$ = this.store.dispatch(new GetBlogsAction({ status: 1 }));
+    const blogs$ = this.store.dispatch(new GetBlogsAction({ status: 1, search: '', field: '', sort: '', page: 1, paginate: 15 }));
     const home_page$ = this.store.dispatch(new GetHomePageAction({ slug: 'paris' }));
     const categories$ = this.store.dispatch(
-      new GetCategoriesAction({ status: 1, type: 'product' }),
+      new GetBlogsAction({ status: 1, search: '', field: '', sort: '', page: 1, paginate: 15 })
     );
 
     forkJoin([blogs$, home_page$, categories$]).subscribe({

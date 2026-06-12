@@ -1,12 +1,12 @@
-<!--
+
 <div class="row g-0">
   <div class="col-xxl-4 col-xl-5">
     <form [formGroup]="form">
       <app-page-wrapper [gridClass]="'col-sm-12'" [title]="'select_consumer'">
         @if(isBrowser) {
-        <select2
+        <ng-select2
           class="custom-select"
-          [data]="(users$ | async)?.length ? (users$ | async) : []"
+          [data]="(users$ | async) ?? []"
           [placeholder]="'select_consumer' | translate "
           formControlName="consumer_id"
           noResultMessage="{{'no_data_found' | translate }}"
@@ -38,19 +38,22 @@
           />
           <div class="btn-sec">
             <app-button
+              id="btn-credit"
               [class]="'btn btn-animation'"
               [disabled]="!form.valid"
               [spinner]="false"
-              (click)="form.valid && ConfirmationModal().openModal('credit')"
+              (click)="form.valid && confirmationModal.openModal('credit')"
               *hasPermission="'wallet.credit'"
             >
               {{ 'add' | translate }}
             </app-button>
+
             <app-button
+              id="btn-debit"
               [class]="'btn btn-outline'"
               [spinner]="false"
               [disabled]="+balance < +bal.value || !bal.value"
-              (click)="+balance < +bal.value || !!bal.value && ConfirmationModal().openModal('debit')"
+              (click)="+balance >= +bal.value && !!bal.value && confirmationModal.openModal('debit')"
               *hasPermission="'wallet.debit'"
             >
               {{ 'withdraw' | translate }}
@@ -70,5 +73,5 @@
   />
 </app-page-wrapper>
 
-<app-confirmation-modal #confirmationModal (confirmed)="submit($event?.actionToPerform)" />
--->
+<app-confirmation-modal #confirmationModal (confirmed)="submit($event.actionToPerform)" />
+

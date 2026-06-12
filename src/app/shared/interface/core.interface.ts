@@ -1,5 +1,12 @@
 export interface Params {
-  [key: string]: any;
+  search: string;
+  field: string;
+  sort: string;
+  page: number;
+  paginate: number;
+  start_date?: string;
+  end_date?: string;
+  [key: string]: any; // Pour les propriétés supplémentaires si besoin
 }
 
 export interface IPaginateModel {

@@ -11,7 +11,7 @@ import {
 import { NgbAccordionModule, NgbNavModule, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data } from 'ng-select2-component';
+import {Select2, Select2Data} from 'ng-select2-component';
 import { Editor, NgxEditorModule } from 'ngx-editor';
 import { forkJoin, Observable } from 'rxjs';
 
@@ -22,11 +22,11 @@ import {
   GetThemeOptionAction,
   UpdateThemeOptionAction,
 } from '../../shared/action/theme-option.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { AdvancedDropdown } from '../../shared/components/ui/advanced-dropdown/advanced-dropdown';
-//import { Button } from '../../shared/components/ui/button/button';
-//import { FormFields } from '../../shared/components/ui/form-fields/form-fields';
-//import { ImageUpload } from '../../shared/components/ui/image-upload/image-upload';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { AdvancedDropdown } from '../../shared/components/ui/advanced-dropdown/advanced-dropdown';
+import { Button } from '../../shared/components/ui/button/button';
+import { FormFields } from '../../shared/components/ui/form-fields/form-fields';
+import { ImageUpload } from '../../shared/components/ui/image-upload/image-upload';
 import * as data from '../../shared/data/theme-option';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { IAttachment } from '../../shared/interface/attachment.interface';
@@ -50,16 +50,16 @@ import { ThemeOptionState } from '../../shared/state/theme-option.state';
   templateUrl: './theme-option.html',
   styleUrls: ['./theme-option.scss'],
   imports: [
-   // PageWrapper,
+   PageWrapper,
     ReactiveFormsModule,
     NgbNavModule,
-    //FormFields,
-    //ImageUpload,
-    //Select2Module,
-    //AdvancedDropdown,
+    FormFields,
+    ImageUpload,
+    Select2,
+    AdvancedDropdown,
     NgxEditorModule,
     NgbNavOutlet,
-   // Button,
+    Button,
     NgbAccordionModule,
     HasPermissionDirective,
     CommonModule,
@@ -101,6 +101,9 @@ export class ThemeOption {
     paginate: 15,
     ids: '',
     with_union_products: 0,
+    field: '',    // manquant
+    sort: '',     // manquant
+    page: 1,      // manquant
   };
 
   public mode: Select2Data = [
@@ -338,9 +341,9 @@ export class ThemeOption {
   ngOnInit() {
     const themeOption$ = this.store.dispatch(new GetThemeOptionAction());
     const categories$ = this.store.dispatch(
-      new GetCategoriesAction({ status: 1, type: 'product' }),
+      new GetBlogsAction({ status: 1, search: '', field: '', sort: '', page: 1, paginate: 15 })
     );
-    this.store.dispatch(new GetBlogsAction({ status: 1 }));
+    this.store.dispatch(  new GetBlogsAction({ status: 1, search: '', field: '', sort: '', page: 1, paginate: 15 }));
 
     forkJoin([themeOption$, categories$]).subscribe({
       complete: () => {

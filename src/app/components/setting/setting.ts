@@ -20,7 +20,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data,  } from 'ng-select2-component';
+import {Select2, Select2Data,} from 'ng-select2-component';
 import { forkJoin, Observable } from 'rxjs';
 
 import { GetCurrenciesAction } from '../../shared/action/currency.action';
@@ -28,14 +28,14 @@ import {
   GetBackendSettingOptionAction,
   UpdateSettingOptionAction,
 } from '../../shared/action/setting.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { Button } from '../../shared/components/ui/button/button';
-//import { FormFields } from '../../shared/components/ui/form-fields/form-fields';
-//import { ImageUpload } from '../../shared/components/ui/image-upload/image-upload';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { Button } from '../../shared/components/ui/button/button';
+import { FormFields } from '../../shared/components/ui/form-fields/form-fields';
+import { ImageUpload } from '../../shared/components/ui/image-upload/image-upload';
 import * as data from '../../shared/data/time-zone';
-//import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
+import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { IAttachment } from '../../shared/interface/attachment.interface';
-import { IDayInterval, IValues } from '../../shared/interface/setting.interface';
+import {IDayInterval, IValues} from '../../shared/interface/setting.interface';
 import { CurrencyState } from '../../shared/state/currency.state';
 import { SettingState } from '../../shared/state/setting.state';
 
@@ -44,20 +44,20 @@ import { SettingState } from '../../shared/state/setting.state';
   templateUrl: './setting.html',
   styleUrls: ['./setting.scss'],
   imports: [
-   // PageWrapper,
+    PageWrapper,
     ReactiveFormsModule,
-   // NgbNav,
-   // NgbNavItem,
-   // NgbNavItemRole,
-  //  NgbNavLink,
-  //  NgbNavLinkBase,
- //   NgbNavContent,
-   // FormFields,
-   // ImageUpload,
-   // Select2Module,
-   // Button,
-  //  NgbNavOutlet,
- //   HasPermissionDirective,
+    NgbNav,
+   NgbNavItem,
+    NgbNavItemRole,
+   NgbNavLink,
+    NgbNavLinkBase,
+    NgbNavContent,
+    FormFields,
+    ImageUpload,
+   Select2,
+    Button,
+    NgbNavOutlet,
+   HasPermissionDirective,
     CommonModule,
     TranslateModule,
   ],
@@ -251,15 +251,13 @@ export class Setting {
     });
   }
 
-  /* get sameDayIntervals(): FormArray {
- /!*    return (this.form.controls['delivery'] as FormArray).controls[
-       'same_day_intervals'
-     ] as FormArray;*!/
-   }*/
+  get sameDayIntervals(): FormArray {
+    return (this.form.get('delivery') as FormGroup).get('same_day_intervals') as FormArray;
+  }
 
   ngOnInit() {
     const backendSettingOption$ = this.store.dispatch(new GetBackendSettingOptionAction());
-    const getCurrencies$ = this.store.dispatch(new GetCurrenciesAction({status: 1}));
+    const getCurrencies$ = this.store.dispatch(new GetCurrenciesAction({ status: 1, search: '', field: '', sort: '', page: 1, paginate: 15 }));
 
     forkJoin([backendSettingOption$, getCurrencies$]).subscribe({
       complete: () => {
@@ -387,15 +385,15 @@ export class Setting {
           description: option?.maintenance?.description,
         },
       });
-      //  this.sameDayIntervals.clear();
-     /* option?.delivery?.same_day_intervals?.forEach((delivery: IDayInterval) =>
-     /!*  this.sameDayIntervals.push(
+     this.sameDayIntervals.clear();
+     option?.delivery?.same_day_intervals?.forEach((delivery: IDayInterval) =>
+       this.sameDayIntervals.push(
            this.formBuilder.group({
              title: new FormControl(delivery?.title),
              description: new FormControl(delivery?.description),
            }),
-         )*!/
-      );*/
+         )
+      );
     });
   }
 
@@ -441,20 +439,20 @@ export class Setting {
 
   addDays(event: Event) {
     event.preventDefault();
-    /* this.sameDayIntervals.push(
+    this.sameDayIntervals.push(
        this.formBuilder.group({
          title: new FormControl(),
          description: new FormControl(),
        }),
      );
-            */
+
 
   }
 
 
-  /* remove(index: number) {
- /!*    if (this.sameDayIntervals.length <= 1) return;
-     this.sameDayIntervals.removeAt(index);*!/
+   remove(index: number) {
+    if (this.sameDayIntervals.length <= 1) return;
+     this.sameDayIntervals.removeAt(index);
    }
 
    submit() {
@@ -462,6 +460,6 @@ export class Setting {
      if (this.form.valid) {
        this.store.dispatch(new UpdateSettingOptionAction({ values: this.form.value }));
      }
-   }*/
+   }
 
 }

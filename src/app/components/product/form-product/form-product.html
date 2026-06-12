@@ -1,4 +1,3 @@
-<!--
 <form class="theme-form theme-form-2 mega-form" [formGroup]="form" (ngSubmit)="submit()">
   <div class="vertical-tabs">
     <div class="row">
@@ -57,7 +56,7 @@
                   [required]="true"
                 >
                   <div class="custom-editor">
-                    @if(isBrowser) {
+                    @if(isBrowser && editor) {
                     <ngx-editor-menu [editor]="editor" />
                     <ngx-editor
                       [editor]="editor"
@@ -83,7 +82,7 @@
                   <select2
                     class="custom-select"
                     [placeholder]="'select_store' | translate"
-                    [data]="(store$ | async)?.length ? (store$ | async) : []"
+                    [data]="(store$ | async)??[]"
                     formControlName="store_id"
                     noResultMessage="{{ 'no_data_found' | translate }}"
                     id="store_id"
@@ -409,7 +408,7 @@
                           @if(isBrowser) {
                           <select2
                             class="custom-select d-block"
-                            [data]="(attribute$ | async)?.length ? (attribute$ | async) : []"
+                            [data]="(attribute$ | async) ?? []"
                             [placeholder]="'select_attribute' | translate "
                             (update)="updateAttribute($event, index)"
                             formControlName="id"
@@ -424,7 +423,7 @@
                           @if(isBrowser) {
                           <select2
                             class="custom-select d-block"
-                            [data]="variant.get('variant_option')?.value?.length ? variant.get('variant_option').value : []"
+                            [data]="variant.get('variant_option')?.value ?? []"
                             [placeholder]="'select_value' | translate "
                             formControlName="attribute_values"
                             (update)="updateAttributeValue($event, index)"
@@ -689,7 +688,7 @@
                   <app-advanced-dropdown
                     [position]="'bottom'"
                     [selectedOption]="selectedTags"
-                    [options]="(tag$ | async )?.data?.length ? (tag$ | async )?.data : []"
+                    [options]="(tag$ | async)?.data ?? []"
                     (selectedItem)="selectTagItem($event)"
                   />
                 </app-form-fields>
@@ -703,7 +702,7 @@
                   <app-advanced-dropdown
                     [position]="'bottom'"
                     [selectedOption]="selectedCategories"
-                    [options]="(category$ | async)?.data?.length ? (category$ | async )?.data : []"
+                    [options]="(category$ | async)?.data ?? []"
                     [subArrayKey]="'subcategories'"
                     [id]="'categories'"
                     (selectedItem)="selectCategoryItem($event)"
@@ -730,8 +729,7 @@
                       <span class="switch-state"></span>
                     </label>
                     <p class="help-text">
-                      {{ '*Enabling this option allows the backend to randomly select 6 products for
-                      display.' }}
+                      {{ '*Enabling this option allows the backend to randomly select 6 products for display.' }}
                     </p>
                   </div>
                 </app-form-fields>
@@ -747,7 +745,7 @@
                   <select2
                     class="custom-select"
                     [templates]="template"
-                    [data]="(products$ | async)?.length ? (products$ | async) : []"
+                    [data]="(products$ | async) ?? []"
                     [placeholder]="'select_product' | translate"
                     formControlName="related_products"
                     noResultMessage="{{ 'no_data_found' | translate }}"
@@ -818,7 +816,7 @@
                 >
                   <app-image-upload
                     [multipleImage]="false"
-                    [image]="(product$ | async)?.product_thumbnail"
+                    [image]="(product$ | async)?.product_thumbnail ?? null"
                     [helpText]="'*Upload image size 600x600px recommended'"
                     (selectedFiles)="selectThumbnail($event)"
                   />
@@ -832,7 +830,7 @@
                 >
                   <app-image-upload
                     [multipleImage]="true"
-                    [images]="(product$ | async)?.product_galleries"
+                    [images]="(product$ | async)?.product_galleries ?? []"
                     [helpText]="'*Upload image size 600x600px recommended'"
                     (selectedFiles)="selectImages($event)"
                   />
@@ -846,7 +844,7 @@
                 >
                   <app-image-upload
                     [multipleImage]="false"
-                    [image]="(product$ | async)?.size_chart_image"
+                    [image]="(product$ | async)?.size_chart_image ?? null"
                     [helpText]="'*Upload an image showcasing the size chart tailored for fashion products. A table format image is suggested for easy reference.'"
                     (selectedFiles)="selectSizeImage($event)"
                   />
@@ -897,7 +895,7 @@
                 >
                   <app-image-upload
                     [multipleImage]="false"
-                    [image]="(product$ | async)?.product_meta_image"
+                    [image]="(product$ | async)?.product_meta_image ?? null"
                     (selectedFiles)="selectMetaImage($event)"
                   />
                 </app-form-fields>
@@ -937,7 +935,7 @@
                   <select2
                     class="custom-select"
                     [placeholder]="'select_tax' | translate "
-                    [data]="(tax$ | async)?.length ? (tax$ | async) : []"
+                    [data]="(tax$ | async) ?? []"
                     formControlName="tax_id"
                     [id]="'tax_id'"
                     noResultMessage="{{ 'no_data_found' | translate }}"
@@ -963,8 +961,7 @@
                     formControlName="estimated_delivery_text"
                   />
                   <p class="help-text">
-                    {{ '*Specify delivery text e.g Your order is likely to reach you within 5 to 10
-                    days.' }}
+                    {{ '*Specify delivery text e.g Your order is likely to reach you within 5 to 10 days.' }}
                   </p>
                 </app-form-fields>
                 <app-form-fields
@@ -982,8 +979,7 @@
                     formControlName="return_policy_text"
                   />
                   <p class="help-text">
-                    {{ '*Specify return text e.g Hassle free 7, 15 and 30 days return might be
-                    available.' }}
+                    {{ '*Specify return text e.g Hassle free 7, 15 and 30 days return might be available.' }}
                   </p>
                 </app-form-fields>
               </div>
@@ -1023,8 +1019,7 @@
                       <span class="switch-state"></span>
                     </label>
                     <p class="help-text">
-                      {{ '*A safe checkout image will appear on the product page. Modify the image
-                      in the theme options.' }}
+                      {{ '*A safe checkout image will appear on the product page. Modify the image in the theme options.' }}
                     </p>
                   </div>
                 </app-form-fields>
@@ -1045,8 +1040,7 @@
                       <span class="switch-state"></span>
                     </label>
                     <p class="help-text">
-                      {{ '*A secure checkout image will appear on the product page. Modify the image
-                      in the theme options.' }}
+                      {{ '*A secure checkout image will appear on the product page. Modify the image in the theme options.' }}
                     </p>
                   </div>
                 </app-form-fields>
@@ -1063,8 +1057,7 @@
                       <span class="switch-state"></span>
                     </label>
                     <p class="help-text">
-                      {{ '*Enable this option to allow users to share the product on social media
-                      platforms.' }}
+                      {{ '*Enable this option to allow users to share the product on social media platforms.' }}
                     </p>
                   </div>
                 </app-form-fields>
@@ -1085,8 +1078,7 @@
                       <span class="switch-state"></span>
                     </label>
                     <p class="help-text">
-                      {{ '*A random order count between 1 and 100 will be displayed to motivate user
-                      purchases.' }}
+                      {{ '*A random order count between 1 and 100 will be displayed to motivate user purchases.' }}
                     </p>
                   </div>
                 </app-form-fields>
@@ -1103,8 +1095,7 @@
                       <span class="switch-state"></span>
                     </label>
                     <p class="help-text">
-                      {{ '*this feature encourages users to view products by presenting engaging
-                      content or prompts.' }}
+                      {{ '*this feature encourages users to view products by presenting engaging content or prompts.' }}
                     </p>
                   </div>
                 </app-form-fields>
@@ -1121,8 +1112,7 @@
                       <span class="switch-state"></span>
                     </label>
                     <p class="help-text">
-                      {{ '*Enabling this will showcase the product in the sidebar of the product
-                      page as a trending item.' }}
+                      {{ '*Enabling this will showcase the product in the sidebar of the product page as a trending item.' }}
                     </p>
                   </div>
                 </app-form-fields>
@@ -1156,8 +1146,7 @@
                       <span class="switch-state"></span>
                     </label>
                     <p class="help-text">
-                      {{ '*Toggle between Enabled and Disabled to control the availability of the
-                      product for purchase.' }}
+                      {{ '*Toggle between Enabled and Disabled to control the availability of the product for purchase.' }}
                     </p>
                   </div>
                 </app-form-fields>
@@ -1175,4 +1164,3 @@
     </app-button>
   </div>
 </form>
--->

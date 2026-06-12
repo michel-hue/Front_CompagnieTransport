@@ -13,8 +13,8 @@ import {
   ReplicateProductAction,
   UpdateProductStatusAction,
 } from '../../shared/action/product.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { Table } from '../../shared/components/ui/table/table';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { Params } from '../../shared/interface/core.interface';
 import { IProduct, IProductModel } from '../../shared/interface/product.interface';
@@ -25,7 +25,7 @@ import { ProductState } from '../../shared/state/product.state';
   selector: 'app-product',
   templateUrl: './product.html',
   styleUrls: ['./product.scss'],
-  imports: [ RouterModule, TranslateModule],
+  imports: [ RouterModule, TranslateModule, Table, PageWrapper, HasPermissionDirective],
 })
 export class Product {
   private store = inject(Store);

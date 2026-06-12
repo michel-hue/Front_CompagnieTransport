@@ -1,4 +1,3 @@
-<!--
 @if (loadingStatus$ | async) {
 <app-loader />
 }
@@ -53,7 +52,7 @@
                 <app-advanced-dropdown
                   [position]="'bottom'"
                   [selectedOption]="selectedCategory"
-                  [options]="(category$ | async )?.data ? (category$ | async )?.data : []"
+                  [options]="(category$ | async)?.data ?? []"
                   [subArrayKey]="'subcategories'"
                   (selectedItem)="selectCategoryItem($event)"
                 />
@@ -123,8 +122,7 @@
                   <h4>{{item?.variation ? item?.variation?.name : item?.product?.name}}</h4>
                   <div>
                     <h5>
-                      {{(item?.variation ? item?.variation.sale_price : item?.product?.sale_price) |
-                      currencySymbol}}
+                      {{(item?.variation?.sale_price ?? item?.product?.sale_price ?? 0) | currencySymbol}}
                     </h5>
                     <div class="qty-box cart_qty">
                       <div class="input-group">
@@ -164,7 +162,7 @@
           <ul class="summary-total">
             <li>
               <h4>{{ 'subtotal' | translate }}</h4>
-              <h4 class="price">{{ (cartTotal$ | async) | currencySymbol}}</h4>
+              <h4 class="price">{{ (cartTotal$ | async) ?? 0 | currencySymbol}}</h4>
             </li>
             <li>
               <h4>{{ 'shipping' | translate }}</h4>
@@ -176,7 +174,7 @@
             </li>
             <li class="list-total">
               <h4>{{ 'total' | translate }}</h4>
-              <h4 class="price">{{ (cartTotal$ | async) | currencySymbol}}</h4>
+              <h4 class="price">{{ (cartTotal$ | async) ?? 0 | currencySymbol}}</h4>
             </li>
           </ul>
           }
@@ -196,4 +194,3 @@
     </div>
   </div>
 </div>
--->

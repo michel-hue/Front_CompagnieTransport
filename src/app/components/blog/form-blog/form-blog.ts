@@ -22,10 +22,10 @@ import {
 } from '../../../shared/action/blog.action';
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetTagsAction } from '../../../shared/action/tag.action';
-//Import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
-//import { Button } from '../../../shared/components/ui/button/button';
-//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
+import { Button } from '../../../shared/components/ui/button/button';
+import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
 import { IAttachment } from '../../../shared/interface/attachment.interface';
 import { IBlog } from '../../../shared/interface/blog.interface';
 import { ICategoryModel } from '../../../shared/interface/category.interface';
@@ -40,11 +40,11 @@ import { TagState } from '../../../shared/state/tag.state';
   styleUrls: ['./form-blog.scss'],
   imports: [
     ReactiveFormsModule,
-   // FormFields,
+    FormFields,
     NgxEditorModule,
-   // ImageUpload,
-   // AdvancedDropdown,
-  //  Button,
+    ImageUpload,
+    AdvancedDropdown,
+    Button,
     CommonModule,
     TranslateModule,
   ],
@@ -55,7 +55,7 @@ export class FormBlog {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
 
- // readonly type = input<string>(undefined);
+  readonly type = input<string>('');
 
   blog$: Observable<IBlog> = inject(Store).select(BlogState.selectedBlog) as Observable<IBlog>;
   category$: Observable<ICategoryModel> = inject(Store).select(
@@ -76,9 +76,24 @@ export class FormBlog {
     const platformId = inject(PLATFORM_ID);
 
     this.isBrowser = isPlatformBrowser(platformId);
+    this.store.dispatch(new GetCategoriesAction({
+      search: '',
+      field: '',
+      sort: '',
+      page: 1,
+      paginate: 100,
+      type: 'post',
+    }));
 
-    this.store.dispatch(new GetCategoriesAction({ type: 'post' }));
-    this.store.dispatch(new GetTagsAction({ type: 'post' }));
+    this.store.dispatch(new GetTagsAction({
+      search: '',
+      field: '',
+      sort: '',
+      page: 1,
+      paginate: 100,
+      type: 'post',
+    }));
+
     this.form = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
       description: new FormControl(),

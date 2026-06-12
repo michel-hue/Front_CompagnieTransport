@@ -1,4 +1,4 @@
-<!--
+
 <div class="select-top-panel">
   <div>
     <input
@@ -51,7 +51,7 @@
               <a
                 ngbDropdownItem
                 class="d-flex align-items-center"
-                (click)="DeleteModal().openModal('delete', attachment)"
+                (click)="deleteModal?.openModal('delete', attachment)"
               >
                 <i class="ri-delete-bin-line me-2"></i> {{ 'delete' | translate }}
               </a>
@@ -77,4 +77,4 @@
   }
 </div>
 <app-delete-modal #deleteModal (deleteItem)="onActionClicked($event.actionToPerform,$event.data)" />
--->
+

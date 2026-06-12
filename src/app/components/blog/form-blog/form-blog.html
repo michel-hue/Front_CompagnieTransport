@@ -1,4 +1,3 @@
-<!--
 <form class="theme-form theme-form-2 mega-form" [formGroup]="form" (ngSubmit)="submit()">
   <app-form-fields [label]="'title'" [for]="'title'" [required]="true">
     <input
@@ -22,7 +21,7 @@
   </app-form-fields>
   <app-form-fields [label]="'content'" [for]="'content'" [required]="false">
     <div class="custom-editor">
-      @if(isBrowser) {
+      @if(isBrowser && editor) {
       <ngx-editor-menu [editor]="editor" />
       <ngx-editor
         [editor]="editor"
@@ -37,7 +36,7 @@
   <app-form-fields [label]="'thumbnail'" [for]="'image'" [required]="true">
     <app-image-upload
       [multipleImage]="false"
-      [image]="(blog$ | async)?.blog_thumbnail"
+      [image]="(blog$ | async)?.blog_thumbnail ?? null"
       [helpText]="'*Upload image size 1500x700px recommended'"
       (selectedFiles)="selectThumbnail($event)"
     />
@@ -47,24 +46,28 @@
     }
   </app-form-fields>
   <app-form-fields [label]="'select_categories'" [for]="'category'" [required]="true">
+    @if (tag$ | async; as tags) {
     <app-advanced-dropdown
       [position]="'top'"
       [selectedOption]="selectedCategories"
-      [options]="(category$ | async )?.data?.length ? (category$ | async )?.data : []"
+      [options]="tags.data ?? []"
       [subArrayKey]="'subcategories'"
       (selectedItem)="selectCategoryItem($event)"
     />
+    }
     @if (form.controls['categories'].touched && form.controls['categories'].errors?.['required']) {
     <div class="invalid-feedback">{{ 'select_category_is_required' | translate }}</div>
     }
   </app-form-fields>
   <app-form-fields [label]="'select_tags'" [for]="'tag'" [required]="false">
-    <app-advanced-dropdown
-      [position]="'top'"
-      [selectedOption]="selectedTags"
-      [options]="(tag$ | async )?.data?.length ? (tag$ | async )?.data : []"
-      (selectedItem)="selectTagItem($event)"
-    />
+    @if (tag$ | async; as tags) {
+      <app-advanced-dropdown
+        [position]="'top'"
+        [selectedOption]="selectedTags"
+        [options]="tags.data ?? []"
+        (selectedItem)="selectTagItem($event)"
+      />
+    }
   </app-form-fields>
   <app-form-fields [label]="'featured'" [for]="'is_featured'" [required]="false">
     <div class="form-check form-switch ps-0">
@@ -101,7 +104,7 @@
   <app-form-fields [label]="'meta_image'" [for]="'meta_image'" [required]="false">
     <app-image-upload
       [multipleImage]="false"
-      [image]="(blog$ | async)?.blog_meta_image"
+      [image]="(blog$ | async)?.blog_meta_image ?? null"
       (selectedFiles)="selectMetaImage($event)"
     />
   </app-form-fields>
@@ -117,4 +120,3 @@
     {{ (type() === 'create' ? 'save_blog' : 'update_blog') | translate }}
   </app-button>
 </form>
--->

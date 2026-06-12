@@ -1,6 +1,5 @@
-/*
-import { NgClass } from '@angular/common';
-import { Component, Input, output, SimpleChanges } from '@angular/core';
+//import { NgClass } from '@angular/common';
+import { Component, Input, OnChanges, OnInit, output, SimpleChanges } from '@angular/core';
 
 import { IPaginate } from '../../../interface/paginate.interface';
 
@@ -8,100 +7,70 @@ import { IPaginate } from '../../../interface/paginate.interface';
   selector: 'app-pagination',
   templateUrl: './pagination.html',
   styleUrls: ['./pagination.scss'],
-  imports: [NgClass],
+  imports: [],
 })
-export class Pagination {
-  // TODO:Component {kipped for migration because:
-  //  Your application code writes to the input. This prevents migration.
-  @Input() total: number = undefined;
-
-  // TODO: Skipped for migration because:
-  //  Your application code writes to the input. This prevents migration.
-  @Input() currentPage: number = undefined;
-
-  // TODO: Skipped for migration because:
-  //  Your application code writes to the input. This prevents migration.
-  @Input() pageSize: number = undefined;
+export class Pagination implements OnInit, OnChanges {
+  @Input() total: number = 0;
+  @Input() currentPage: number = 1;
+  @Input() pageSize: number = 10;
 
   readonly setPage = output<number>();
 
-  public paginate: IPaginate; // Pagination use only
+  public paginate!: IPaginate;
 
-  constructor() {}
-
-  // Detect changes
-  ngOnChanges(changes: SimpleChanges) {
-    this.total = changes['total'] ? changes['total'].currentValue : this.total;
-    this.currentPage = changes['currentPage']
-      ? changes['currentPage'].currentValue
-      : this.currentPage;
-    this.pageSize = changes['pageSize'] ? changes['pageSize'].currentValue : this.pageSize;
+  ngOnInit(): void {
     this.paginate = this.getPager(this.total, this.currentPage, this.pageSize);
   }
 
-  // Set Page
-  pageSet(page: number) {
-    this.setPage.emit(page); // Set Page Number
+  ngOnChanges(changes: SimpleChanges): void {
+    this.paginate = this.getPager(this.total, this.currentPage, this.pageSize);
   }
 
-  // // Get Pager For Pagination
-  getPager(totalItems: number, currentPage: number, pageSize: number) {
-    // calculate total pages
-    let totalPages = Number(Math.ceil(Number(totalItems) / Number(pageSize)));
+  pageSet(page: number): void {
+    this.setPage.emit(page);
+  }
 
-    // IPaginate Range
-    let paginateRange = 3;
+  private getPager(totalItems: number, currentPage: number, pageSize: number): IPaginate {
+    const totalPages = Math.ceil(totalItems / pageSize) || 1;
+    const paginateRange = 3;
 
-    // ensure current page isn't out of range
-    if (Number(currentPage) < 1) {
-      currentPage = 1;
-    } else if (Number(currentPage) > Number(totalPages)) {
-      currentPage = Number(totalPages);
-    }
+    const clampedPage = Math.max(1, Math.min(currentPage, totalPages));
 
-    let startPage: number, endPage: number;
-    if (Number(totalPages) <= Number(paginateRange)) {
-      // Less than or equal to the paginateRange
+    let startPage: number;
+    let endPage: number;
+
+    if (totalPages <= paginateRange) {
       startPage = 1;
-      endPage = Number(totalPages);
-    } else if (Number(currentPage) <= Number(Math.floor(Number(paginateRange) / 2))) {
-      // Near the beginning
+      endPage = totalPages;
+    } else if (clampedPage <= Math.floor(paginateRange / 2)) {
       startPage = 1;
-      endPage = Number(paginateRange);
-    } else if (
-      Number(currentPage) >=
-      Number(totalPages) - Number(Math.floor(Number(paginateRange) / 2))
-    ) {
-      // Near the end
-      startPage = Number(totalPages) - Number(paginateRange) + 1;
-      endPage = Number(totalPages);
+      endPage = paginateRange;
+    } else if (clampedPage >= totalPages - Math.floor(paginateRange / 2)) {
+      startPage = totalPages - paginateRange + 1;
+      endPage = totalPages;
     } else {
-      // In the middle
-      startPage = Number(currentPage) - Number(Math.floor(Number(paginateRange) / 2));
-      endPage = Number(currentPage) + Number(Math.floor(Number(paginateRange) / 2));
+      startPage = clampedPage - Math.floor(paginateRange / 2);
+      endPage = clampedPage + Math.floor(paginateRange / 2);
     }
 
-    // calculate start and end item indexes
-    let startIndex = (Number(currentPage) - 1) * Number(pageSize);
-    let endIndex = Math.min(Number(startIndex) + Number(pageSize) - 1, Number(totalItems) - 1);
+    const startIndex = (clampedPage - 1) * pageSize;
+    const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
 
-    // create an array of pages to ng-repeat in the pager control
-    let pages = Array.from(Array(Number(endPage) + 1 - Number(startPage)).keys()).map(
-      i => Number(startPage) + Number(i),
+    const pages = Array.from(
+      { length: endPage + 1 - startPage },
+      (_, i) => startPage + i,
     );
 
-    // return object with all pager properties required by the view
     return {
-      totalItems: totalItems,
-      currentPage: currentPage,
-      pageSize: pageSize,
-      totalPages: totalPages,
-      startPage: startPage,
-      endPage: endPage,
-      startIndex: startIndex,
-      endIndex: endIndex,
-      pages: pages,
+      totalItems,
+      currentPage: clampedPage,
+      pageSize,
+      totalPages,
+      startPage,
+      endPage,
+      startIndex,
+      endIndex,
+      pages,
     };
   }
 }
-*/

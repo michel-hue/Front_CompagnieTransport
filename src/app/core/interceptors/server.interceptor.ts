@@ -24,5 +24,4 @@ export class ServerInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
   }
-}
-0;
+};

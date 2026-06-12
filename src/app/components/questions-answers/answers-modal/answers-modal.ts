@@ -6,14 +6,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 
 import { UpdateQuestionAnswersAction } from '../../../shared/action/questions-answers.action';
-//import { Button } from '../../../shared/components/ui/button/button';
+import { Button } from '../../../shared/components/ui/button/button';
 import { IQuestionAnswers } from '../../../shared/interface/questions-answers.interface';
 
 @Component({
   selector: 'app-answers-modal',
   templateUrl: './answers-modal.html',
   styleUrls: ['./answers-modal.scss'],
-  imports: [ReactiveFormsModule, TranslateModule],
+  imports: [ReactiveFormsModule, TranslateModule, Button],
 })
 export class AnswersModal {
   private modalService = inject(NgbModal);

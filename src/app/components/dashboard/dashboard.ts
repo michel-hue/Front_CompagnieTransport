@@ -28,7 +28,7 @@ import {
   ApexXAxis,
   ApexYAxis,
 } from 'ng-apexcharts';
-import { Select2Data,  Select2UpdateEvent } from 'ng-select2-component';
+import {Select2, Select2Data, Select2UpdateEvent} from 'ng-select2-component';
 import { Observable } from 'rxjs';
 
 import { GetBlogsAction } from '../../shared/action/blog.action';
@@ -41,8 +41,8 @@ import { GetOrdersAction } from '../../shared/action/order.action';
 import { GetProductsAction } from '../../shared/action/product.action';
 import { GetReviewsAction } from '../../shared/action/review.action';
 import { GetStoresAction } from '../../shared/action/store.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { Table } from '../../shared/components/ui/table/table';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { IAccountUser } from '../../shared/interface/account.interface';
 import { IBlogModel } from '../../shared/interface/blog.interface';
@@ -87,10 +87,9 @@ export interface ChartOptions {
   styleUrls: ['./dashboard.scss'],
   providers: [CurrencySymbolPipe],
   imports: [
-  //  PageWrapper,
+   PageWrapper,
     HasPermissionDirective,
-    //Select2Module,
-  //  Table,
+    Table,
     RouterModule,
     NgbRating,
     CommonModule,
@@ -98,6 +97,7 @@ export interface ChartOptions {
     DatePipe,
     TranslateModule,
     CurrencySymbolPipe_1,
+    Select2
   ],
 })
 export class Dashboard {
@@ -120,8 +120,8 @@ export class Dashboard {
   blog$: Observable<IBlogModel> = inject(Store).select(BlogState.blog);
   category$: Observable<Select2Data> = inject(Store).select(CategoryState.categories);
   store$: Observable<IStoresModel> = inject(Store).select(StoreState.store);
-  //user$: Observable<IAccountUser> = inject(Store).select(AccountState.user);
-  readonly chart = viewChild.required<ElementRef>('chart');
+  user$: Observable<IAccountUser | null> = inject(Store).select(AccountState.user);
+  readonly chart = viewChild.required<ElementRef<HTMLDivElement>>('chart');
   public chartOptions!: Partial<ChartOptions>;
 
   public topProductLoader: boolean = false;
@@ -372,18 +372,27 @@ export class Dashboard {
   ngOnInit() {
     this.store.dispatch(new GetStatisticsCountAction());
     this.store.dispatch(new GetRevenueChartAction());
-    this.store.dispatch(
+  /*  this.store.dispatch(
       new GetProductsAction({ status: 1, top_selling: 1, filter_by: 'this_year', paginate: 5 }),
     );
     this.store.dispatch(new GetReviewsAction({ paginate: 5 }));
     this.store.dispatch(new GetBlogsAction({ status: 1, paginate: 2 }));
-    this.store.dispatch(new GetCategoriesAction({ type: 'product', status: 1 }));
+    this.store.dispatch(new GetCategoriesAction({ type: 'product', status: 1 }));*/
   }
 
   filterTopProduct(data: Select2UpdateEvent) {
     this.topProductLoader = true;
     this.renderer.addClass(this.document.body, 'loader-none');
-    let params: Params = { status: 1, top_selling: 1, filter_by: 'this_year', paginate: 5 };
+    let params: Params = {
+      search: '',
+      field: '',
+      sort: '',
+      page: 1,
+      status: 1,
+      top_selling: 1,
+      filter_by: 'this_year',
+      paginate: 5
+    };
     if (data.value) {
       params['filter_by'] = data.value;
     }
@@ -407,7 +416,7 @@ export class Dashboard {
     if (action.actionToPerform == 'view') this.orderView(action.data);
   }
 
-  orderView(data: IOrder) {
+  orderView(data: any) {
     void this.router.navigateByUrl(`/order/details/${data.order_number}`);
   }
 
@@ -429,9 +438,14 @@ export class Dashboard {
   filterProduct(data: Select2UpdateEvent) {
     this.renderer.addClass(this.document.body, 'loader-none');
     let params: Params = {
-      paginate: 8,
-      field: 'quantity',
-      sort: 'asc',
+      search: '',
+      field: '',
+      sort: '',
+      page: 1,
+      status: 1,
+      top_selling: 1,
+      filter_by: 'this_year',
+      paginate: 5
     };
     if (data.value) {
       params['category_ids'] = data.value;
@@ -444,7 +458,7 @@ export class Dashboard {
     if (action.actionToPerform == 'edit') this.productEdit(action.data);
   }
 
-  productEdit(data: IProduct) {
+  productEdit(data: any) {
     void this.router.navigateByUrl(`/product/edit/${data.id}`);
   }
 
@@ -463,12 +477,17 @@ export class Dashboard {
     });
   }
 
-  filterSeller(data: Select2UpdateEvent) {
+  filterSeller(data: any) {
     this.renderer.addClass(this.document.body, 'loader-none');
     let params: Params = {
-      paginate: 6,
-      top_vendor: 1,
+      search: '',
+      field: '',
+      sort: '',
+      page: 1,
+      status: 1,
+      top_selling: 1,
       filter_by: 'this_year',
+      paginate: 5
     };
     if (data.value) {
       params['filter_by'] = data.value;
