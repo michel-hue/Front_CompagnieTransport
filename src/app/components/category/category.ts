@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { FormCategory } from './form-category/form-category';
 import { Tree } from './tree/tree';
 import { GetCategoriesAction } from '../../shared/action/category.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { ICategoryModel } from '../../shared/interface/category.interface';
 import { CategoryState } from '../../shared/state/category.state';
@@ -19,7 +19,7 @@ import { CategoryState } from '../../shared/state/category.state';
   templateUrl: './category.html',
   styleUrls: ['./category.scss'],
   imports: [
-
+    PageWrapper,
     HasPermissionDirective,
     RouterModule,
     Tree,
@@ -38,10 +38,17 @@ export class Category {
   // TODO: Skipped for migration because:
   //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
   //  and migrating would break narrowing currently.
-  readonly type = input<string>('create');
+  readonly type = input<string>('');
   readonly categoryType = input<string | null>('product');
 
   ngOnInit(): void {
-    this.store.dispatch(new GetCategoriesAction({ type: this.categoryType() }));
+    this.store.dispatch(new GetCategoriesAction({
+      search: '',
+      field: '',
+      sort: '',
+      page: 1,
+      paginate: 100,  // ou une valeur adaptée
+      type: this.categoryType(),
+    }));
   }
 }

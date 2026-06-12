@@ -1,4 +1,4 @@
-<!--
+
 &lt;!&ndash; Tuiles de statistiques &ndash;&gt;
 <section class="dashboard-tiles">
   <div class="container-fluid">
@@ -88,7 +88,7 @@
       <app-page-wrapper [gridClass]="'col-sm-12'" [title]="'top_selling_products'">
         <div button>
           @if (isBrowser) {
-          <select2
+          <ng-select2
             class="custom-select min-w-cls"
             [data]="filter?.length ? filter : []"
             [placeholder]="'filter_by' | translate"
@@ -120,7 +120,7 @@
               </td>
               <td>
                 <h6>{{ 'price' | translate }}</h6>
-                <h5>{{ product?.sale_price | currencySymbol }}</h5>
+                <h5>{{ (product?.sale_price ?? 0) | currencySymbol }}</h5>
               </td>
               <td>
                 <h6>{{ 'orders' | translate }}</h6>
@@ -132,7 +132,7 @@
               </td>
               <td>
                 <h6>{{ 'amount' | translate }}</h6>
-                <h5>{{ product?.order_amount | currencySymbol }}</h5>
+                <h5>{{ (product?.order_amount ?? 0) | currencySymbol }}</h5>
               </td>
             </tr>
             } @if (!topProducts?.length) {
@@ -211,7 +211,7 @@
               </td>
               <td>{{ review?.consumer?.name }}</td>
               <td>
-                <ngb-rating class="rating-sec" [rate]="review?.rating" />
+                <ngb-rating class="rating-sec" [rate]="review?.rating ?? 0" />
               </td>
             </tr>
             } @if (!reviews?.length) {
@@ -261,4 +261,3 @@
   </div>
 </section>
 
--->

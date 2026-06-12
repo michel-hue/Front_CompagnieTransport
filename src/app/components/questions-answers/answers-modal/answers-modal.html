@@ -1,14 +1,14 @@
 <ng-template #answersModal let-modal>
   <div class="modal-header">
     <h3 class="mb-1 fw-semibold">{{ 'Answers' | translate }}</h3>
- <!--   <app-button
+  <app-button
       [class]="'btn btn-close'"
       [spinner]="false"
       [id]="'payout_close_btn'"
       (click)="modal.dismiss('Cross click')"
     >
       <i class="ri-close-line"></i>
-    </app-button>-->
+    </app-button>
   </div>
   <div class="modal-body qa-modal">
     <div class="border rounded-3 mb-4">
@@ -33,7 +33,7 @@
     </div>
     <div>
       <div class="button-box">
-<!--        <app-button [class]="'btn-md fw-bold btn btn-secondary'" [id]="'close_answers_modal_btn'">
+   <app-button [class]="'btn-md fw-bold btn btn-secondary'" [id]="'close_answers_modal_btn'">
           {{ 'Close' | translate }}
         </app-button>
         <app-button
@@ -42,7 +42,7 @@
           (click)="submit()"
         >
           {{ 'submit' | translate }}
-        </app-button>-->
+        </app-button>
       </div>
     </div>
   </div>

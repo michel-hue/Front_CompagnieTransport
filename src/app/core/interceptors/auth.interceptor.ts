@@ -24,23 +24,26 @@ export const authInterceptor: HttpInterceptorFn = (
     '/auth/forgot-password',
     '/auth/reset-password',
     '/public/vendors/register', // inscription vendeur (publique)
+    '/assets/',   // ← fichiers statiques
+    'i18n',       // ← fichiers de traduction ngx-translate
   ];
-  
+
   // Vérifier si c'est une URL publique
   const isPublicUrl = publicUrls.some(url => req.url.includes(url));
 
   // Si c'est une URL publique, passer la requête sans modification
-  if (isPublicUrl) {
+ /* if (isPublicUrl) {
     console.log('🌐 Requête publique (pas de token) :', req.url);
     return next(req);
-  }
+  }*/
 
   // Vérifier si le token est expiré (ne pas rediriger pour les URLs publiques)
-  if (userService.isTokenExpired() && !isPublicUrl) {
-    console.log('⚠️ Token expiré, redirection vers /connexion');
+  const isAlreadyOnLogin = router.url.includes('/connexion');
+
+  if (userService.isTokenExpired() && !isPublicUrl && !isAlreadyOnLogin) {
+    console.warn('⚠️ Token expiré, redirection vers /connexion');
     userService.logout();
     router.navigateByUrl('/connexion');
-    // On laisse passer la requête pour éviter de bloquer l'application
     return next(req);
   }
 
@@ -54,19 +57,19 @@ export const authInterceptor: HttpInterceptorFn = (
     const headers: any = {
       Authorization: `Bearer ${token}`,
     };
-    
+
     // Ajouter Content-Type uniquement si ce n'est pas déjà défini et si ce n'est pas du FormData
     if (!req.headers.has('Content-Type') && !(req.body instanceof FormData)) {
       headers['Content-Type'] = 'application/json';
     }
-    
+
     const clonedRequest = req.clone({
       setHeaders: headers,
     });
-    
+
     //console.log('🔐 Token ajouté à la requête :', req.url);
     //console.log('📤 Authorization header :', clonedRequest.headers.get('Authorization')?.substring(0, 30) + '...');
-    
+
     return next(clonedRequest);
   }
 

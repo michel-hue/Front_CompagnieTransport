@@ -43,13 +43,14 @@ import {
   UpdateCouponAction,
 } from '../../../shared/action/coupon.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
-//import { Button } from '../../../shared/components/ui/button/button';
-//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+import { Button } from '../../../shared/components/ui/button/button';
+import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
 import { ICoupon } from '../../../shared/interface/coupon.interface';
 import { IValues } from '../../../shared/interface/setting.interface';
 import { CouponState } from '../../../shared/state/coupon.state';
 import { ProductState } from '../../../shared/state/product.state';
 import { SettingState } from '../../../shared/state/setting.state';
+import {type} from 'node:os';
 
 function convertToNgbDate(date: NgbDateStruct): NgbDate {
   return new NgbDate(date.year, date.month, date.day);
@@ -61,17 +62,17 @@ function convertToNgbDate(date: NgbDateStruct): NgbDate {
   styleUrls: ['./form-coupon.scss'],
   imports: [
     ReactiveFormsModule,
-   // NgbNav,
-  //  NgbNavItem,
-  //  NgbNavItemRole,
-   // NgbNavLink,
-   // NgbNavLinkBase,
-   // NgbNavContent,
-   // FormFields,
-   // Select2Module,
- //   NgbInputDatepicker,
- //   NgbNavOutlet,
-   // Button,
+   NgbNav,
+   NgbNavItem,
+    NgbNavItemRole,
+    NgbNavLink,
+    NgbNavLinkBase,
+    NgbNavContent,
+    FormFields,
+Select2,
+   NgbInputDatepicker,
+    NgbNavOutlet,
+    Button,
     CommonModule,
     TranslateModule,
   ],
@@ -149,7 +150,7 @@ export class FormCoupon {
   }
 
   ngOnInit() {
-    this.store.dispatch(new GetProductsAction({ status: 1, paginate: 15 }));
+    //this.store.dispatch(new GetProductsAction({ status: 1, paginate: 15 }));
 
     this.route.params
       .pipe(
@@ -194,7 +195,7 @@ export class FormCoupon {
     this.search
       .pipe(debounceTime(300)) // Adjust the debounce time as needed (in milliseconds)
       .subscribe(inputValue => {
-        this.store.dispatch(new GetProductsAction({ status: 1, paginate: 15, search: inputValue }));
+       // this.store.dispatch(new GetProductsAction({ status: 1, paginate: 15, search: inputValue }));
         this.renderer.addClass(this.document.body, 'loader-none');
       });
 
@@ -350,4 +351,6 @@ export class FormCoupon {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  protected readonly type = type;
 }

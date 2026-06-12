@@ -1,15 +1,18 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
-  constructor() {}
+  private platformId = inject(PLATFORM_ID);
 
-  /**
-   * Définir une valeur JSON dans le localStorage
-   */
+  private get isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
+
   setJsonValue(key: string, value: any): void {
+    if (!this.isBrowser) return;
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
@@ -17,10 +20,8 @@ export class LocalStorageService {
     }
   }
 
-  /**
-   * Récupérer une valeur JSON du localStorage
-   */
   getJsonValue(key: string): any {
+    if (!this.isBrowser) return null;
     try {
       const item = localStorage.getItem(key);
       return item ? JSON.parse(item) : null;
@@ -30,10 +31,8 @@ export class LocalStorageService {
     }
   }
 
-  /**
-   * Définir une valeur string dans le localStorage
-   */
   setValue(key: string, value: string): void {
+    if (!this.isBrowser) return;
     try {
       localStorage.setItem(key, value);
     } catch (error) {
@@ -41,10 +40,8 @@ export class LocalStorageService {
     }
   }
 
-  /**
-   * Récupérer une valeur string du localStorage
-   */
   getValue(key: string): string | null {
+    if (!this.isBrowser) return null;
     try {
       return localStorage.getItem(key);
     } catch (error) {
@@ -53,10 +50,8 @@ export class LocalStorageService {
     }
   }
 
-  /**
-   * Supprimer une clé du localStorage
-   */
   removeItem(key: string): void {
+    if (!this.isBrowser) return;
     try {
       localStorage.removeItem(key);
     } catch (error) {
@@ -64,10 +59,8 @@ export class LocalStorageService {
     }
   }
 
-  /**
-   * Effacer tout le localStorage
-   */
   clear(): void {
+    if (!this.isBrowser) return;
     try {
       localStorage.clear();
     } catch (error) {
@@ -75,10 +68,8 @@ export class LocalStorageService {
     }
   }
 
-  /**
-   * Effacer uniquement les données utilisateur (pour la déconnexion)
-   */
   clearUserData(): void {
+    if (!this.isBrowser) return;
     try {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
@@ -88,18 +79,13 @@ export class LocalStorageService {
     }
   }
 
-  /**
-   * Vérifier si une clé existe
-   */
   hasKey(key: string): boolean {
+    if (!this.isBrowser) return false;
     return localStorage.getItem(key) !== null;
   }
 
-  /**
-   * Vérifier si un utilisateur est connecté
-   */
   isUserLoggedIn(): boolean {
+    if (!this.isBrowser) return false;
     return this.hasKey('user') && this.getJsonValue('user')?.token !== null;
   }
 }
-

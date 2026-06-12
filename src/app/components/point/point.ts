@@ -10,7 +10,7 @@ import {
 
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data } from 'ng-select2-component';
+import {Select2, Select2Data} from 'ng-select2-component';
 import { Observable } from 'rxjs';
 
 import {
@@ -19,10 +19,10 @@ import {
   GetUserTransactionAction,
 } from '../../shared/action/point.action';
 import { GetUsersAction } from '../../shared/action/user.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { Button } from '../../shared/components/ui/button/button';
-//import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
-//import { Table } from '../../shared/components/ui/table/table';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { Button } from '../../shared/components/ui/button/button';
+import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
+import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { NumberDirective } from '../../shared/directive/numbers-only.directive';
 import { Params } from '../../shared/interface/core.interface';
@@ -36,13 +36,13 @@ import { UserState } from '../../shared/state/user.state';
   styleUrls: ['./point.scss'],
   imports: [
     ReactiveFormsModule,
-   // PageWrapper,
-  //  Select2Module,
+    PageWrapper,
+   Select2,
     NumberDirective,
     HasPermissionDirective,
-  //  Button,
-    //Table,
-  //  ConfirmationModal,
+    Button,
+    Table,
+    ConfirmationModal,
     CommonModule,
     TranslateModule,
   ],
@@ -56,11 +56,17 @@ export class Point {
   users$: Observable<Select2Data> = inject(Store).select(UserState.users);
   point$: Observable<IPoint> = inject(Store).select(PointState.point) as Observable<IPoint>;
 
-  //readonly ConfirmationModal = viewChild<ConfirmationModal>('confirmationModal');
+  readonly confirmationModal = viewChild.required(ConfirmationModal);
 
   public form: FormGroup;
   public balance: number = 0.0;
-  public paginateInitialData!: Params;
+  public paginateInitialData: Params = {
+    search: '',
+    field: '',
+    sort: '',
+    page: 1,
+    paginate: 15,
+  };
   public isBrowser: boolean;
 
   public tableConfig = {
@@ -79,7 +85,15 @@ export class Point {
     const platformID = inject(PLATFORM_ID);
 
     this.isBrowser = isPlatformBrowser(platformID);
-    this.store.dispatch(new GetUsersAction({ role: 'consumer', status: 1 }));
+    this.store.dispatch(new GetUsersAction({
+      role: 'consumer',
+      status: 1,
+      search: '',
+      field: '',
+      sort: '',
+      page: 1,
+      paginate: 15
+    }));
     this.form = this.formBuilder.group({
       consumer_id: new FormControl('', [Validators.required]),
       balance: new FormControl('', [Validators.required]),
@@ -111,11 +125,14 @@ export class Point {
   }
 
   onTableChange(data?: Params) {
-    this.paginateInitialData = data!;
-    let vendor_id = this.form.controls['consumer_id']?.value;
-    this.paginateInitialData['consumer_id'] = vendor_id;
+    if (!data) return;  // Garde-fou
+
+    this.paginateInitialData = { ...data };  // Copie pour éviter mutation directe
+    const vendor_id = this.form.controls['consumer_id']?.value;
+
     if (vendor_id) {
-      this.store.dispatch(new GetUserTransactionAction(data));
+      this.paginateInitialData['consumer_id'] = vendor_id;
+      this.store.dispatch(new GetUserTransactionAction(this.paginateInitialData));
     }
   }
 

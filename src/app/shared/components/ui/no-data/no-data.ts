@@ -1,4 +1,4 @@
-/*
+
 import { Component, input } from '@angular/core';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -14,7 +14,7 @@ export class NoData {
   // TODO: Skipped for migration because:
   //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
   //  and migrating would break narrowing currently.
-  readonly image = input<string>(undefined);
-  readonly text = input<string>(undefined);
+  readonly image = input<string>();
+  readonly text = input<string>();
 }
-*/
+

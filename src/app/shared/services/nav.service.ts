@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-
 import { Observable } from 'rxjs';
 
-
+//import { environment } from '../../../environments/environment';
 import { Params } from '../interface/core.interface';
 import { IBadges } from '../interface/menu.interface';
 
@@ -12,14 +11,15 @@ import { IBadges } from '../interface/menu.interface';
 })
 export class NavService {
   private http = inject(HttpClient);
+  private baseUrl = "";
 
-  // Search Box
   public search: boolean = false;
-
   public collapseSidebar: boolean = false;
   public sidebarLoading: boolean = false;
 
   getBadges(payload?: Params): Observable<IBadges> {
-    return this.http.get<IBadges>(`${URL}/badge.json`, payload);
+    return this.http.get<IBadges>(`${this.baseUrl}/badge`, {
+      params: payload as any,
+    });
   }
 }

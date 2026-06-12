@@ -1,5 +1,4 @@
-<!--
-&lt;!&ndash;<app-page-wrapper [gridClass]="'col-sm-12'" [title]="'theme_rome_settings'">&ndash;&gt;
+<app-page-wrapper [gridClass]="'col-sm-12'" [title]="'theme_rome_settings'">-->
   <form class="theme-form theme-form-2 mega-form" (ngSubmit)="submit()" [formGroup]="form">
     <div class="vertical-tabs">
       <div class="row">
@@ -56,7 +55,7 @@
                                   </app-form-fields>
                                   <app-link
                                     (productFilter)="getProducts($event)"
-                                    [products]="(product$ | async)?.length ? (product$ | async) : []"
+                                    [products]="(product$ | async) ?? []"
                                     [linkForm]="form.get('content.home_banner.main_banner.redirect_link')"
                                   />
                                 </div>
@@ -108,7 +107,7 @@
                                   </app-form-fields>
                                   <app-link
                                     (productFilter)="getProducts($event)"
-                                    [products]="(product$ | async)?.length ? (product$ | async) : []"
+                                    [products]="(product$ | async) ?? []"
                                     [linkForm]="form.get('content.home_banner.sub_banner_2.redirect_link')"
                                   />
                                 </div>
@@ -135,7 +134,7 @@
                                   </app-form-fields>
                                   <app-link
                                     (productFilter)="getProducts($event)"
-                                    [products]="(product$ | async)?.length ? (product$ | async) : []"
+                                   [products]="(product$ | async) ?? []"
                                     [linkForm]="form.get('content.home_banner.sub_banner_3.redirect_link')"
                                   />
                                 </div>
@@ -169,7 +168,7 @@
                     <select2
                       class="custom-select"
                       [templates]="template"
-                      [data]="(categories$ | async) ? (categories$ | async) : []"
+                      [data]="(categories$ | async) ?? []"
                       [placeholder]="'select_categories' | translate "
                       formControlName="category_ids"
                       multiple="true"
@@ -253,7 +252,7 @@
                                       </app-form-fields>
                                       <app-link
                                         (productFilter)="getProducts($event)"
-                                        [products]="(product$ | async)?.length ? (product$ | async) : []"
+                                       [products]="(product$ | async) ?? []"
                                         [linkForm]="banners.get('redirect_link')"
                                       />
                                       <app-form-fields [label]="'status'" [for]="'status'">
@@ -312,7 +311,7 @@
                     <select2
                       class="custom-select"
                       [templates]="template"
-                      [data]="(categories$ | async) ? (categories$ | async) : []"
+                      [data]="(categories$ | async) ?? []"
                       [placeholder]="'Select categories'"
                       formControlName="category_ids"
                       multiple="true"
@@ -370,7 +369,7 @@
                             </app-form-fields>
                             <app-link
                               (productFilter)="getProducts($event)"
-                              [products]="(product$ | async)?.length ? (product$ | async) : []"
+                             [products]="(product$ | async) ?? []"
                               [linkForm]="form.get('content.two_column_banners.banner_1.redirect_link')"
                             />
                           </div>
@@ -391,7 +390,7 @@
                             </app-form-fields>
                             <app-link
                               (productFilter)="getProducts($event)"
-                              [products]="(product$ | async)?.length ? (product$ | async) : []"
+                             [products]="(product$ | async) ?? []"
                               [linkForm]="form.get('content.two_column_banners.banner_2.redirect_link')"
                             />
                           </div>
@@ -445,7 +444,7 @@
                                     <select2
                                       class="custom-select"
                                       [templates]="template"
-                                      [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                    [data]="(product$ | async) ?? []"
                                       [placeholder]="'select_product' | translate "
                                       formControlName="product_ids"
                                       noResultMessage="{{'no_data_found' | translate }}"
@@ -509,7 +508,7 @@
                                     <select2
                                       class="custom-select"
                                       [templates]="template"
-                                      [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                    [data]="(product$ | async) ?? []"
                                       [placeholder]="'select_product' | translate "
                                       formControlName="product_ids"
                                       noResultMessage="{{'no_data_found' | translate }}"
@@ -573,7 +572,7 @@
                                     <select2
                                       class="custom-select"
                                       [templates]="template"
-                                      [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                    [data]="(product$ | async) ?? []"
                                       [placeholder]="'select_product' | translate "
                                       formControlName="product_ids"
                                       noResultMessage="{{'no_data_found' | translate }}"
@@ -637,7 +636,7 @@
                                     <select2
                                       class="custom-select"
                                       [templates]="template"
-                                      [data]="(product$ | async)?.length ? (product$ | async) : []"
+                                    [data]="(product$ | async) ?? []"
                                       [placeholder]="'select_product' | translate "
                                       formControlName="product_ids"
                                       noResultMessage="{{'no_data_found' | translate }}"
@@ -699,7 +698,7 @@
                   </app-form-fields>
                   <app-link
                     (productFilter)="getProducts($event)"
-                    [products]="(product$ | async)?.length ? (product$ | async) : []"
+                   [products]="(product$ | async) ?? []"
                     [linkForm]="form.get('content.full_width_banner.redirect_link')"
                   />
                   <app-form-fields [label]="'status'" [for]="'status'">
@@ -733,7 +732,7 @@
                     <select2
                       class="custom-select"
                       [templates]="template"
-                      [data]="(product$ | async)?.length ? (product$ | async) : []"
+                      [data]="(product$ | async) ?? []"
                       [placeholder]="'select_product' | translate "
                       formControlName="product_ids"
                       noResultMessage="{{'no_data_found' | translate }}"
@@ -782,7 +781,7 @@
                     @if(isBrowser) {
                     <select2
                       class="custom-select"
-                      [data]="(blogs$ | async) ? (blogs$ | async) : []"
+                      [data]="(blogs$ | async) ??  []"
                       [placeholder]="'select_blogs' | translate "
                       formControlName="blog_ids"
                       noResultMessage="{{'no_data_found' | translate }}"
@@ -855,4 +854,3 @@
     </div>
   </form>
 </app-page-wrapper>
--->

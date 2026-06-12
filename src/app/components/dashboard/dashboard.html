@@ -1,5 +1,4 @@
-<!--
-&lt;!&ndash; tiles section &ndash;&gt;
+<!-- tiles section -->
 <section class="dashboard-tiles">
   <div class="container-fluid">
     @if (( user$ | async )?.role?.name !== 'vendor') {
@@ -8,7 +7,7 @@
         <div class="card-tiles">
           <div>
             <h6>{{ 'total_revenue' | translate }}</h6>
-            <h3>{{ (statistics$ | async)?.total_revenue | currencySymbol }}</h3>
+<!--            <h3>{{ (statistics$ | async)?.total_revenue | currencySymbol }}</h3>-->
           </div>
           <div class="icon-box">
             <i class="ri-wallet-line"></i>
@@ -55,7 +54,7 @@
         <div class="card-tiles">
           <div>
             <h6>{{ 'total_revenue' | translate }}</h6>
-            <h3>{{ (statistics$ | async)?.total_revenue | currencySymbol }}</h3>
+<!--            <h3>{{ (statistics$ | async)?.total_revenue | currencySymbol }}</h3>-->
           </div>
           <div class="icon-box">
             <i class="ri-wallet-line"></i>
@@ -100,7 +99,7 @@
   </div>
 </section>
 
-&lt;!&ndash; revenue & top vendor &ndash;&gt;
+<!-- revenue & top vendor -->
 <section>
   <div class="row m-0">
     <div class="col-xl-8 col-md-6 p-0">
@@ -155,11 +154,11 @@
             <tr>
               <td>
                 <div class="img-info">
-                  <img
+                  <!--<img
                     [src]="product?.product_thumbnail ? product?.product_thumbnail.original_url : 'assets/images/product.png'"
                     class="img-fluid"
                     alt="product"
-                  />
+                  />-->
                   <div>
                     <h6>{{ product?.created_at | date: 'dd MMM yyyy'}}</h6>
                     <h5>{{ product?.name }}</h5>
@@ -168,7 +167,7 @@
               </td>
               <td>
                 <h6>{{ 'price' | translate }}</h6>
-                <h5>{{ product?.sale_price | currencySymbol }}</h5>
+<!--                <h5>{{ product?.sale_price | currencySymbol }}</h5>-->
               </td>
               <td>
                 <h6>{{ 'orders' | translate }}</h6>
@@ -180,7 +179,7 @@
               </td>
               <td>
                 <h6>{{ 'amount' | translate }}</h6>
-                <h5>{{ +product?.order_amount | currencySymbol }}</h5>
+<!--                <h5>{{ +product?.order_amount | currencySymbol }}</h5>-->
               </td>
             </tr>
             } @if (!(topProduct$ | async)?.length) {
@@ -218,7 +217,7 @@
           @if (isBrowser) {
           <select2
             class="custom-select min-w-cls"
-            [data]="(category$ | async)?.length ? (category$ | async) : []"
+            [data]="(category$ | async)?? []"
             [placeholder]="'select_category' | translate"
             (update)="filterProduct($event)"
             resettable
@@ -264,7 +263,7 @@
               </td>
               <td>{{ review?.consumer?.name }}</td>
               <td>
-                <ngb-rating class="rating-sec" [rate]="review?.rating" />
+                <ngb-rating class="rating-sec" [rate]="review?.rating ?? 0" />
               </td>
             </tr>
             }
@@ -312,4 +311,3 @@
     </div>
   </div>
 </section>
--->

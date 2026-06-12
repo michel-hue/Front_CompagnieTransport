@@ -17,7 +17,7 @@ import { mergeMap, switchMap, takeUntil } from 'rxjs/operators';
 
 import { GetOrderStatusAction } from '../../../shared/action/order-status.action';
 import { UpdateOrderStatusAction, ViewOrderAction } from '../../../shared/action/order.action';
-//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
 import { IOrderStatus, IOrderStatusModel } from '../../../shared/interface/order-status.interface';
 import { IOrder } from '../../../shared/interface/order.interface';
 import { CurrencySymbolPipe } from '../../../shared/pipe/currency-symbol.pipe';
@@ -37,6 +37,7 @@ import { OrderState } from '../../../shared/state/order.state';
     DatePipe,
     TranslateModule,
     CurrencySymbolPipe,
+    PageWrapper
   ],
 })
 export class Details {

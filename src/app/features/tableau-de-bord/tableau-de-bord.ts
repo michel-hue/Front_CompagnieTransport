@@ -29,7 +29,7 @@ import {
   ApexXAxis,
   ApexYAxis,
 } from 'ng-apexcharts';
-import { Select2Data,  Select2UpdateEvent } from 'ng-select2-component';
+import {Select2, Select2Data, Select2UpdateEvent} from 'ng-select2-component';
 
 export interface ChartOptions {
   series: ApexAxisChartSeries;
@@ -47,8 +47,8 @@ export interface ChartOptions {
   responsive?: ApexResponsive[];
 }
 
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { Table } from '../../shared/components/ui/table/table';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { Table } from '../../shared/components/ui/table/table';
 import { ITableConfig } from '../../shared/interface/table.interface';
 import { CurrencySymbolPipe } from '../../shared/pipe/currency-symbol.pipe';
 import {
@@ -66,17 +66,16 @@ import {
   styleUrls: ['./tableau-de-bord.scss'],
   providers: [CurrencySymbolPipe],
   imports: [
- /*   PageWrapper,
-   Select2Module,
+    PageWrapper,
     Table,
-
-*/    RouterModule,
+    RouterModule,
     NgbRating,
     CommonModule,
     SlicePipe,
     DatePipe,
     TranslateModule,
     CurrencySymbolPipe,
+    Select2,
   ],
 })
 class TableauDeBord implements AfterViewInit, OnDestroy {

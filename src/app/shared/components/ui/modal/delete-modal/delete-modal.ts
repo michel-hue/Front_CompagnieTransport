@@ -1,10 +1,9 @@
-/*
-/!**!/import { Component, TemplateRef, inject, output, viewChild } from '@angular/core';
+import { Component, OnDestroy, TemplateRef, inject, output, viewChild } from '@angular/core';
 
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ITableClickedAction } from 'src/app/shared/interface/table.interface';
+import { ITableClickedAction } from '../../../../interface/table.interface';
 
 import { Button } from '../../button/button';
 
@@ -14,37 +13,38 @@ import { Button } from '../../button/button';
   styleUrls: ['./delete-modal.scss'],
   imports: [Button, TranslateModule],
 })
-export class DeleteModal {
-  private modalService = inject(NgbModal);
+export class DeleteModal implements OnDestroy {
+  private readonly modalService = inject(NgbModal);
 
-  public closeResult: string;
+  public closeResult: string = '';
   public modalOpen: boolean = false;
-  public userAction = {};
+  public userAction: ITableClickedAction | null = null;
 
-  readonly DeleteModal = viewChild<TemplateRef<string>>('deleteModal');
+  readonly deleteModal = viewChild.required<TemplateRef<unknown>>('deleteModal');
 
   readonly deleteItem = output<ITableClickedAction>();
 
-  async openModal(action: string, data: any) {
+  openModal(action: string, data: unknown): void {
     this.modalOpen = true;
     this.userAction = {
       actionToPerform: action,
       data: data,
     };
+
     this.modalService
-      .open(this.DeleteModal(), {
+      .open(this.deleteModal(), {
         ariaLabelledBy: 'Delete-Modal',
         centered: true,
         windowClass: 'theme-modal text-center',
       })
       .result.then(
-        result => {
-          `Result ${result}`;
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        },
-      );
+      (result: string) => {
+        this.closeResult = `Result ${result}`;
+      },
+      (reason: ModalDismissReasons) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      },
+    );
   }
 
   private getDismissReason(reason: ModalDismissReasons): string {
@@ -57,14 +57,15 @@ export class DeleteModal {
     }
   }
 
-  delete(_modal: NgbModalRef) {
-    this.deleteItem.emit(this.userAction);
+  delete(_modal: NgbModalRef): void {
+    if (this.userAction) {
+      this.deleteItem.emit(this.userAction);
+    }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.modalOpen) {
       this.modalService.dismissAll();
     }
   }
 }
-*/

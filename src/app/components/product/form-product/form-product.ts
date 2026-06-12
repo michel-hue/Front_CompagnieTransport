@@ -73,10 +73,10 @@ import {
 import { GetStoresAction } from '../../../shared/action/store.action';
 import { GetTagsAction } from '../../../shared/action/tag.action';
 import { GetTaxesAction } from '../../../shared/action/tax.action';
-//import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
-//import { Button } from '../../../shared/components/ui/button/button';
-//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
+import { Button } from '../../../shared/components/ui/button/button';
+import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
 import { IAttachment } from '../../../shared/interface/attachment.interface';
 import { ICategoryModel } from '../../../shared/interface/category.interface';
 import { Params } from '../../../shared/interface/core.interface';
@@ -95,7 +95,6 @@ import { SettingState } from '../../../shared/state/setting.state';
 import { StoreState } from '../../../shared/state/store.state';
 import { TagState } from '../../../shared/state/tag.state';
 import { TaxState } from '../../../shared/state/tax.state';
-import { priceValidator } from '../../../shared/validator/price-validator';
 
 function convertToNgbDate(date: NgbDateStruct): NgbDate {
   return new NgbDate(date.year, date.month, date.day);
@@ -113,21 +112,19 @@ function convertToNgbDate(date: NgbDateStruct): NgbDate {
     NgbNavLink,
     NgbNavLinkBase,
     NgbNavContent,
-    //FormFields,
+    FormFields,
     NgxEditorModule,
-  //  Select2Module,
+    Select2,
     NgbInputDatepicker,
-  //  Button,
+    Button,
     NgbAccordionDirective,
     NgbAccordionItem,
     NgbAccordionHeader,
-   // NgbAccordionToggle,
     NgbAccordionButton,
-   // NgbCollapse,
     NgbAccordionCollapse,
     NgbAccordionBody,
-  //  ImageUpload,
- //   AdvancedDropdown,
+    ImageUpload,
+    AdvancedDropdown,
     NgbNavOutlet,
     CommonModule,
     TranslateModule,
@@ -143,7 +140,7 @@ export class FormProduct {
   private renderer = inject(Renderer2);
   private document = inject<Document>(DOCUMENT);
 
- // readonly type = input<string>(undefined);
+  readonly type = input<string>('');
 
   readonly nav = viewChild<NgbNav>('nav');
 
@@ -205,6 +202,10 @@ export class FormProduct {
     ids: '',
     with_union_products: 0,
     is_approved: 1,
+    field: '',    // manquant
+    sort: '',     // manquant
+    page: 1,      // manquant
+
   };
 
   public variants: IVariant[] = [
@@ -225,12 +226,12 @@ export class FormProduct {
 
     this.isBrowser = isPlatformBrowser(platformId);
 
-    this.store.dispatch(new GetStoresAction({ status: 1, is_approved: 1 }));
+    /*this.store.dispatch(new GetStoresAction({ status: 1, is_approved: 1 }));
     this.store.dispatch(new GetAttributesAction({ status: 1 }));
     this.store.dispatch(new GetAttributeValuesAction({ status: 1 }));
     this.store.dispatch(new GetCategoriesAction({ type: 'product', status: 1 }));
     this.store.dispatch(new GetTagsAction({ type: 'product', status: 1 }));
-    this.store.dispatch(new GetTaxesAction({ status: 1 }));
+    this.store.dispatch(new GetTaxesAction({ status: 1 }));*/
 
     this.attribute$ = this.store
       .select(AttributeState.attributes)

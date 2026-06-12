@@ -17,37 +17,37 @@ import { debounceTime, forkJoin, Observable, Subject } from 'rxjs';
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
 import { GetHomePageAction, UpdateHomePageAction } from '../../../shared/action/theme.action';
-//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
-//import { Button } from '../../../shared/components/ui/button/button';
-//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
-//import { Link } from '../../../shared/components/ui/link/link';
+import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+import { Button } from '../../../shared/components/ui/button/button';
+import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+import { Link } from '../../../shared/components/ui/link/link';
 import * as data from '../../../shared/data/home-page';
 import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { Params } from '../../../shared/interface/core.interface';
 import { IContentTokyo, ITokyo } from '../../../shared/interface/theme.interface';
 import { CategoryState } from '../../../shared/state/category.state';
 import { ProductState } from '../../../shared/state/product.state';
-//import { ActiveThemeContent, ThemeState } from '../../../shared/state/theme.state';
+import { ActiveThemeContent, ThemeState } from '../../../shared/state/theme.state';
 
 @Component({
   selector: 'app-tokyo',
   templateUrl: './tokyo.html',
   styleUrls: ['./tokyo.scss'],
   imports: [
-    //PageWrapper,
+    PageWrapper,
     ReactiveFormsModule,
     NgbNavModule,
-    //FormFields,
-    //ImageUpload,
-   // Link,
-    //NgbNavOutlet,
-    //Select2Module,
-   // Button,
+    FormFields,
+    ImageUpload,
+    Link,
+    NgbNavOutlet,
+   Button,
     NgbAccordionModule,
-    //HasPermissionDirective,
+    HasPermissionDirective,
     CommonModule,
     TranslateModule,
+    Select2
   ],
 })
 export class Tokyo {
@@ -57,7 +57,7 @@ export class Tokyo {
   private document = inject<Document>(DOCUMENT);
 
   product$: Observable<Select2Data> = inject(Store).select(ProductState.products);
-  //home_page$!: Observable<ITokyo> = inject(Store).select(ThemeState.homePage<IContentTokyo>);
+  home_page$: Observable<ITokyo> = inject(Store).select(ThemeState.homePage) as Observable<ITokyo>;
   categories$: Observable<Select2Data> = inject(Store).select(CategoryState.categories);
 
   public form: FormGroup;
@@ -80,6 +80,9 @@ export class Tokyo {
     ids: '',
     with_union_products: 0,
     is_approved: 1,
+    field: '',    // manquant
+    sort: '',     // manquant
+    page: 1,      // manquant
   };
 
   constructor() {

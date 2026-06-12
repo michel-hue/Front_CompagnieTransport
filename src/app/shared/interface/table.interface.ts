@@ -6,8 +6,20 @@ export interface ITableConfig<T extends IBaseRow = IBaseRow> {
   permission?: string | string[];
   actionsDropdown?: boolean; // Si true, affiche les actions dans un dropdown au lieu d'icônes
 }
+
+
+
+export interface ITableRow extends IBaseRow {
+  [key: string]: any;
+}
+
+
 export interface IBaseRow {
   id: number;
+  name?: string;
+  system_reserve?: string;
+  isChecked?: boolean;
+  [key: string]: any;  // Pour le reste
 }
 
 export interface ITableColumn {
@@ -34,7 +46,7 @@ export interface ITableAction {
 }
 
 export interface ITableClickedAction {
-  actionToPerform?: string;
+  actionToPerform: string;
   data?: any;
   value?: any;
 }

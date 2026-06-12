@@ -41,12 +41,13 @@ export class Connexion implements OnInit {
   public showPassword = false;
   public socialLoading = false;
   public socialError = '';
+
   //public lastProviderAttempt: SocialProviderKey | null = null;
 
   constructor() {
     this.form = this.formBuilder.group({
-      email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
+      email: new FormControl('admin', [Validators.required]),
+      password: new FormControl('123456', [Validators.required]),
     });
   }
 
@@ -116,73 +117,15 @@ export class Connexion implements OnInit {
     }
     return '';
   }
+
+  async submit(): Promise<void> {
+    this.form.markAllAsTouched();
+    if (this.form.invalid) return;
+
+    await this.router.navigateByUrl('/tableau-de-bord');
+  }
 }
 
-/*  async submit() {
-    this.form.markAllAsTouched();
-
-    if (this.form.valid) {
-      this.isLoading = true;
-      this.errorMessage = '';
-
-      try {
-        /!*   const { email, password } = this.form.value;
-           // Connexion via Firebase côté front
-           const result = await this.firebaseAuth.loginWithEmail(email, password);
-           const token = result.idToken;
-           if (!token) {
-             throw new Error('Impossible de récupérer le token Firebase.');
-           }
-           const userData = {
-             access_token: token,
-             token,
-             email: result.email || email,
-             message: 'Connexion réussie',
-             status: 'success',
-             name: result.displayName || email,
-             permissions: [] as string[],
-           };
-           this.localStorageService.setJsonValue('user', userData);
-           this.userService.setUser(userData);*!/
-        // Vérification côté API: email + token_firebase enregistré
-        try {
-          /!*  const verifyResponse = await this.authDataService.verifyFirebaseLogin(userData.email, token);
-            if (verifyResponse?.data?.token) {
-              // Décoder le JWT retourné par l'API
-              const decoded = this.decodeJWT(verifyResponse.data.token);
-              if (decoded) {
-                // Formater les données pour userService
-                const formattedUserData = {
-                  token: verifyResponse.data.token,
-                  access_token: verifyResponse.data.token,
-                  email: decoded.vendeur?.email || userData.email,
-                  name: `${decoded.vendeur?.prenom || ''} ${decoded.vendeur?.nom || ''}`.trim() || userData.name,
-                  role: decoded.user?.role === 1 ? 'Vendeur' : 'Utilisateur',
-                  permissions: [] as string[],
-                  vendeur: decoded.vendeur,
-                  user: decoded.user,
-                  boutique: decoded.boutique,
-                };
-                this.localStorageService.setJsonValue('user', formattedUserData);
-                this.userService.setUser(formattedUserData);
-              }*!/
-        }
-      } catch (verifyErr: any) {
-        this.errorMessage = verifyErr?.message || 'Vérification serveur échouée.';
-        return;
-      }
-      await this.router.navigateByUrl('/tableau-de-bord');
-    }
-  }
-
-  catch(error: any) {
-    console.error('Erreur de connexion:', error);
-    this.errorMessage = error?.message || 'Identifiants invalides. Veuillez réessayer.';
-  }
-}finally {
-        this.isLoading = false;
-
-  }*/
 /*
 
   async connectWithProvider(provider: SocialProviderKey) {

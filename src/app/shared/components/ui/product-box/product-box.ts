@@ -1,11 +1,10 @@
-/*
 import { Component, inject, input, viewChild } from '@angular/core';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { CartState } from 'src/app/shared/state/cart.state';
+//import { CartState } from '../..//state/cart.state';
 
 import { AddToCartAction } from '../../../action/cart.action';
 import { ICart, ICartAddOrUpdate } from '../../../interface/cart.interface';
@@ -26,17 +25,17 @@ export class ProductBox {
   // TODO: Skipped for migration because:
   //  This input is used in a control flow expression (e.g. `@if` or `*ngIf`)
   //  and migrating would break narrowing currently.
-  readonly product = input<IProduct>(ProductBox);
+  readonly product = input.required<IProduct>();
 
-  cartItem$: Observable<ICart[]> = inject(Store).select(CartState.cartItems) as Observable<ICart[]>;
+  //cartItem$: Observable<ICart[]> = inject(Store).select(CartState.cartItems) as Observable<ICart[]>;
   readonly addToCartModal = viewChild<Addtocart>('addToCartModal');
 
   public cartItem: ICart | null = null;
 
   ngOnInit() {
-    this.cartItem$.subscribe(items => {
+/*    this.cartItem$.subscribe(items => {
       this.cartItem = items.find(item => item.product.id == this.product().id)!;
-    });
+    });*/
   }
 
   addToCart(product: IProduct, qty: number) {
@@ -51,4 +50,3 @@ export class ProductBox {
     this.store.dispatch(new AddToCartAction(params));
   }
 }
-*/

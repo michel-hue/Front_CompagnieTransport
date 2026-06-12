@@ -13,7 +13,7 @@ export class EditQuestionAnswersAction {
 export class UpdateQuestionAnswersAction {
   static readonly type = '[Question] put';
   constructor(
-    public payload: Params,
+    public payload: any,
     public id: number,
   ) {}
 }

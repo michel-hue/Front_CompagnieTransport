@@ -11,8 +11,8 @@ import {
   GetBlogsAction,
   UpdateBlogStatusAction,
 } from '../../shared/action/blog.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { Table } from '../../shared/components/ui/table/table';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { IBlog, IBlogModel } from '../../shared/interface/blog.interface';
 import { Params } from '../../shared/interface/core.interface';
@@ -23,7 +23,7 @@ import { BlogState } from '../../shared/state/blog.state';
   selector: 'app-blog',
   templateUrl: './blog.html',
   styleUrls: ['./blog.scss'],
-  imports: [ HasPermissionDirective, RouterModule, TranslateModule],
+  imports: [ HasPermissionDirective,PageWrapper,Table, RouterModule, TranslateModule],
 })
 export class Blog {
   private store = inject(Store);
@@ -75,7 +75,7 @@ export class Blog {
     else if (action.actionToPerform == 'deleteAll') this.deleteAll(action.data);
   }
 
-  edit(data: IBlog) {
+  edit(data: any) {
     void this.router.navigateByUrl(`/blog/edit/${data.id}`);
   }
 

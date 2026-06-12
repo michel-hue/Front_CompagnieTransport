@@ -10,7 +10,7 @@ import {
 
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { Select2Data} from 'ng-select2-component';
+import {Select2, Select2Data} from 'ng-select2-component';
 import { Observable } from 'rxjs';
 
 import { GetUsersAction } from '../../shared/action/user.action';
@@ -19,10 +19,10 @@ import {
   DebitVendorWalletAction,
   GetVendorTransactionAction,
 } from '../../shared/action/vendor-wallet.action';
-//import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
-//import { Button } from '../../shared/components/ui/button/button';
-//import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
-//import { Table } from '../../shared/components/ui/table/table';
+import { PageWrapper } from '../../shared/components/page-wrapper/page-wrapper';
+import { Button } from '../../shared/components/ui/button/button';
+import { ConfirmationModal } from '../../shared/components/ui/modal/confirmation-modal/confirmation-modal';
+import { Table } from '../../shared/components/ui/table/table';
 import { HasPermissionDirective } from '../../shared/directive/has-permission.directive';
 import { NumberDirective } from '../../shared/directive/numbers-only.directive';
 import { Params } from '../../shared/interface/core.interface';
@@ -41,17 +41,18 @@ import { VendorWalletState } from '../../shared/state/vendor-wallet.state';
   styleUrls: ['./vendor-wallet.scss'],
   imports: [
     ReactiveFormsModule,
-   // PageWrapper,
-    //Select2Module,
+    PageWrapper,
+
     NgClass,
     HasPermissionDirective,
     NumberDirective,
-    //Button,
-    //Table,
-   // ConfirmationModal,
+    Button,
+    Table,
+    ConfirmationModal,
     CommonModule,
     TranslateModule,
     CurrencySymbolPipe,
+    Select2,
   ],
 })
 export class VendorWallet {
@@ -69,7 +70,7 @@ export class VendorWallet {
     AccountState.getRoleName,
   ) as Observable<string>;
 
-  //readonly ConfirmationModal = viewChild<ConfirmationModal>('confirmationModal');
+  readonly confirmationModal = viewChild.required<ConfirmationModal>('confirmationModal');
 
   public form: FormGroup;
   public balance: number = 0.0;
@@ -93,7 +94,15 @@ export class VendorWallet {
 
     this.isBrowser = isPlatformBrowser(platformId);
     if (this.store.selectSnapshot(state => state.account.roleName !== 'vendor')) {
-      this.store.dispatch(new GetUsersAction({ role: 'vendor', status: 1 }));
+      this.store.dispatch(new GetUsersAction({
+        role: 'consumer',
+        status: 1,
+        search: '',
+        field: '',
+        sort: '',
+        page: 1,
+        paginate: 100,
+      }));
     }
     this.form = this.formBuilder.group({
       vendor_id: new FormControl('', [Validators.required]),

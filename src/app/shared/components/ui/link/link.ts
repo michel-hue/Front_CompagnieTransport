@@ -1,4 +1,3 @@
-/*
 import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -15,7 +14,6 @@ import { Store } from '@ngxs/store';
 import {
   Select2,
   Select2Data,
-  Select2Module,
   Select2SearchEvent,
   Select2UpdateEvent,
 } from 'ng-select2-component';
@@ -30,11 +28,11 @@ import { FormFields } from '../form-fields/form-fields';
   templateUrl: './link.html',
   styleUrls: ['./link.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, FormFields, Select2Module, TranslateModule],
+  imports: [ReactiveFormsModule, FormFields,Select2 , TranslateModule],
 })
 export class Link {
   readonly linkForm = input<any>(undefined);
-  readonly products = input<Select2Data>(undefined);
+  readonly products = input<Select2Data>();
 
   readonly productFilter = output<Params>();
 
@@ -49,6 +47,9 @@ export class Link {
     paginate: 15,
     ids: '',
     with_union_products: false,
+    field: '',    // manquant
+    sort: '',     // manquant
+    page: 1,      // manquant
   };
 
   public linkOption = [
@@ -119,4 +120,4 @@ export class Link {
     this.destroy$.complete();
   }
 }
-*/
+

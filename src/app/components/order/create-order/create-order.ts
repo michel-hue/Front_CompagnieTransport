@@ -13,11 +13,11 @@ import { GetCartItemsAction, UpdateCartAction } from '../../../shared/action/car
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
 import { Loader } from '../../../shared/components/loader/loader';
-//import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
-//import { Button } from '../../../shared/components/ui/button/button';
-//import { NoData } from '../../../shared/components/ui/no-data/no-data';
-//import { Pagination } from '../../../shared/components/ui/pagination/pagination';
-//import { ProductBox } from '../../../shared/components/ui/product-box/product-box';
+import { AdvancedDropdown } from '../../../shared/components/ui/advanced-dropdown/advanced-dropdown';
+import { Button } from '../../../shared/components/ui/button/button';
+import { NoData } from '../../../shared/components/ui/no-data/no-data';
+import { Pagination } from '../../../shared/components/ui/pagination/pagination';
+import { ProductBox } from '../../../shared/components/ui/product-box/product-box';
 import { ProductBoxSkeleton } from '../../../shared/components/ui/skeleton/product-box-skeleton/product-box-skeleton';
 import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { ICart, ICartAddOrUpdate } from '../../../shared/interface/cart.interface';
@@ -29,6 +29,7 @@ import { CartState } from '../../../shared/state/cart.state';
 import { CategoryState } from '../../../shared/state/category.state';
 import { LoaderState } from '../../../shared/state/loader.state';
 import { ProductState } from '../../../shared/state/product.state';
+import {GetUsersAction} from '../../../shared/action/user.action';
 
 @Component({
   selector: 'app-create-order',
@@ -39,12 +40,12 @@ import { ProductState } from '../../../shared/state/product.state';
     CarouselModule,
     ReactiveFormsModule,
     FormsModule,
-    //AdvancedDropdown,
+    AdvancedDropdown,
     ProductBoxSkeleton,
-   // ProductBox,
-    //Pagination,
-    //NoData,
-   // Button,
+    ProductBox,
+    Pagination,
+    NoData,
+    Button,
     HasPermissionDirective,
     RouterModule,
     CommonModule,
@@ -105,7 +106,15 @@ export class CreateOrder {
   public loading: boolean = true;
 
   constructor() {
-    this.store.dispatch(new GetCategoriesAction({ type: 'product', status: 1 }));
+    this.store.dispatch(new GetUsersAction({
+      role: 'consumer',
+      status: 1,
+      search: '',
+      field: '',
+      sort: '',
+      page: 1,
+      paginate: 15
+    }));
     this.product$.subscribe(product => (this.totalItems = product?.total));
     this.getProducts(this.filter, true);
     this.store.dispatch(new GetCartItemsAction());

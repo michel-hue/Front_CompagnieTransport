@@ -1,4 +1,3 @@
-<!--
 <div class="row g-0">
   <div class="col-xxl-4 col-xl-5">
     <form [formGroup]="form">
@@ -6,10 +5,10 @@
         @if(isBrowser) {
         <select2
           class="custom-select"
-          [data]="(users$ | async)?.length ? (users$ | async) : []"
+          [data]="(users$ | async)?? []"
           [placeholder]="'select_consumer' | translate"
           formControlName="consumer_id"
-        />
+        /><
         }
       </app-page-wrapper>
     </form>
@@ -37,19 +36,21 @@
           />
           <div class="btn-sec">
             <app-button
+              [id]="'credit'"
               [class]="'btn btn-animation'"
               [disabled]="!form.valid"
               [spinner]="false"
-              (click)="form.valid && ConfirmationModal().openModal('credit')"
+              (click)="form.valid && confirmationModal.openModal('credit')"
               *hasPermission="'point.credit'"
             >
               {{ 'add' | translate }}
             </app-button>
             <app-button
+              [id]="'debit'"
               [class]="'btn btn-outline'"
               [spinner]="false"
               [disabled]="+balance < +bal.value || !bal.value"
-              (click)="(+balance < +bal.value || !!bal.value) && ConfirmationModal().openModal('debit')"
+              (click)="(+balance < +bal.value || !!bal.value) && confirmationModal.openModal('debit')"
               *hasPermission="'point.debit'"
             >
               {{ 'withdraw' | translate }}
@@ -69,5 +70,4 @@
   />
 </app-page-wrapper>
 
-<app-confirmation-modal #confirmationModal (confirmed)="submit($event?.actionToPerform)" />
--->
+<app-confirmation-modal #confirmationModal (confirmed)="submit($event.actionToPerform)" />

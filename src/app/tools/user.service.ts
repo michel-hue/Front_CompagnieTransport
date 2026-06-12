@@ -58,7 +58,7 @@ export interface CurrentUser {
 })
 export class UserService {
   private localStorageService = inject(LocalStorageService);
-  
+
   private currentUserSubject = new BehaviorSubject<CurrentUser | null>(null);
   public currentUser$: Observable<CurrentUser | null> = this.currentUserSubject.asObservable();
 
@@ -88,14 +88,14 @@ export class UserService {
         this.currentUserSubject.next(user);
         return;
       }
-      
+
       // Sinon, décoder le JWT pour extraire les informations utilisateur (ancien format)
       const decodedToken = this.decodeJWT(userData.token);
-      
+
       // Transformer les permissions du format { module, fonctionnalites[] }
       // en un tableau plat de codes de fonctionnalités
       const flatPermissions = this.flattenPermissions(decodedToken?.permissions || []);
-      
+
       const user: CurrentUser = {
         ...userData,
         name: decodedToken?.vendeur ? `${decodedToken.vendeur.prenom || ''} ${decodedToken.vendeur.nom || ''}`.trim() : (decodedToken?.nomprenom || 'Utilisateur'),
@@ -107,7 +107,7 @@ export class UserService {
         user: decodedToken?.user,
         boutique: decodedToken?.boutique,
       };
-      
+
       this.currentUserSubject.next(user);
       //console.log('✅ Données utilisateur chargées:', user);
       //console.log('📋 Permissions aplaties:', flatPermissions);
@@ -127,7 +127,7 @@ export class UserService {
     }
 
     const flattened: string[] = [];
-    
+
     permissions.forEach(modulePermission => {
       if (modulePermission?.fonctionnalites && Array.isArray(modulePermission.fonctionnalites)) {
         flattened.push(...modulePermission.fonctionnalites);
@@ -195,7 +195,7 @@ export class UserService {
   isTokenExpired(): boolean {
     const user = this.getCurrentUser();
     if (!user || !user.token) {
-      return true;
+      return false; // ← pas connecté ≠ expiré, c'est l'AuthGuard qui gère ça
     }
 
     const decodedToken = this.decodeJWT(user.token);
@@ -203,10 +203,7 @@ export class UserService {
       return true;
     }
 
-    const expirationDate = new Date(decodedToken.exp * 1000);
-    const now = new Date();
-
-    return now >= expirationDate;
+    return new Date() >= new Date(decodedToken.exp * 1000);
   }
 
   /**

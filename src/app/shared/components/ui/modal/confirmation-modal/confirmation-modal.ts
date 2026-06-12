@@ -1,4 +1,4 @@
-/*
+
 import { Component, TemplateRef, inject, output, viewChild } from '@angular/core';
 
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,9 +16,9 @@ import { Button } from '../../button/button';
 export class ConfirmationModal {
   private modalService = inject(NgbModal);
 
-  public closeResult: string;
+  public closeResult: string = '';
   public modalOpen: boolean = false;
-  public userAction: ITableClickedAction;
+  public userAction: ITableClickedAction | null = null;
 
   readonly ConfirmationModal = viewChild<TemplateRef<any>>('confirmationModal');
 
@@ -57,8 +57,10 @@ export class ConfirmationModal {
     }
   }
 
-  confirm() {
-    this.confirmed.emit(this.userAction);
+  confirm(): void {
+    if (this.userAction) {
+      this.confirmed.emit(this.userAction);
+    }
   }
 
   ngOnDestroy() {
@@ -67,4 +69,4 @@ export class ConfirmationModal {
     }
   }
 }
-*/
+

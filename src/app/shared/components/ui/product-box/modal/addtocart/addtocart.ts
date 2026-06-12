@@ -1,4 +1,3 @@
-/*
 import { Component, TemplateRef, inject, viewChild } from '@angular/core';
 
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -24,15 +23,15 @@ export class Addtocart {
   private store = inject(Store);
 
   public modalOpen: boolean = false;
-  public closeResult: string;
-  public product: IProduct;
+  public closeResult: string = '';
+  public product!: IProduct;
   public productQty: number = 1;
 
   public attributeValues: number[] = [];
   public variantIds: number[] = [];
   public selectedOptions: ISelectedVariant[] = [];
 
-  public selectedVariation: IVariation;
+  public selectedVariation!: IVariation;
 
   readonly addToCartModal = viewChild<TemplateRef<string>>('addToCartModal');
 
@@ -132,4 +131,3 @@ export class Addtocart {
     }
   }
 }
-*/

@@ -1,4 +1,3 @@
-/*
 import {
   ChangeDetectionStrategy,
   Component,
@@ -28,9 +27,9 @@ export class AdvancedDropdown {
 
   readonly selectSingle = input<boolean>(false);
   readonly displayKey = input<string>('name');
-  readonly subArrayKey = input<string>(undefined);
-  readonly options = input<any[]>(undefined);
-  readonly selectedOption = input<any[]>(undefined);
+  readonly subArrayKey = input<string>('');
+  readonly options = input<any[]>([]);
+  readonly selectedOption = input<any[]>();
   readonly position = input<string>('bottom');
 
   readonly selectedItem = output<any>();
@@ -106,8 +105,13 @@ export class AdvancedDropdown {
 
   toggleDropdown(_event: Event) {
     this.isOpen = !this.isOpen;
-    let selector = this.dropdownContainer().nativeElement.querySelector('.dropdown-open');
-    if (this.position() == 'bottom') {
+    const container = this.dropdownContainer()?.nativeElement;
+    if (!container) return;
+
+    const selector = container.querySelector('.dropdown-open');
+    if (!selector) return;
+
+    if (this.position() === 'bottom') {
       selector.style.bottom = 'auto';
       selector.style.top = '100%';
     } else {
@@ -166,4 +170,3 @@ export class AdvancedDropdown {
     this.isOpen = false;
   }
 }
-*/

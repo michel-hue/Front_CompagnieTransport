@@ -1,4 +1,3 @@
-<!--
 <li
   class="cursor-pointer"
   [class.inside-ul]="node()[recursionKey()] && node()[recursionKey()].length"
@@ -23,7 +22,7 @@
       <a
         href="javascript:void(0)"
         *hasPermission="'category.destroy'"
-        (click)="DeleteModal().openModal('delete', node())"
+        (click)="deleteModal.openModal('delete', node())"
       >
         <i class="ri-delete-bin-7-line text-danger"></i>
       </a>
@@ -38,6 +37,5 @@
   }
 </li>
 
-&lt;!&ndash; Delete Modal &ndash;&gt;
+<!-- Delete Modal -->
 <app-delete-modal #deleteModal (deleteItem)="delete($event.actionToPerform,$event.data)" />
--->

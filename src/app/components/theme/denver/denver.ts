@@ -27,11 +27,11 @@ import { debounceTime, forkJoin, Observable, Subject } from 'rxjs';
 import { GetCategoriesAction } from '../../../shared/action/category.action';
 import { GetProductsAction } from '../../../shared/action/product.action';
 import { GetHomePageAction, UpdateHomePageAction } from '../../../shared/action/theme.action';
-//import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
-//import { Button } from '../../../shared/components/ui/button/button';
-//import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
-//import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
-//import { Link } from '../../../shared/components/ui/link/link';
+import { PageWrapper } from '../../../shared/components/page-wrapper/page-wrapper';
+import { Button } from '../../../shared/components/ui/button/button';
+import { FormFields } from '../../../shared/components/ui/form-fields/form-fields';
+import { ImageUpload } from '../../../shared/components/ui/image-upload/image-upload';
+import { Link } from '../../../shared/components/ui/link/link';
 import * as data from '../../../shared/data/home-page';
 import { HasPermissionDirective } from '../../../shared/directive/has-permission.directive';
 import { Params } from '../../../shared/interface/core.interface';
@@ -39,34 +39,35 @@ import { IDenver, IDenverContent } from '../../../shared/interface/theme.interfa
 import { CategoryState } from '../../../shared/state/category.state';
 import { ProductState } from '../../../shared/state/product.state';
 import { ThemeState } from '../../../shared/state/theme.state';
+import {GetBlogsAction} from '../../../shared/action/blog.action';
 
 @Component({
   selector: 'app-denver',
   templateUrl: './denver.html',
   imports: [
-    //PageWrapper,
+    PageWrapper,
     ReactiveFormsModule,
-   // NgbNav,
-   // NgbNavItem,
-   // NgbNavItemRole,
-  //  NgbNavLink,
-  //  NgbNavLinkBase,
-  //  NgbNavContent,
-   // FormFields,
-   // ImageUpload,
-  //  Link,
-  //  Select2Module,
-  //  NgbNavOutlet,
-    //NgbAccordionDirective,
-    //NgbAccordionItem,
-    //NgbAccordionHeader,
-   // NgbAccordionToggle,
-   // NgbAccordionButton,
+    NgbNav,
+    NgbNavItem,
+    NgbNavItemRole,
+   NgbNavLink,
+   NgbNavLinkBase,
+    NgbNavContent,
+    FormFields,
+    ImageUpload,
+    Link,
+   Select2,
+    NgbNavOutlet,
+    NgbAccordionDirective,
+    NgbAccordionItem,
+    NgbAccordionHeader,
+   //NgbAccordionToggle,
+    NgbAccordionButton,
    // NgbCollapse,
-   // NgbAccordionCollapse,
-   // NgbAccordionBody,
-  //  HasPermissionDirective,
-    //Button,
+    NgbAccordionCollapse,
+    NgbAccordionBody,
+   HasPermissionDirective,
+    Button,
     CommonModule,
     TranslateModule,
   ],
@@ -78,7 +79,9 @@ export class Denver {
   private document = inject<Document>(DOCUMENT);
 
   product$: Observable<Select2Data> = inject(Store).select(ProductState.products);
-  //home_page$: Observable<IDenver> = inject(Store).select(ThemeState.homePage<IDenverContent>);
+
+  home_page$: Observable<IDenver> = inject(Store).select(ThemeState.homePage) as Observable<IDenver>;
+
   categories$: Observable<Select2Data> = inject(Store).select(CategoryState.categories);
 
   public page_data!: IDenver;
@@ -100,6 +103,9 @@ export class Denver {
     ids: '',
     with_union_products: 0,
     is_approved: 1,
+    field: '',   // manquant
+    sort: '',    // manquant
+    page: 1,     // manquant
   };
 
   constructor() {
@@ -212,7 +218,7 @@ export class Denver {
 
   ngOnInit() {
     const categories$ = this.store.dispatch(
-      new GetCategoriesAction({ status: 1, type: 'product' }),
+      new GetBlogsAction({ status: 1, search: '', field: '', sort: '', page: 1, paginate: 15 })
     );
     const home_page$ = this.store.dispatch(new GetHomePageAction({ slug: 'denver' }));
     forkJoin([home_page$, categories$]).subscribe({
@@ -245,15 +251,26 @@ export class Denver {
       .pipe(debounceTime(300)) // Adjust the debounce time as needed (in milliseconds)
       .subscribe(inputValue => {
         this.store.dispatch(
-          new GetProductsAction({ status: 1, is_approved: 1, paginate: 15, search: inputValue }),
+          new GetProductsAction({
+            status: 1,
+            is_approved: 1,
+            paginate: 15,
+            search: inputValue,
+            field: '',   // manquant
+            sort: '',    // manquant
+            page: 1,     // manquant
+          })
         );
         this.renderer.addClass(this.document.body, 'loader-none');
       });
   }
 
- /* patchForm() {
-    this.store.select(ThemeState.homePage<IDenverContent>).subscribe(homePage => {
+  patchForm() {
+    (this.store.select(ThemeState.homePage)  as Observable<IDenver>).subscribe(homePage => {
+      if (!homePage) return;
       this.page_data = homePage;
+
+
       this.form.patchValue({
         content: {
           home_banner: {
@@ -386,7 +403,7 @@ export class Denver {
         slug: homePage?.slug,
       });
     });
-  }*/
+  }
 
   getProducts(filter: Params) {
     this.filter['search'] = filter['search'];
